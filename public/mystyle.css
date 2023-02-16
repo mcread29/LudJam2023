@@ -1,0 +1,77 @@
+html,
+body {
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(31, 28, 28);
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+iframe {
+    position: absolute;
+    z-index: 1000;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    height: 100%;
+    background-color: rgb(31, 28, 28);
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/COMIC.woff2') format('woff2'),
+        url('./assets/fonts/COMIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/comici.woff2') format('woff2'),
+        url('./assets/fonts/comici.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/design.graffiti.comicsansmsgras.woff2') format('woff2'),
+        url('./assets/fonts/design.graffiti.comicsansmsgras.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/comicz.woff2') format('woff2'),
+        url('./assets/fonts/comicz.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'EurostileExtended';
+    src: url('./assets/fonts/EurostileExtended.woff2') format('woff2'),
+        url('./assets/fonts/EurostileExtended.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EurostileExtendedBlack';
+    src: url('./assets/fonts/EurostileExtendedBlack.woff2') format('woff2'),
+        url('./assets/fonts/EurostileExtendedBlack.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
