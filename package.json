@@ -6,7 +6,7 @@
   "scripts": {
     "server": "./node_modules/.bin/http-server ./public",
     "watch": "webpack watch --config webpack.config.js",
-    "build": "webpack --config webpack-front.config.js",
+    "build": "webpack --config webpack.config.js",
     "zip": "./node_modules/.bin/zip-build ./public ./builds -i -t %NAME%.%EXT% -o"
   },
   "dependencies": {

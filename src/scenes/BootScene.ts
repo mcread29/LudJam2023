@@ -10,18 +10,6 @@ import { getGPUTier } from 'detect-gpu';
 export default class BootScene extends BaseScene {
     public static SceneName = 'BootScene';
 
-    init() {
-        (async () => {
-            const gpuTier = await getGPUTier();
-            if (gpuTier.tier <= 1)
-            {
-                alert('PLEASE ENABLE HARDWARE ACCELERATION FOR BEST PERFORMANCE\nchrome: chrome://settings/system\nedge: edge://settings/system\nfirefox: about:preferences#general scroll to performance and toggle "Use recommended performance settings"');
-            }
-        })();
-
-        console.log(`If you're interested in how this was developed, you can DM me on twitter https://twitter.com/GENGEE_`);
-    }
-
     preload(): void {
         super.preload();
 
@@ -57,6 +45,7 @@ export default class BootScene extends BaseScene {
         });
 
         this.load.image('box', './assets/box.png');
+        this.load.image('box2', './assets/box_2.png');
     }
 
     create(): void {

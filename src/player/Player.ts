@@ -1,3 +1,4 @@
+import Game from "../Game";
 import { Vector } from "../Utils/Vector";
 
 const speed = 300;
@@ -6,6 +7,15 @@ export class PLayer extends Phaser.GameObjects.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
     keys: { [ k: string ]: Phaser.Input.Keyboard.Key; };
+
+    colliding = false;
+
+    maxHealth = 100;
+    health = 100;
+    hitstun = 1;
+
+    healthBarBG: Phaser.GameObjects.Image;
+    healthBarFG: Phaser.GameObjects.Image;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'box');
@@ -30,9 +40,22 @@ export class PLayer extends Phaser.GameObjects.Sprite {
             down: Phaser.Input.Keyboard.KeyCodes.DOWN,
             right: Phaser.Input.Keyboard.KeyCodes.RIGHT,
         }) as { [ k: string ]: Phaser.Input.Keyboard.Key; };
+
+        scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+
+        this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(500).setOrigin(0, 0.5);
+        this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
+
+        this.setTint(0x00ff00);
     }
 
     protected preUpdate(time: number, delta: number): void {
+        this.colliding = false;
+    }
+
+    postUpdate(time: number, delta: number) {
+        if (this.health <= 0) return;
+
         this.body.setVelocity(0);
         let inputVector = new Vector(0, 0);
 
@@ -42,7 +65,41 @@ export class PLayer extends Phaser.GameObjects.Sprite {
         if (this.keys[ 'd' ].isDown || this.keys[ 'right' ].isDown) inputVector.x++;
 
         const move: Vector = inputVector.normalize();
+        if (move.magnitude > 0) this.body.setImmovable(false);
 
         this.body.setVelocity(move.x * speed, move.y * speed);
+
+        this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+        if (this.colliding)
+        {
+            this.setTint(0xff0000);
+            if (this.hitstun <= 0)
+            {
+                this.health -= 5;
+                this.hitstun = 0.5;
+                this.healthBarFG.setScale(0.2 * this.health / this.maxHealth, 0.05);
+                if (this.health <= 0)
+                {
+                    this.scene.events.emit('player_die');
+                }
+            }
+        }
+        else this.setTint(0x00ff00);
+
+        this.hitstun -= delta / 1000;
+
+        this.healthBarBG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
+        this.healthBarFG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
     }
+
+
+    collide() {
+        this.colliding = true;
+        this.body.setImmovable(true);
+    }
+
+    // destroy(fromScene?: boolean): void {
+    //     super.destroy(fromScene);
+    //     this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+    // }
 }

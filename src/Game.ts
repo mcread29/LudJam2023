@@ -42,11 +42,6 @@ export default class Game extends Phaser.Game {
         return this._instance;
     }
 
-    protected _locale: string = "en-us";
-    public get locale(): string {
-        return this._locale;
-    }
-
     protected _music: MusicManager;
     public get music(): MusicManager {
         return this._music;
@@ -54,10 +49,6 @@ export default class Game extends Phaser.Game {
 
     public getBounds(): Phaser.Geom.Rectangle {
         return new Phaser.Geom.Rectangle(0, 0, this.scale.width, this.scale.height);
-    }
-
-    public get allowTouchControls(): boolean {
-        return !this.device.os.desktop || this.device.input.touch;
     }
 
     protected _gameConfig: gameConfig;
@@ -81,7 +72,7 @@ export default class Game extends Phaser.Game {
             physics: {
                 default: 'arcade',
                 arcade: {
-                    debug: true
+                    debug: document.location.href.includes('debug')
                 }
             },
             input: {
@@ -114,24 +105,6 @@ export default class Game extends Phaser.Game {
         this._music = new MusicManager(this, 0.4);
 
         this.playerData = new PlayerData("GAME-NAME");
-
-        let net = new Net();
-        let localeQuery = net.getQueryString("locale");
-        if (!ObjectUtils.isEmpty(localeQuery))
-        {
-            this._locale = localeQuery as string;
-        }
-        else
-        {
-            if (window.frameElement != null)
-            {
-                let attribute = window.frameElement.attributes.getNamedItem("data-locale");
-                if (attribute != null)
-                {
-                    this._locale = attribute.value.toLowerCase();
-                }
-            }
-        }
 
         Game._instance = this;
 
