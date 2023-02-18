@@ -13,6 +13,9 @@ export class BookAttack extends Attack {
     private duration: number = 3;
     private enableTime: number = 0;
 
+    public hitDelay: number = 1.5;
+    public clearAllAfterDelay: boolean = true;
+
     parent: Phaser.GameObjects.Container;
 
     constructor(scene: GameScene, player: PLayer) {

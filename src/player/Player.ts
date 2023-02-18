@@ -58,7 +58,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
 
         this.attacks = [];
-        this.AddAttack(new SantaWaterAttack(this.scene as GameScene, this));
+        this.AddAttack(new BookAttack(this.scene as GameScene, this));
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -126,8 +126,11 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     AddAttack(attack: Attack) {
         this.attacks.push(attack);
-        this.scene.physics.add.overlap(attack.hitboxes, (this.scene as GameScene).enemies, (a: HitBox, e: Enemy) => {
-            e.TakeDamage(a.damage);
-        });
+        this.scene.physics.add.overlap(
+            attack.hitboxes,
+            (this.scene as GameScene).enemies,
+            (a: HitBox, e: Enemy) => attack.Hit(e),
+            (a: HitBox, e: Enemy) => attack.CanHit(e)
+        );
     }
 }

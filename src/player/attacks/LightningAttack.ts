@@ -11,6 +11,9 @@ export class LightningAttack extends Attack {
     public attackTimeout: number = 0.75;
     public damage: number = 5;
 
+    public hitDelay: number = 0.5;
+    public clearAllAfterDelay: boolean = true;
+
     constructor(scene: GameScene, player: PLayer) {
         super(scene, player);
 

@@ -11,6 +11,9 @@ export class SantaWaterAttack extends Attack {
     public attackTimeout: number = 3;
     public damage: number = 10;
 
+    public hitDelay: number = 1.5;
+    public clearAllAfterDelay: boolean = false;
+
     constructor(scene: GameScene, player: PLayer) {
         super(scene, player);
 

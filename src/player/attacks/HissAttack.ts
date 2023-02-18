@@ -8,7 +8,10 @@ export class HissAttack extends Attack {
     hitboxes: HitBox[];
     public attacRate: number = 0;
     public attackTimeout: number = 0;
-    public damage: number = 1;
+    public damage: number = 5;
+
+    public hitDelay: number = 1;
+    public clearAllAfterDelay: boolean = false;
 
     constructor(scene: GameScene, player: PLayer) {
         super(scene, player);
@@ -21,6 +24,7 @@ export class HissAttack extends Attack {
     }
 
     protected preUpdate(time: number, delta: number): void {
+        super.preUpdate(time, delta);
         this.hitboxes[ 0 ].setPosition(this.player.x, this.player.y);
     }
 

@@ -15,6 +15,9 @@ export class SwipeAttack extends Attack {
     leftAttack: HitBox;
     rightAttack: HitBox;
 
+    public hitDelay: number = 1;
+    public clearAllAfterDelay: boolean = true;
+
     constructor(scene: GameScene, player: PLayer) {
         super(scene, player);
 

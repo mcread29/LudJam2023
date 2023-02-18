@@ -4,16 +4,14 @@ import { PLayer } from "../player/Player";
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
-    protected inHitStun: boolean = false;
-    protected hitStun: number = 100;
+    // protected inHitStun: boolean = false;
+    // protected hitStun: number = 100;
     protected health: number = 20;
 
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, private _player: PLayer) {
         super(scene, x, y, key);
 
         scene.physics.add.existing(this);
-
-        this.setScale(0.3);
 
         this.body.setCircle(this.width / 2, 0, this.height - this.width);
 
@@ -45,12 +43,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     TakeDamage(damage: number) {
-        if (this.inHitStun) return;
-
-        this.inHitStun = true;
         this.health -= damage;
 
         if (this.health <= 0) this.destroy();
-        else setTimeout(() => this.inHitStun = false, this.hitStun);
     }
 }
