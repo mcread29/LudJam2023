@@ -1,8 +1,12 @@
 import Game from "../Game";
 import { PLayer } from "../player/Player";
 
-export class Enemy extends Phaser.GameObjects.Sprite {
+export class Enemy extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
+
+    protected inHitStun: boolean = false;
+    protected hitStun: number = 100;
+    protected health: number = 20;
 
     constructor(scene: Phaser.Scene, x: number, y: number, key: string, private _player: PLayer) {
         super(scene, x, y, key);
@@ -30,12 +34,23 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         }
     }
 
-    // destroy(fromScene?: boolean): void {
-    //     console.log('what', fromScene);
-    //     if (fromScene === false)
-    //     {
-    //         this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-    //     }
-    //     // super.destroy(fromScene);
-    // }
+    destroy(fromScene?: boolean): void {
+        if (fromScene === false)
+        {
+            //drop gems here
+        }
+
+        super.destroy(fromScene);
+        if (this.scene) this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+    }
+
+    TakeDamage(damage: number) {
+        if (this.inHitStun) return;
+
+        this.inHitStun = true;
+        this.health -= damage;
+
+        if (this.health <= 0) this.destroy();
+        else setTimeout(() => this.inHitStun = false, this.hitStun);
+    }
 }

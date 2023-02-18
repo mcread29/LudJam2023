@@ -1,0 +1,23 @@
+menu:
+    ☐ select start item
+gameplay:
+    ☐ game over screen
+    ☐ exp
+    ☐ levels
+    ☐ level up screen
+        ☐ attack upgrades
+    ☐ timer
+enemies: 
+    ☐ spawn timer
+    ☐ enemy types
+        ☐ type 1
+        ☐ type 2
+        ☐ type 3
+attacks: 
+    ✔ Santa Water @done(23-02-18 14:03)
+    ✔ Garlic: HissAttack.ts @done(23-02-18 09:38)
+    ✔ King Bible @done(23-02-18 12:52)
+    ✔ Lightning Ring @done(23-02-16 21:50)
+    ✔ Whip: SwipeAttack.ts @done(23-02-16 17:43)
+items:
+    ☐ TODO

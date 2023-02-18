@@ -32,7 +32,6 @@ export default class BootScene extends BaseScene {
         mask.beginPath();
         loadFG.setMask(mask.createGeometryMask());
 
-
         this.load.on('progress', function (value) {
             mask.fillRect(0, 0, loadFG.displayWidth * value, loadFG.displayHeight);
         });
@@ -44,8 +43,15 @@ export default class BootScene extends BaseScene {
             mask.destroy();
         });
 
-        this.load.image('box', './assets/box.png');
-        this.load.image('box2', './assets/box_2.png');
+        {
+            this.load.image('box', './assets/box.png');
+            this.load.image('box2', './assets/box_2.png');
+            this.load.image('coots', './assets/coots.png');
+            this.load.image('circle_hitbox', './assets/circle_hitbox.png');
+
+            this.load.image('tiles', 'assets/tilemaps/map1.png');
+            this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
+        }
     }
 
     create(): void {

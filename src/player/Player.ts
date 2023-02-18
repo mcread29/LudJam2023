@@ -1,9 +1,18 @@
+import { Enemy } from "../enemies/Enemy";
 import Game from "../Game";
+import GameScene from "../scenes/GameScene";
 import { Vector } from "../Utils/Vector";
+import { Attack } from "./attacks/Attack";
+import { BookAttack } from "./attacks/BookAttack";
+import { HissAttack } from "./attacks/HissAttack";
+import { HitBox } from "./attacks/HitBox";
+import { LightningAttack } from "./attacks/LightningAttack";
+import { SantaWaterAttack } from "./attacks/SantaWaterAttack";
+import { SwipeAttack } from "./attacks/SwipeAttack";
 
 const speed = 300;
 
-export class PLayer extends Phaser.GameObjects.Sprite {
+export class PLayer extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
     keys: { [ k: string ]: Phaser.Input.Keyboard.Key; };
@@ -17,17 +26,19 @@ export class PLayer extends Phaser.GameObjects.Sprite {
     healthBarBG: Phaser.GameObjects.Image;
     healthBarFG: Phaser.GameObjects.Image;
 
+    dead: boolean = false;
+
+    attacks: Attack[];
+
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, 'box');
+        super(scene, x, y, 'coots');
         scene.physics.add.existing(this);
+        scene.add.existing(this);
 
         this.body.setSize(this.width, this.height / 4);
         this.body.setOffset(0, this.displayHeight - this.displayHeight / 4);
 
-        this.setScale(0.15);
-
-        scene.add.existing(this);
-        scene.sys.updateList.add(this);
+        this.setCollideWorldBounds(true);
 
         this.keys = scene.input.keyboard.addKeys({
             w: Phaser.Input.Keyboard.KeyCodes.W,
@@ -46,7 +57,8 @@ export class PLayer extends Phaser.GameObjects.Sprite {
         this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(500).setOrigin(0, 0.5);
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
 
-        this.setTint(0x00ff00);
+        this.attacks = [];
+        this.AddAttack(new SantaWaterAttack(this.scene as GameScene, this));
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -64,6 +76,11 @@ export class PLayer extends Phaser.GameObjects.Sprite {
         if (this.keys[ 'a' ].isDown || this.keys[ 'left' ].isDown) inputVector.x--;
         if (this.keys[ 'd' ].isDown || this.keys[ 'right' ].isDown) inputVector.x++;
 
+        if (inputVector.x !== 0)
+        {
+            this.setFlipX(inputVector.x < 0);
+        }
+
         const move: Vector = inputVector.normalize();
         if (move.magnitude > 0) this.body.setImmovable(false);
 
@@ -78,13 +95,15 @@ export class PLayer extends Phaser.GameObjects.Sprite {
                 this.health -= 5;
                 this.hitstun = 0.5;
                 this.healthBarFG.setScale(0.2 * this.health / this.maxHealth, 0.05);
-                if (this.health <= 0)
+
+                if (this.health <= 0 && !this.dead)
                 {
+                    this.dead = true;
                     this.scene.events.emit('player_die');
                 }
             }
         }
-        else this.setTint(0x00ff00);
+        else this.setTint(0xffffff);
 
         this.hitstun -= delta / 1000;
 
@@ -92,14 +111,23 @@ export class PLayer extends Phaser.GameObjects.Sprite {
         this.healthBarFG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
     }
 
-
     collide() {
         this.colliding = true;
         this.body.setImmovable(true);
     }
 
-    // destroy(fromScene?: boolean): void {
-    //     super.destroy(fromScene);
-    //     this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-    // }
+    destroy(fromScene?: boolean): void {
+        super.destroy(fromScene);
+        this.health = 0;
+        for (let attack of this.attacks) if (attack) attack.Destroy();
+        this.attacks = [];
+        if (this.scene) this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+    }
+
+    AddAttack(attack: Attack) {
+        this.attacks.push(attack);
+        this.scene.physics.add.overlap(attack.hitboxes, (this.scene as GameScene).enemies, (a: HitBox, e: Enemy) => {
+            e.TakeDamage(a.damage);
+        });
+    }
 }
