@@ -39,6 +39,7 @@ export class UIScene extends BaseScene {
         this.timer.Start();
 
         Game.Instance.manager.eventCenter.on('meterProgress', this.setMeterFillProgress, this);
+        Game.Instance.manager.eventCenter.on('levelup', this.levelUP, this);
     }
 
     update(time: number, delta: number): void {
@@ -47,10 +48,15 @@ export class UIScene extends BaseScene {
 
     shutdown(): void {
         Game.Instance.manager.eventCenter.off('meterProgress', this.setMeterFillProgress, this);
+        Game.Instance.manager.eventCenter.off('levelup', this.levelUP, this);
     }
 
     setMeterFillProgress(progress: number) {
         this.meterFillMask.clear();
         this.meterFillMask.fillRect(0, 0, Game.Instance.DefaultWidth * progress, 32);
+    }
+
+    levelUP(level: number) {
+        this.levelText.setText(`Lvl. ${level}`);
     }
 }

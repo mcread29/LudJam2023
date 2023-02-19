@@ -60,8 +60,6 @@ export class GameManager {
         this.playerExp += exp;
         if (this.playerExp >= this.playerLevel * 10 - 5)
         {
-            this.playerExp -= this.playerLevel * 10 - 5;
-            this.playerLevel++;
             this.LevelUp();
         }
         else
@@ -78,10 +76,16 @@ export class GameManager {
             this._attacks.sort(() => 0.5 - Math.random());
             attacks = [ this._attacks[ 0 ], this._attacks[ 1 ], this._attacks[ 2 ] ];
         }
+
+        this.playerExp -= this.playerLevel * 10 - 5;
+        this.playerLevel++;
+
+        this.eventCenter.emit('levelup', this.playerLevel);
         Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: attacks });
     }
 
     public LevelUpClosed() {
         Game.Instance.scene.stop(LevelUpScene.SceneName).resume(GameScene.SceneName).resume(UIScene.SceneName);
+        this.eventCenter.emit('meterProgress', this.playerExp / (this.playerLevel * 10 - 5));
     }
 }

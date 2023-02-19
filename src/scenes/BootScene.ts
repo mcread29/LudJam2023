@@ -74,6 +74,8 @@ export default class BootScene extends BaseScene {
             this.load.image('gem_b', './assets/gem_b.png');
             this.load.image('gem_c', './assets/gem_c.png');
 
+            this.load.image('clover_kitty', './assets/clover_kitty.png');
+
             this.load.image('tiles', 'assets/tilemaps/map1.png');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
         }

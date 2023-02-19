@@ -49,7 +49,7 @@ export default class GameScene extends BaseScene {
 
         for (let i = 0; i < 20; i++)
         {
-            const e = new Enemy(this, i * 50, 0, 'box2', player);
+            const e = new Enemy(this, i * 50 + 100, 300, 'clover_kitty', player);
             this.enemies.add(e);
         }
 

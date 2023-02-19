@@ -14,12 +14,11 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene: GameScene, x: number, y: number, key: string, private _player: PLayer) {
         super(scene, x, y, key);
 
+        scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.body.setCircle(this.width / 2, 0, this.height - this.width);
+        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
 
-        scene.add.existing(this);
-        scene.sys.updateList.add(this);
         scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
 
         this.shutdown = () => {
@@ -31,7 +30,8 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     postUpdate() {
         if (this.scene)
         {
-            this.scene.physics.moveToObject(this, this._player, 100);
+            this.scene.physics.moveToObject(this, this._player, 150);
+            this.setFlipX(this.body.velocity.x < 0);
             this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
         }
     }
