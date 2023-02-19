@@ -88,7 +88,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
             this.setFlipX(inputVector.x < 0);
         }
 
-        const move: Vector = inputVector.normalize();
+        const move: Vector = inputVector; //.normalize();
         if (move.magnitude > 0) this.body.setImmovable(false);
 
         this.body.setVelocity(move.x * speed, move.y * speed);
@@ -124,13 +124,20 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
     }
 
     AddAttack(attack: Attack) {
-        attack.Activate(this);
-        this.attacks.push(attack);
-        this.scene.physics.add.overlap(
-            attack.hitboxes,
-            (this.scene as GameScene).enemies,
-            (a: HitBox, e: Enemy) => attack.Hit(e),
-            (a: HitBox, e: Enemy) => attack.CanHit(e)
-        );
+        if (attack.active)
+        {
+            attack.Upgrade();
+        }
+        else
+        {
+            attack.Activate(this);
+            this.attacks.push(attack);
+            this.scene.physics.add.overlap(
+                attack.hitboxes,
+                (this.scene as GameScene).enemies,
+                (a: HitBox, e: Enemy) => attack.Hit(e),
+                (a: HitBox, e: Enemy) => attack.CanHit(e)
+            );
+        }
     }
 }

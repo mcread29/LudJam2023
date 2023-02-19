@@ -14,28 +14,32 @@ export default class MainMenu extends BaseScene {
     create(): void {
         super.create();
 
-        const text: BBCodeText.BBCodeText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2, 'Lud Jam', {
-            fontFamily: 'Comic Sans MS',
-            color: '#ffffff',
-            fontSize: '100px',
-            halign: 'center',
-            valign: 'center'
-        }).setDepth(100).setOrigin(0.5);
+        this.add.image(0, 0, 'coots_clash').setOrigin(0);
 
-        const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 100, 'box')
-            .setScale(1, 0.3)
-            .setInteractive().on(Phaser.Input.Events.POINTER_DOWN, () => {
+        const startButton = this.add.image(189.5, 480.5, 'start_button');
+        startButton.setInteractive()
+            .on(Phaser.Input.Events.POINTER_DOWN, () => {
                 Game.Instance.manager.StartGame();
+            })
+            .on(Phaser.Input.Events.POINTER_OVER, () => {
+                console.log('over');
+                this.tweens.killTweensOf(startButton);
+                this.tweens.add({
+                    targets: startButton,
+                    scale: 1.15,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            })
+            .on(Phaser.Input.Events.POINTER_OUT, () => {
+                this.tweens.killTweensOf(startButton);
+                this.tweens.add({
+                    targets: startButton,
+                    scale: 1,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
             });
-
-        const startText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2, 'Start Game', {
-            fontFamily: 'Comic Sans MS',
-            color: '#ff0000',
-            fontSize: '25px',
-            halign: 'center',
-            valign: 'center'
-        }).setDepth(100).setOrigin(0.5);
-        Phaser.Display.Align.In.Center(startText, startButton);
     }
 
     startGame() {

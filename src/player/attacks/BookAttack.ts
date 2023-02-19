@@ -5,7 +5,11 @@ import { Attack } from "./Attack";
 import { HitBox } from "./HitBox";
 
 export class BookAttack extends Attack {
-    hitboxes: HitBox[] = [];
+    protected _name: string = 'Book of Pawbs';
+    protected _desc: string = 'Orbits around the player';
+    protected _icon: string = 'book_of_pawbs';
+
+    protected _hitboxes: HitBox[] = [];
     public attacRate: number = 2;
     public attackTimeout: number = 2;
     public damage: number = 5;
@@ -36,7 +40,7 @@ export class BookAttack extends Attack {
                 .setScale(0.1)
                 .setTint(0x00fff0)
                 .setDepth(500);
-            this.hitboxes.push(hitbox);
+            this._hitboxes.push(hitbox);
             this.parent.add(hitbox);
             Phaser.Actions.RotateAroundDistance([ hitbox ], { x: 0, y: 0 }, (i / 3) * Math.PI * 2, 96);
         }
@@ -52,10 +56,7 @@ export class BookAttack extends Attack {
             if (this.enableTime >= this.duration)
             {
                 this.parent.setActive(false);
-                for (let box of this.hitboxes)
-                {
-                    box.disable();
-                }
+                for (let box of this._hitboxes) box.disable();
             }
         }
     }
@@ -64,13 +65,14 @@ export class BookAttack extends Attack {
         this.enableTime = 0;
 
         this.parent.setActive(true);
-        for (let box of this.hitboxes)
+        for (let box of this._hitboxes)
         {
             box.enable(box.x, box.y);
         }
     }
 
     Upgrade() {
-        throw new Error("Method not implemented.");
+        this._level++;
+        console.log('Book is now: ', this._level);
     }
 }

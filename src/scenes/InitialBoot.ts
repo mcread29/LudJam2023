@@ -26,8 +26,8 @@ export default class InitialBoot extends BaseScene {
 
         this.load.webfont('Comic Sans MS', 'Comic Sans MS');
 
-        this.load.image('loadBG', 'assets/load_bg.png');
-        this.load.image('loadFG', 'assets/load_fg.png');
+        this.load.image('loadBG', 'assets/images/load_bg.png');
+        this.load.image('loadFG', 'assets/images/load_fg.png');
     }
 
     create(): void {

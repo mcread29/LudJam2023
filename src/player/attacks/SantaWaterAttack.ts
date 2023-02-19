@@ -6,7 +6,11 @@ import { CircleHitBox } from "./CircleHitbox";
 import { HitBox } from "./HitBox";
 
 export class SantaWaterAttack extends Attack {
-    hitboxes: HitBox[] = [];
+    protected _name: string = 'Kitty Water';
+    protected _desc: string = 'Generate damaging zones';
+    protected _icon: string = 'kitty_water';
+
+    protected _hitboxes: HitBox[] = [];
     public attacRate: number = 3;
     public attackTimeout: number = 3;
     public damage: number = 10;
@@ -25,21 +29,22 @@ export class SantaWaterAttack extends Attack {
             hitbox.duration = 1000;
 
             hitbox.disableBody(true, true);
-            this.hitboxes.push(hitbox);
+            this._hitboxes.push(hitbox);
         }
     }
 
     Attack() {
-        for (let i = 0; i < this.hitboxes.length; i++)
+        for (let i = 0; i < this._hitboxes.length; i++)
         {
             const x = (this.scene.cameras.main.displayWidth * Math.random()) + this.scene.cameras.main.scrollX;
             const y = (this.scene.cameras.main.displayHeight * Math.random()) + this.scene.cameras.main.scrollY;
 
-            this.hitboxes[ i ].enable(x, y);
+            this._hitboxes[ i ].enable(x, y);
         }
     }
 
     Upgrade() {
-        throw new Error("Method not implemented.");
+        this._level++;
+        console.log('Water is now: ', this._level);
     }
 }

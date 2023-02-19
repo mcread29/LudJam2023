@@ -5,7 +5,11 @@ import { Attack } from "./Attack";
 import { HitBox } from "./HitBox";
 
 export class LightningAttack extends Attack {
-    hitboxes: HitBox[] = [];
+    protected _name: string = 'Kitty Lightning';
+    protected _desc: string = 'Strikes at random enemies';
+    protected _icon: string = 'kitty_lit';
+
+    _hitboxes: HitBox[] = [];
 
     public attacRate: number = 0.75;
     public attackTimeout: number = 0.75;
@@ -25,7 +29,7 @@ export class LightningAttack extends Attack {
                 .setDepth(500);
 
             hitbox.disableBody(true, true);
-            this.hitboxes.push(hitbox);
+            this._hitboxes.push(hitbox);
         }
     }
 
@@ -33,18 +37,19 @@ export class LightningAttack extends Attack {
         const enemies = this.scene.enemies.children.entries.filter((value: Enemy) => this.scene.cameras.main.worldView.contains(value.x, value.y));
         let enemiesToTarget: Enemy[] = enemies.sort(() => 0.5 - Math.random()) as Enemy[];
 
-        for (let i = 0; i < this.hitboxes.length; i++)
+        for (let i = 0; i < this._hitboxes.length; i++)
         {
             let enemy = enemiesToTarget[ i ];
             if (enemy)
             {
-                this.hitboxes[ i ].enable(enemiesToTarget[ i ].x, enemiesToTarget[ i ].y);
+                this._hitboxes[ i ].enable(enemiesToTarget[ i ].x, enemiesToTarget[ i ].y);
             }
         }
         console.log('atack');
     }
 
     Upgrade() {
-        throw new Error("Method not implemented.");
+        this._level++;
+        console.log('Lightning is now: ', this._level);
     }
 }

@@ -32,7 +32,12 @@ export class GameManager {
 
     public SetPlayer(player: PLayer) {
         this._player = player;
-        this._player.AddAttack(this._attacks[ Math.floor(Math.random() * this._attacks.length) ]);
+        // this._player.AddAttack(this._attacks[ Math.floor(Math.random() * this._attacks.length) ]);
+        this._player.AddAttack(this._attacks[ 0 ]);
+    }
+
+    public AddAttack(attack: Attack) {
+        this._player.AddAttack(attack);
     }
 
     public SetupAttacks(scene: GameScene) {
@@ -58,7 +63,8 @@ export class GameManager {
 
     public GiveExp(exp: number) {
         this.playerExp += exp;
-        if (this.playerExp >= this.playerLevel * 10 - 5)
+        // if (this.playerExp >= this.playerLevel * 10 - 5)
+        if (this.playerExp >= 1)
         {
             this.LevelUp();
         }
@@ -77,7 +83,10 @@ export class GameManager {
             attacks = [ this._attacks[ 0 ], this._attacks[ 1 ], this._attacks[ 2 ] ];
         }
 
-        this.playerExp -= this.playerLevel * 10 - 5;
+        attacks = attacks.filter((value, index, array) => value.level < value.maxLevel);
+
+        // this.playerExp -= this.playerLevel * 10 - 5;
+        this.playerExp = 0;
         this.playerLevel++;
 
         this.eventCenter.emit('levelup', this.playerLevel);

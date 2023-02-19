@@ -25,6 +25,10 @@ declare namespace BBCodeText {
                 left: number,
                 right: number;
             };
+        },
+        wrap?: {
+            width?: number,
+            mode?: 0 | 1 | 2 | 'none' | 'word' | 'char';
         };
     }
 

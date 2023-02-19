@@ -44,40 +44,47 @@ export default class BootScene extends BaseScene {
         });
 
         {
-            this.load.image('box', './assets/box.png');
-            this.load.image('box2', './assets/box_2.png');
-            this.load.image('coots', './assets/coots.png');
-            this.load.image('circle_hitbox', './assets/circle_hitbox.png');
+            this.load.image('coots_clash', './assets/images/coots_clash.jpg');
+            this.load.image('start_button', './assets/images/press_start.png');
 
-            this.load.image('meter', './assets/meter.png');
-            this.load.image('meter-fill', './assets/meter-fill.png');
+            this.load.image('border_1', './assets/images/border_1.png');
 
-            this.load.image('panel_bg', './assets/panel_bg.png');
+            this.load.image('box', './assets/images/box.png');
+            this.load.image('box2', './assets/images/box_2.png');
+            this.load.image('coots', './assets/images/coots.png');
+            this.load.image('circle_hitbox', './assets/images/circle_hitbox.png');
 
-            this.load.image('book_icon', './assets/book_of_pawbs.png');
-            this.load.image('lit_icon', './assets/kitty_lit.png');
-            this.load.image('slash_icon', './assets/kitty_slash.png');
-            this.load.image('water_icon', './assets/kitty_water.png');
-            this.load.image('uhoh_icon', './assets/uh_oh.png');
+            this.load.image('meter', './assets/images/meter.png');
+            this.load.image('meter-fill', './assets/meter/images-fill.png');
 
-            this.load.image('nip_icon', './assets/cat_nip.png');
+            this.load.image('panel_bg', './assets/images/panel_bg.png');
 
-            this.load.image('icon_bg', './assets/itembg.png');
+            this.load.image('book_of_pawbs', './assets/images/book_of_pawbs.png');
+            this.load.image('kitty_lit', './assets/images/kitty_lit.png');
+            this.load.image('kitty_slash', './assets/images/kitty_slash.png');
+            this.load.image('kitty_water', './assets/images/kitty_water.png');
+            this.load.image('uh_oh', './assets/images/uh_oh.png');
 
-            this.load.image('gem_1', './assets/gem_1.png');
-            this.load.image('gem_2', './assets/gem_2.png');
-            this.load.image('gem_3', './assets/gem_3.png');
-            this.load.image('gem_4', './assets/gem_4.png');
-            this.load.image('gem_5', './assets/gem_5.png');
+            this.load.image('nip_icon', './assets/images/cat_nip.png');
 
-            this.load.image('gem_a', './assets/gem_a.png');
-            this.load.image('gem_b', './assets/gem_b.png');
-            this.load.image('gem_c', './assets/gem_c.png');
+            this.load.image('icon_bg', './assets/images/itembg.png');
 
-            this.load.image('clover_kitty', './assets/clover_kitty.png');
+            this.load.image('gem_1', './assets/images/gem_1.png');
+            this.load.image('gem_2', './assets/images/gem_2.png');
+            this.load.image('gem_3', './assets/images/gem_3.png');
+            this.load.image('gem_4', './assets/images/gem_4.png');
+            this.load.image('gem_5', './assets/images/gem_5.png');
 
-            this.load.image('tiles', 'assets/tilemaps/map1.png');
+            this.load.image('gem_a', './assets/images/gem_a.png');
+            this.load.image('gem_b', './assets/images/gem_b.png');
+            this.load.image('gem_c', './assets/images/gem_c.png');
+
+            this.load.image('clover_kitty', './assets/images/clover_kitty.png');
+
+            this.load.image('tiles', 'assets/tilemaps/images/map1.png');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
+
+            this.load.image('controls', './assets/images/controls.png');
         }
     }
 

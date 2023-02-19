@@ -5,12 +5,16 @@ import { Attack } from "./Attack";
 import { HitBox } from "./HitBox";
 
 export class SwipeAttack extends Attack {
+    protected _name: string = 'Swpies';
+    protected _desc: string = 'Attacks enemies horizontally, passes through enemies';
+    protected _icon: string = 'kitty_slash';
+
     parent: Phaser.GameObjects.Container;
 
     damage = 20;
     attacRate = 1.5;
     attackTimeout = 1.5;
-    hitboxes = [];
+    _hitboxes = [];
 
     leftAttack: HitBox;
     rightAttack: HitBox;
@@ -36,7 +40,7 @@ export class SwipeAttack extends Attack {
         this.parent = this.scene.add.container(0, 0, [ this.leftAttack, this.rightAttack ])
             .setDepth(500);
 
-        this.hitboxes = [ this.leftAttack, this.rightAttack ];
+        this._hitboxes = [ this.leftAttack, this.rightAttack ];
     }
 
     setPosition(x?: number, y?: number, z?: number, w?: number): this {
@@ -52,6 +56,7 @@ export class SwipeAttack extends Attack {
     }
 
     Upgrade() {
-        throw new Error("Method not implemented.");
+        this._level++;
+        console.log('Swipe is now: ', this._level);
     }
 }

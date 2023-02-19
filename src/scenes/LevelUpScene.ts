@@ -2,13 +2,51 @@ import Game from "../Game";
 import { Attack } from "../player/attacks/Attack";
 import BaseScene from "./Scene";
 
+class PowerUp extends Phaser.GameObjects.Container {
+    constructor(scene: Phaser.Scene, x: number, y: number, attack: Attack, callback: () => void, callbackContext: any) {
+        super(scene, x, y,);
+        scene.add.existing(this);
+
+        const bg = scene.add.nineslice(0, 0, 360, 100, 'border_1', [ 44, 44, 44, 44 ])
+            .setInteractive()
+            .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.manager.AddAttack(attack);
+                callback.call(callbackContext);
+            });
+
+        const icon = scene.add.image(25, 25, attack.icon);
+
+        const name = scene.add.rexBBCodeText(30 + icon.width / 2, 25, attack.name, {
+            fontFamily: 'Comic Sans MS',
+            color: '#ffffff',
+            fontSize: '20px',
+            halign: 'center',
+            valign: 'center'
+        }).setOrigin(0, 0.5);
+
+        const desc = scene.add.rexBBCodeText(25 - icon.width / 2, 30 + icon.height / 2, attack.desc, {
+            fontFamily: 'Comic Sans MS',
+            color: '#ffffff',
+            fontSize: '15px',
+            halign: 'left',
+            valign: 'center',
+            wrap: {
+                mode: 'word',
+                width: 240
+            }
+        }).setOrigin(0, 0);
+
+        this.add([ bg, icon, name, desc ]);
+    }
+}
+
 export class LevelUpScene extends BaseScene {
     public static SceneName = 'LevelUpScene';
 
     attacks: Attack[];
 
     init(data: { attacks: Attack[]; }) {
-        this.attacks = this.attacks;
+        this.attacks = data.attacks;
     }
 
     create(): void {
@@ -28,7 +66,14 @@ export class LevelUpScene extends BaseScene {
             yoyo: true
         });
 
-        const bg = this.add.nineslice(280, 100, 400, 600, 'panel_bg', [ 5, 5, 5, 5 ]);
+        const bg = this.add.nineslice(280, 100, 400, 430, 'panel_bg', [ 5, 5, 5, 5 ]);
+
+        let space = 0;
+        for (const attack of this.attacks)
+        {
+            new PowerUp(this, 300, 200 + space, attack, this.close, this);
+            space += 105;
+        }
 
         this.add.rexBBCodeText(480, 150, 'Level Up!', {
             fontFamily: 'Comic Sans MS',
@@ -37,7 +82,6 @@ export class LevelUpScene extends BaseScene {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5);
-
 
         const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 200, 'box')
             .setScale(1, 0.3)
@@ -53,5 +97,9 @@ export class LevelUpScene extends BaseScene {
             valign: 'center'
         }).setDepth(100).setOrigin(0.5);
         Phaser.Display.Align.In.Center(startText, startButton);
+    }
+
+    close() {
+        Game.Instance.manager.LevelUpClosed();
     }
 }

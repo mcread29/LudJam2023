@@ -4,16 +4,29 @@ import { PLayer } from "../Player";
 import { HitBox } from "./HitBox";
 
 export abstract class Attack {
-    protected level = 0;
+    protected _level = 0;
+    public get level(): number { return this._level; }
 
-    declare abstract hitboxes: HitBox[];
+    public get maxLevel() { return 8; };
 
-    public abstract attacRate: number;
-    public abstract attackTimeout: number;
-    public abstract damage: number;
+    public get name(): string { return this._name; }
+    protected abstract _name: string;
 
-    public abstract hitDelay: number;
-    public abstract clearAllAfterDelay: boolean;
+    public get desc(): string { return this._desc; }
+    protected abstract _desc: string;
+
+    public get icon(): string { return this._icon; }
+    protected abstract _icon: string;
+
+    public get hitboxes(): HitBox[] { return this._hitboxes; }
+    declare protected abstract _hitboxes: HitBox[];
+
+    protected abstract attacRate: number;
+    protected abstract attackTimeout: number;
+    protected abstract damage: number;
+
+    protected abstract hitDelay: number;
+    protected abstract clearAllAfterDelay: boolean;
 
     private hitEnemies: Map<Enemy, number>;
     protected _player: PLayer;
@@ -73,6 +86,6 @@ export abstract class Attack {
 
     abstract Attack();
     Upgrade() {
-        this.level++;
+        this._level++;
     }
 }
