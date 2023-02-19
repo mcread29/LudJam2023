@@ -25,7 +25,7 @@ export default class MainMenu extends BaseScene {
         const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 100, 'box')
             .setScale(1, 0.3)
             .setInteractive().on(Phaser.Input.Events.POINTER_DOWN, () => {
-                this.startGame();
+                Game.Instance.manager.StartGame();
             });
 
         const startText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2, 'Start Game', {

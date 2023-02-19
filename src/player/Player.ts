@@ -28,6 +28,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     dead: boolean = false;
 
+    public maxAttacks = 3;
     attacks: Attack[];
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -58,7 +59,13 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
 
         this.attacks = [];
-        this.AddAttack(new BookAttack(this.scene as GameScene, this));
+
+        scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            console.log('shutdown');
+            scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+            this.health = 0;
+            this.attacks = [];
+        });
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -99,7 +106,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
                 if (this.health <= 0 && !this.dead)
                 {
                     this.dead = true;
-                    this.scene.events.emit('player_die');
+                    Game.Instance.manager.eventCenter.emit('player_die');
                 }
             }
         }
@@ -116,15 +123,8 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.body.setImmovable(true);
     }
 
-    destroy(fromScene?: boolean): void {
-        super.destroy(fromScene);
-        this.health = 0;
-        for (let attack of this.attacks) if (attack) attack.Destroy();
-        this.attacks = [];
-        if (this.scene) this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-    }
-
     AddAttack(attack: Attack) {
+        attack.Activate(this);
         this.attacks.push(attack);
         this.scene.physics.add.overlap(
             attack.hitboxes,

@@ -18,12 +18,12 @@ export class BookAttack extends Attack {
 
     parent: Phaser.GameObjects.Container;
 
-    constructor(scene: GameScene, player: PLayer) {
-        super(scene, player);
+    public Activate(player: PLayer): void {
+        super.Activate(player);
 
-        this.parent = scene.add.container(0, 0).setDepth(500).setActive(false);
+        this.parent = this.scene.add.container(0, 0).setDepth(500).setActive(false);
 
-        scene.tweens.add({
+        this.scene.tweens.add({
             targets: this.parent,
             angle: 360,
             duration: 1500,
@@ -32,7 +32,7 @@ export class BookAttack extends Attack {
 
         for (let i = 0; i < 3; i++)
         {
-            const hitbox = new HitBox(scene, 0, 0, 'box', this.damage, false)
+            const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, false)
                 .setScale(0.1)
                 .setTint(0x00fff0)
                 .setDepth(500);
@@ -43,7 +43,7 @@ export class BookAttack extends Attack {
     }
 
     protected preUpdate(time: number, delta: number): void {
-        this.parent.setPosition(this.player.x, this.player.y);
+        this.parent.setPosition(this._player.x, this._player.y);
 
         if (this.enableTime >= this.duration) super.preUpdate(time, delta);
         else
@@ -70,4 +70,7 @@ export class BookAttack extends Attack {
         }
     }
 
+    Upgrade() {
+        throw new Error("Method not implemented.");
+    }
 }

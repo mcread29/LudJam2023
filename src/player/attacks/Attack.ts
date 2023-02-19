@@ -4,7 +4,10 @@ import { PLayer } from "../Player";
 import { HitBox } from "./HitBox";
 
 export abstract class Attack {
+    protected level = 0;
+
     declare abstract hitboxes: HitBox[];
+
     public abstract attacRate: number;
     public abstract attackTimeout: number;
     public abstract damage: number;
@@ -13,20 +16,27 @@ export abstract class Attack {
     public abstract clearAllAfterDelay: boolean;
 
     private hitEnemies: Map<Enemy, number>;
+    protected _player: PLayer;
 
-    constructor(protected scene: GameScene, protected player: PLayer) {
-        scene.events.on(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
-        scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+    private _active: boolean = false;
+    public get active(): boolean { return this._active; }
 
+    constructor(protected scene: GameScene) {
         this.hitEnemies = new Map<Enemy, number>();
-    }
 
-    public Destroy() {
-        if (this.scene)
-        {
+        scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+            console.log('shutdown');
             this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-        }
+        });
+    }
+
+    public Activate(player: PLayer) {
+        this._active = true;
+        this._player = player;
+
+        this.scene.events.on(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
+        this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -62,4 +72,7 @@ export abstract class Attack {
     }
 
     abstract Attack();
+    Upgrade() {
+        this.level++;
+    }
 }

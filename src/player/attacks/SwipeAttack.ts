@@ -18,25 +18,25 @@ export class SwipeAttack extends Attack {
     public hitDelay: number = 1;
     public clearAllAfterDelay: boolean = true;
 
-    constructor(scene: GameScene, player: PLayer) {
-        super(scene, player);
+    public Activate(player: PLayer): void {
+        super.Activate(player);
 
-        this.leftAttack = new HitBox(scene, -player.width / 2, 0, 'box', this.damage, true)
+        this.leftAttack = new HitBox(this.scene, -player.width / 2, 0, 'box', this.damage, true)
             .setOrigin(1, 0.5)
             .setScale(0.3, 0.1)
             .setTint(0x00fff0);
         this.leftAttack.disableBody(true, true);
 
-        this.rightAttack = new HitBox(scene, player.width / 2, 0, 'box', this.damage, true)
+        this.rightAttack = new HitBox(this.scene, player.width / 2, 0, 'box', this.damage, true)
             .setOrigin(0, 0.5)
             .setScale(0.3, 0.1)
             .setTint(0x00fff0);
         this.rightAttack.disableBody(true, true);
 
-        this.hitboxes = [ this.leftAttack, this.rightAttack ];
-
-        this.parent = scene.add.container(0, 0, [ this.leftAttack, this.rightAttack ])
+        this.parent = this.scene.add.container(0, 0, [ this.leftAttack, this.rightAttack ])
             .setDepth(500);
+
+        this.hitboxes = [ this.leftAttack, this.rightAttack ];
     }
 
     setPosition(x?: number, y?: number, z?: number, w?: number): this {
@@ -45,9 +45,13 @@ export class SwipeAttack extends Attack {
     }
 
     Attack() {
-        this.setPosition(this.player.x, this.player.y);
+        this.setPosition(this._player.x, this._player.y);
 
-        this.leftAttack.enable(-this.player.width / 2, 0);
-        this.rightAttack.enable(this.player.width / 2, 0);
+        this.leftAttack.enable(-this._player.width / 2, 0);
+        this.rightAttack.enable(this._player.width / 2, 0);
+    }
+
+    Upgrade() {
+        throw new Error("Method not implemented.");
     }
 }

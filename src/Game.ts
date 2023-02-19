@@ -16,6 +16,9 @@ import { GameObjectFactoryPlugin } from "./Plugins/GameObjectFactoryPlugin";
 import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
 import Phaser from "phaser";
 import InitialBoot from "./scenes/InitialBoot";
+import { UIScene } from "./scenes/UIScene";
+import { GameManager } from "./GameManager";
+import { LevelUpScene } from "./scenes/LevelUpScene";
 
 export type gameConfig = {};
 
@@ -59,6 +62,9 @@ export default class Game extends Phaser.Game {
         this._gameConfig = value;
     }
 
+    private _manager: GameManager;
+    public get manager(): GameManager { return this._manager; }
+
     boot() {
         super.boot();
     }
@@ -72,6 +78,7 @@ export default class Game extends Phaser.Game {
             physics: {
                 default: 'arcade',
                 arcade: {
+                    fps: 300,
                     debug: document.location.href.includes('debug')
                 }
             },
@@ -97,6 +104,8 @@ export default class Game extends Phaser.Game {
             }
         });
 
+        this._manager = new GameManager();
+
         this._defaultWidth = 960;
         this._defaultHeight = 800;
 
@@ -112,6 +121,8 @@ export default class Game extends Phaser.Game {
         this.scene.add(BootScene.SceneName, BootScene);
         this.scene.add(MainMenu.SceneName, MainMenu);
         this.scene.add(GameScene.SceneName, GameScene);
+        this.scene.add(UIScene.SceneName, UIScene);
+        this.scene.add(LevelUpScene.SceneName, LevelUpScene);
     }
 
     public step(time: number, delta: number): void {

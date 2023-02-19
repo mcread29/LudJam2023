@@ -1,10 +1,12 @@
 
 import { Enemy } from "../enemies/Enemy";
 import Game from "../Game";
+import { Gem } from "../objects/Gem";
 import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
 import MainMenu from "./MainMenu";
 import BaseScene, { SceneInit } from "./Scene";
+import { UIScene } from "./UIScene";
 
 interface GameSceneInit extends SceneInit { }
 
@@ -12,6 +14,7 @@ export default class GameScene extends BaseScene {
     public static SceneName = 'GameScene';
 
     enemies: Phaser.GameObjects.Group;
+    gems: Phaser.GameObjects.Group;
     player: PLayer;
 
     init(data: GameSceneInit) {
@@ -21,15 +24,17 @@ export default class GameScene extends BaseScene {
     shutdown(): void {
         super.shutdown();
         this.physics.shutdown();
+
+        Game.Instance.scene.stop(UIScene.SceneName);
     }
 
     create(): void {
         super.create();
 
+        Game.Instance.manager.SetupAttacks(this);
+
         this.cameras.main.setBounds(0, 0, 4096, 4096);
         this.physics.world.setBounds(0, 0, 4096, 4096, true, true, true, true);
-
-        this.physics.world.setFPS(120);
 
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tileset_1', 'tiles');
@@ -38,7 +43,9 @@ export default class GameScene extends BaseScene {
         collision.setCollisionByExclusion([ -1 ], true);
 
         this.enemies = this.add.group();
+        this.gems = this.add.group();
         let player = this.player = new PLayer(this, 2048, 2048);
+        Game.Instance.manager.SetPlayer(player);
 
         for (let i = 0; i < 20; i++)
         {
@@ -52,12 +59,17 @@ export default class GameScene extends BaseScene {
             player.collide();
         });
 
+        this.physics.add.overlap(player, this.gems, (p: PLayer, g: Gem) => {
+            g.destroy();
+            Game.Instance.manager.GiveExp(g.exp);
+        });
+
         this.physics.add.collider(this.enemies, this.enemies);
 
         this.physics.add.collider(collision, player);
         this.physics.add.collider(collision, this.enemies);
 
-        this.events.once('player_die', () => {
+        Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
         });
 
@@ -74,7 +86,12 @@ export default class GameScene extends BaseScene {
                 item.destroy();
             }
 
-            Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
+            Game.Instance.manager.ReturnToMenu();
         }
+    }
+
+    onLevelUp() {
+        Game.Instance.scene.pause(GameScene.SceneName);
+        // start level up screen
     }
 }

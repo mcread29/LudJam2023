@@ -13,10 +13,10 @@ export class HissAttack extends Attack {
     public hitDelay: number = 1;
     public clearAllAfterDelay: boolean = false;
 
-    constructor(scene: GameScene, player: PLayer) {
-        super(scene, player);
+    public Activate(player: PLayer): void {
+        super.Activate(player);
 
-        this.hitboxes = [ new CircleHitBox(scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
+        this.hitboxes = [ new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
             .setTint(0x00fff0)
             .setDepth(500)
             .setAlpha(0.25)
@@ -25,11 +25,14 @@ export class HissAttack extends Attack {
 
     protected preUpdate(time: number, delta: number): void {
         super.preUpdate(time, delta);
-        this.hitboxes[ 0 ].setPosition(this.player.x, this.player.y);
+        this.hitboxes[ 0 ].setPosition(this._player.x, this._player.y);
     }
 
     Attack() {
         // throw new Error("Method not implemented.");
     }
 
+    Upgrade() {
+        throw new Error("Method not implemented.");
+    }
 }

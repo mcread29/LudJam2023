@@ -14,12 +14,12 @@ export class LightningAttack extends Attack {
     public hitDelay: number = 0.5;
     public clearAllAfterDelay: boolean = true;
 
-    constructor(scene: GameScene, player: PLayer) {
-        super(scene, player);
+    public Activate(player: PLayer): void {
+        super.Activate(player);
 
         for (let i = 0; i < 2; i++)
         {
-            const hitbox = new HitBox(scene, 0, 0, 'box', this.damage, true)
+            const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true)
                 .setScale(0.1)
                 .setTint(0x00fff0)
                 .setDepth(500);
@@ -42,5 +42,9 @@ export class LightningAttack extends Attack {
             }
         }
         console.log('atack');
+    }
+
+    Upgrade() {
+        throw new Error("Method not implemented.");
     }
 }

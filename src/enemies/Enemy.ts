@@ -1,14 +1,17 @@
 import Game from "../Game";
+import { Gem } from "../objects/Gem";
 import { PLayer } from "../player/Player";
+import GameScene from "../scenes/GameScene";
 
 export class Enemy extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
-    // protected inHitStun: boolean = false;
-    // protected hitStun: number = 100;
     protected health: number = 20;
+    protected exp = 1;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, key: string, private _player: PLayer) {
+    shutdown: () => void;
+
+    constructor(scene: GameScene, x: number, y: number, key: string, private _player: PLayer) {
         super(scene, x, y, key);
 
         scene.physics.add.existing(this);
@@ -18,10 +21,11 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.sys.updateList.add(this);
         scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-    }
 
-    protected preUpdate(time: number, delta: number): void {
-        // hmm
+        this.shutdown = () => {
+            scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+        };
+        scene.events.once(Phaser.Scenes.Events.SHUTDOWN, this.shutdown);
     }
 
     postUpdate() {
@@ -33,18 +37,24 @@ export class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     destroy(fromScene?: boolean): void {
-        if (fromScene === false)
+        if (!fromScene)
         {
-            //drop gems here
+            this.shutdown();
+            this.scene.events.off(Phaser.Scenes.Events.SHUTDOWN, this.shutdown);
         }
-
         super.destroy(fromScene);
-        if (this.scene) this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
     }
 
     TakeDamage(damage: number) {
         this.health -= damage;
 
-        if (this.health <= 0) this.destroy();
+        if (this.health <= 0) this.Kill();
+    }
+
+    Kill() {
+        //drop gem
+        new Gem(this.scene as GameScene, this.x, this.y, this.exp);
+
+        this.destroy();
     }
 }

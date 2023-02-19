@@ -14,12 +14,12 @@ export class SantaWaterAttack extends Attack {
     public hitDelay: number = 1.5;
     public clearAllAfterDelay: boolean = false;
 
-    constructor(scene: GameScene, player: PLayer) {
-        super(scene, player);
+    public Activate(player: PLayer): void {
+        super.Activate(player);
 
         for (let i = 0; i < 2; i++)
         {
-            const hitbox = new CircleHitBox(scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
+            const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
                 .setTint(0x00fff0)
                 .setDepth(500);
             hitbox.duration = 1000;
@@ -37,5 +37,9 @@ export class SantaWaterAttack extends Attack {
 
             this.hitboxes[ i ].enable(x, y);
         }
+    }
+
+    Upgrade() {
+        throw new Error("Method not implemented.");
     }
 }

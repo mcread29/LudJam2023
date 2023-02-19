@@ -49,6 +49,31 @@ export default class BootScene extends BaseScene {
             this.load.image('coots', './assets/coots.png');
             this.load.image('circle_hitbox', './assets/circle_hitbox.png');
 
+            this.load.image('meter', './assets/meter.png');
+            this.load.image('meter-fill', './assets/meter-fill.png');
+
+            this.load.image('panel_bg', './assets/panel_bg.png');
+
+            this.load.image('book_icon', './assets/book_of_pawbs.png');
+            this.load.image('lit_icon', './assets/kitty_lit.png');
+            this.load.image('slash_icon', './assets/kitty_slash.png');
+            this.load.image('water_icon', './assets/kitty_water.png');
+            this.load.image('uhoh_icon', './assets/uh_oh.png');
+
+            this.load.image('nip_icon', './assets/cat_nip.png');
+
+            this.load.image('icon_bg', './assets/itembg.png');
+
+            this.load.image('gem_1', './assets/gem_1.png');
+            this.load.image('gem_2', './assets/gem_2.png');
+            this.load.image('gem_3', './assets/gem_3.png');
+            this.load.image('gem_4', './assets/gem_4.png');
+            this.load.image('gem_5', './assets/gem_5.png');
+
+            this.load.image('gem_a', './assets/gem_a.png');
+            this.load.image('gem_b', './assets/gem_b.png');
+            this.load.image('gem_c', './assets/gem_c.png');
+
             this.load.image('tiles', 'assets/tilemaps/map1.png');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
         }
@@ -62,6 +87,5 @@ export default class BootScene extends BaseScene {
 
     shutdown(): void {
         super.shutdown();
-
     }
 }
