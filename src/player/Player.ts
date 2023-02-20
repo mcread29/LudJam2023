@@ -3,12 +3,7 @@ import Game from "../Game";
 import GameScene from "../scenes/GameScene";
 import { Vector } from "../Utils/Vector";
 import { Attack } from "./attacks/Attack";
-import { BookAttack } from "./attacks/BookAttack";
-import { HissAttack } from "./attacks/HissAttack";
 import { HitBox } from "./attacks/HitBox";
-import { LightningAttack } from "./attacks/LightningAttack";
-import { SantaWaterAttack } from "./attacks/SantaWaterAttack";
-import { SwipeAttack } from "./attacks/SwipeAttack";
 
 const speed = 300;
 
@@ -61,7 +56,6 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.attacks = [];
 
         scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            console.log('shutdown');
             scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
             this.health = 0;
             this.attacks = [];
@@ -123,21 +117,21 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.body.setImmovable(true);
     }
 
-    AddAttack(attack: Attack) {
-        if (attack.active)
-        {
-            attack.Upgrade();
-        }
-        else
-        {
-            attack.Activate(this);
-            this.attacks.push(attack);
-            this.scene.physics.add.overlap(
-                attack.hitboxes,
-                (this.scene as GameScene).enemies,
-                (a: HitBox, e: Enemy) => attack.Hit(e),
-                (a: HitBox, e: Enemy) => attack.CanHit(e)
-            );
-        }
-    }
+    // AddAttack(attack: Attack) {
+    //     if (attack.active)
+    //     {
+    //         attack.Upgrade();
+    //     }
+    //     else
+    //     {
+    //         attack.Activate(this);
+    //         this.attacks.push(attack);
+    //         this.scene.physics.add.overlap(
+    //             attack.hitboxes,
+    //             (this.scene as GameScene).enemies,
+    //             (a: HitBox, e: Enemy) => attack.Hit(e),
+    //             (a: HitBox, e: Enemy) => attack.CanHit(e)
+    //         );
+    //     }
+    // }
 }

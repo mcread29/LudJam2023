@@ -6,7 +6,16 @@ import { HitBox } from "./HitBox";
 
 export class BookAttack extends Attack {
     protected _name: string = 'Book of Pawbs';
-    protected _desc: string = 'Orbits around the player';
+    protected _desc: string[] = [
+        'Orbits around the player',
+        'Fires 1 more projectile',
+        'Base speed up by 30%. Base area up by 25%',
+        'Effect lasts 0.5 seconds longer. Base damage up by 10',
+        'Fires 1 more projectile',
+        'Base speed up by 30%. Base area up by 25%',
+        'Effect lasts 0.5 seconds longer. Base damage up by 10',
+        'Fires 1 more projectile'
+    ];
     protected _icon: string = 'book_of_pawbs';
 
     protected _hitboxes: HitBox[] = [];
@@ -73,6 +82,5 @@ export class BookAttack extends Attack {
 
     Upgrade() {
         this._level++;
-        console.log('Book is now: ', this._level);
     }
 }

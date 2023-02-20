@@ -1,9 +1,13 @@
 
-import { Enemy } from "../enemies/Enemy";
-import Game from "../Game";
+import { BasicEnemy, Enemy } from "../enemies/Enemy";
+import { EnemySpawner } from "../enemies/EnemySpawner";
+import Game, { GameConfig } from "../Game";
+import { Level } from "../Level";
 import { Gem } from "../objects/Gem";
 import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
+import ChooseStartAttackScene from "./ChooseStartAttack";
+import { LevelUpScene } from "./LevelUpScene";
 import MainMenu from "./MainMenu";
 import BaseScene, { SceneInit } from "./Scene";
 import { UIScene } from "./UIScene";
@@ -36,27 +40,15 @@ export default class GameScene extends BaseScene {
         this.cameras.main.setBounds(0, 0, 4096, 4096);
         this.physics.world.setBounds(0, 0, 4096, 4096, true, true, true, true);
 
-        const map = this.make.tilemap({ key: 'map' });
-        const tileset = map.addTilesetImage('tileset_1', 'tiles');
-        const bg = map.createLayer('Background', tileset, 0, 0);
-        const collision = map.createLayer('COLLISION', tileset, 0, 0);
-        collision.setCollisionByExclusion([ -1 ], true);
+        const level = new Level(this, 'map', { key: 'tileset_1', image: 'tiles' });
 
         this.enemies = this.add.group();
         this.gems = this.add.group();
         let player = this.player = new PLayer(this, 2048, 2048);
         Game.Instance.manager.SetPlayer(player);
 
-        for (let i = 0; i < 20; i++)
-        {
-            const e = new Enemy(this, i * 50 + 100, 300, 'clover_kitty', player);
-            this.enemies.add(e);
-        }
-
-        this.physics.add.collider(player, this.enemies, (p, e) => {
-            const player = p as PLayer;
-            const enemy = e as Enemy;
-            player.collide();
+        this.physics.add.collider(player, this.enemies, (p: PLayer, e: Enemy) => {
+            p.collide();
         });
 
         this.physics.add.overlap(player, this.gems, (p: PLayer, g: Gem) => {
@@ -66,28 +58,39 @@ export default class GameScene extends BaseScene {
 
         this.physics.add.collider(this.enemies, this.enemies);
 
-        this.physics.add.collider(collision, player);
-        this.physics.add.collider(collision, this.enemies);
+        this.physics.add.collider(level.collision, player);
+        this.physics.add.collider(level.bounds, player);
+
+        this.physics.add.collider(level.collision, this.enemies);
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
         });
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);
+
+        const spawner = new EnemySpawner(this, GameConfig.maps[ 0 ]);
+
+        this.events.once(Phaser.Scenes.Events.UPDATE, () => {
+            Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(ChooseStartAttackScene.SceneName, { attacks: Game.Instance.manager.attacks });
+        });
+
+        setTimeout(() => {
+        }, 10);
     }
 
     update(time: number, delta: number): void {
         super.update(time, delta);
 
-        if (this.enemies.children.size <= 0)
-        {
-            for (let item of this.sys.displayList.list)
-            {
-                item.destroy();
-            }
+        // if (this.enemies.children.size <= 0)
+        // {
+        //     for (let item of this.sys.displayList.list)
+        //     {
+        //         item.destroy();
+        //     }
 
-            Game.Instance.manager.ReturnToMenu();
-        }
+        //     // Game.Instance.manager.ReturnToMenu();
+        // }
     }
 
     onLevelUp() {

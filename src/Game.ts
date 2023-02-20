@@ -19,8 +19,84 @@ import InitialBoot from "./scenes/InitialBoot";
 import { UIScene } from "./scenes/UIScene";
 import { GameManager } from "./GameManager";
 import { LevelUpScene } from "./scenes/LevelUpScene";
+import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 
 export type gameConfig = {};
+
+export type Wave = {
+    interval: number,
+    enemies: string[],
+    boss?: string;
+    minimum: number;
+    clearAll?: boolean;
+};
+
+export type MapData = {
+    max: number,
+    waves: {
+        [ k: number ]: Wave;
+    };
+};
+export const GameConfig: { maps: MapData[]; } = {
+    maps: [ {
+        max: 540,
+        waves: {
+            0: {
+                interval: 1,
+                enemies: [ "BasicEnemy" ],
+                minimum: 50
+            },
+            60: {
+                interval: 1,
+                enemies: [ "BasicEnemy" ],
+                minimum: 20,
+                boss: 'BasicEnemyBoss'
+            },
+            120: {
+                interval: 0.5,
+                enemies: [ "BasicEnemy" ],
+                minimum: 30
+            },
+            180: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 40
+            },
+            240: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 50
+            },
+            300: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 60
+            },
+            360: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 70
+            },
+            420: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 80
+            },
+            480: {
+                interval: 3,
+                enemies: [ "BasicEnemy" ],
+                minimum: 90
+            },
+            540: {
+                interval: 1,
+                enemies: [],
+                minimum: 0,
+                boss: 'LudBoss',
+                clearAll: true
+            }
+        }
+    } ]
+};
 
 export default class Game extends Phaser.Game {
     protected _defaultWidth: number;
@@ -123,6 +199,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(GameScene.SceneName, GameScene);
         this.scene.add(UIScene.SceneName, UIScene);
         this.scene.add(LevelUpScene.SceneName, LevelUpScene);
+        this.scene.add(ChooseStartAttackScene.SceneName, ChooseStartAttackScene);
     }
 
     public step(time: number, delta: number): void {

@@ -6,7 +6,16 @@ import { HitBox } from "./HitBox";
 
 export class LightningAttack extends Attack {
     protected _name: string = 'Kitty Lightning';
-    protected _desc: string = 'Strikes at random enemies';
+    protected _desc: string[] = [
+        'Strikes at random enemies',
+        'Fires 1 more projectile',
+        'Base area up by 100%. Base damage up by 10',
+        'Fires 1 more projectile',
+        'Base area up by 100%. Base damage up by 20',
+        'Fires 1 more projectile',
+        'Base area up by 100%. Base damage up by 20',
+        'Fires 1 more projectile'
+    ];
     protected _icon: string = 'kitty_lit';
 
     _hitboxes: HitBox[] = [];
@@ -19,8 +28,6 @@ export class LightningAttack extends Attack {
     public clearAllAfterDelay: boolean = true;
 
     public Activate(player: PLayer): void {
-        super.Activate(player);
-
         for (let i = 0; i < 2; i++)
         {
             const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true)
@@ -31,6 +38,8 @@ export class LightningAttack extends Attack {
             hitbox.disableBody(true, true);
             this._hitboxes.push(hitbox);
         }
+
+        super.Activate(player);
     }
 
     Attack() {
@@ -45,11 +54,9 @@ export class LightningAttack extends Attack {
                 this._hitboxes[ i ].enable(enemiesToTarget[ i ].x, enemiesToTarget[ i ].y);
             }
         }
-        console.log('atack');
     }
 
     Upgrade() {
         this._level++;
-        console.log('Lightning is now: ', this._level);
     }
 }

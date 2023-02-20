@@ -3,7 +3,19 @@ import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { HitBox } from "./HitBox";
 
-export abstract class Attack {
+export interface PowerUp {
+    get level(): number;
+    get maxLevel(): number;
+    get name(): string;
+    get desc(): string;
+    get icon(): string;
+    get active(): boolean;
+
+    Activate(player: PLayer): void;
+    Upgrade(): void;
+}
+
+export abstract class Attack implements PowerUp {
     protected _level = 0;
     public get level(): number { return this._level; }
 
@@ -12,8 +24,8 @@ export abstract class Attack {
     public get name(): string { return this._name; }
     protected abstract _name: string;
 
-    public get desc(): string { return this._desc; }
-    protected abstract _desc: string;
+    public get desc(): string { return this._desc[ this._level ]; }
+    protected abstract _desc: string[];
 
     public get icon(): string { return this._icon; }
     protected abstract _icon: string;
@@ -38,18 +50,32 @@ export abstract class Attack {
         this.hitEnemies = new Map<Enemy, number>();
 
         scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-            console.log('shutdown');
             this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
         });
     }
 
     public Activate(player: PLayer) {
+        if (this._active)
+        {
+            this.Upgrade();
+            return;
+        }
+
         this._active = true;
         this._player = player;
 
         this.scene.events.on(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
         this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+
+        player.attacks.push(this);
+
+        this.scene.physics.add.overlap(
+            this.hitboxes,
+            (this.scene as GameScene).enemies,
+            (a: HitBox, e: Enemy) => this.Hit(e),
+            (a: HitBox, e: Enemy) => this.CanHit(e)
+        );
     }
 
     protected preUpdate(time: number, delta: number): void {

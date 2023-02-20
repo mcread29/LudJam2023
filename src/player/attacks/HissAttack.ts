@@ -6,7 +6,16 @@ import { HitBox } from "./HitBox";
 
 export class HissAttack extends Attack {
     protected _name: string = 'Uh Oh';
-    protected _desc: string = 'Damages nearby enemies';
+    protected _desc: string[] = [
+        'Damages nearby enemies',
+        'Base area up by 40%. Base damage up by 2',
+        'Cooldown reduced by 0.1 seconds. Base damage up by 1',
+        'Base area up by 20%. Base damage up by 1',
+        'Cooldown reduced by 0.1 seconds. Base damage up by 2',
+        'Base area up by 20%. Base damage up by 1',
+        'Cooldown reduced by 0.1 seconds. Base damage up by 1',
+        'Base area up by 20%. Base damage up by 1'
+    ];
     protected _icon: string = 'uh_oh';
 
     _hitboxes: HitBox[];
@@ -18,13 +27,14 @@ export class HissAttack extends Attack {
     public clearAllAfterDelay: boolean = false;
 
     public Activate(player: PLayer): void {
-        super.Activate(player);
-
-        this._hitboxes = [ new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
-            .setTint(0x00fff0)
-            .setDepth(500)
-            .setAlpha(0.25)
+        this._hitboxes = [
+            new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
+                .setTint(0x00fff0)
+                .setDepth(500)
+                .setAlpha(0.25)
         ];
+
+        super.Activate(player);
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -38,6 +48,5 @@ export class HissAttack extends Attack {
 
     Upgrade() {
         this._level++;
-        console.log('Hiss is now: ', this._level);
     }
 }

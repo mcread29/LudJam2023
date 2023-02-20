@@ -1,9 +1,9 @@
 import Game from "../Game";
-import { Attack } from "../player/attacks/Attack";
+import { Attack, PowerUp } from "../player/attacks/Attack";
 import BaseScene from "./Scene";
 
-class PowerUp extends Phaser.GameObjects.Container {
-    constructor(scene: Phaser.Scene, x: number, y: number, attack: Attack, callback: () => void, callbackContext: any) {
+export class PowerUpDisplay extends Phaser.GameObjects.Container {
+    constructor(scene: Phaser.Scene, x: number, y: number, attack: PowerUp, callback: () => void, callbackContext: any) {
         super(scene, x, y,);
         scene.add.existing(this);
 
@@ -43,9 +43,9 @@ class PowerUp extends Phaser.GameObjects.Container {
 export class LevelUpScene extends BaseScene {
     public static SceneName = 'LevelUpScene';
 
-    attacks: Attack[];
+    attacks: PowerUp[];
 
-    init(data: { attacks: Attack[]; }) {
+    init(data: { attacks: PowerUp[]; }) {
         this.attacks = data.attacks;
     }
 
@@ -66,12 +66,12 @@ export class LevelUpScene extends BaseScene {
             yoyo: true
         });
 
-        const bg = this.add.nineslice(280, 100, 400, 430, 'panel_bg', [ 5, 5, 5, 5 ]);
+        const bg = this.add.nineslice(280, 100, 400, 115 + 105 * this.attacks.length, 'panel_bg', [ 5, 5, 5, 5 ]);
 
         let space = 0;
         for (const attack of this.attacks)
         {
-            new PowerUp(this, 300, 200 + space, attack, this.close, this);
+            new PowerUpDisplay(this, 300, 200 + space, attack, this.close, this);
             space += 105;
         }
 

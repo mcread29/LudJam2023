@@ -9,7 +9,7 @@ gameplay:
     ✔ timer @done(23-02-19 15:36)
 enemies: 
     ☐ damage numbers
-    ☐ spawn timer
+    ✔ spawn timer @done(23-02-20 08:41)
     ☐ enemy types
         ☐ type 1
         ☐ type 2

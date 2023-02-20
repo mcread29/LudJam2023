@@ -6,7 +6,16 @@ import { HitBox } from "./HitBox";
 
 export class SwipeAttack extends Attack {
     protected _name: string = 'Swpies';
-    protected _desc: string = 'Attacks enemies horizontally, passes through enemies';
+    protected _desc: string[] = [
+        'Attacks enemies horizontally, passes through enemies',
+        'Fires 1 more projectile',
+        'Base damage up by 5',
+        'Base damage up by 5. Base area up by 10%',
+        'Base damage up by 5',
+        'Base damage up by 5. Base area up by 10%',
+        'Base damage up by 5',
+        'Base damage up by 5'
+    ];
     protected _icon: string = 'kitty_slash';
 
     parent: Phaser.GameObjects.Container;
@@ -23,8 +32,6 @@ export class SwipeAttack extends Attack {
     public clearAllAfterDelay: boolean = true;
 
     public Activate(player: PLayer): void {
-        super.Activate(player);
-
         this.leftAttack = new HitBox(this.scene, -player.width / 2, 0, 'box', this.damage, true)
             .setOrigin(1, 0.5)
             .setScale(0.3, 0.1)
@@ -41,6 +48,8 @@ export class SwipeAttack extends Attack {
             .setDepth(500);
 
         this._hitboxes = [ this.leftAttack, this.rightAttack ];
+
+        super.Activate(player);
     }
 
     setPosition(x?: number, y?: number, z?: number, w?: number): this {
@@ -57,6 +66,5 @@ export class SwipeAttack extends Attack {
 
     Upgrade() {
         this._level++;
-        console.log('Swipe is now: ', this._level);
     }
 }

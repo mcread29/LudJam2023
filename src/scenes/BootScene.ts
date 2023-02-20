@@ -55,7 +55,7 @@ export default class BootScene extends BaseScene {
             this.load.image('circle_hitbox', './assets/images/circle_hitbox.png');
 
             this.load.image('meter', './assets/images/meter.png');
-            this.load.image('meter-fill', './assets/meter/images-fill.png');
+            this.load.image('meter-fill', './assets/images/meter-fill.png');
 
             this.load.image('panel_bg', './assets/images/panel_bg.png');
 
@@ -80,8 +80,11 @@ export default class BootScene extends BaseScene {
             this.load.image('gem_c', './assets/images/gem_c.png');
 
             this.load.image('clover_kitty', './assets/images/clover_kitty.png');
+            this.load.image('clover_kitty_boss', './assets/images/clover_kitty_boss.png');
 
-            this.load.image('tiles', 'assets/tilemaps/images/map1.png');
+            this.load.image('lud_boss', './assets/images/lud_boss.png');
+
+            this.load.image('tiles', 'assets/tilemaps/map1.png');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
 
             this.load.image('controls', './assets/images/controls.png');

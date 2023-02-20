@@ -1,5 +1,3 @@
-import { Enemy } from "../../enemies/Enemy";
-import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { Attack } from "./Attack";
 import { CircleHitBox } from "./CircleHitbox";
@@ -7,7 +5,16 @@ import { HitBox } from "./HitBox";
 
 export class SantaWaterAttack extends Attack {
     protected _name: string = 'Kitty Water';
-    protected _desc: string = 'Generate damaging zones';
+    protected _desc: string[] = [
+        'Generate damaging zones',
+        'Fires 1 more projectile. Base area up by 20%',
+        'Base damage up by 10. Effect lasts 0.5 seconds longer',
+        'Fires 1 more projectile. Base area up by 20%',
+        'Base damage up by 10. Effect lasts 0.3 seconds longer',
+        'Fires 1 more projectile. Base area up by 20%',
+        'Base damage up by 5. Effect lasts 0.3 seconds longer',
+        'Base damage up by 5. Base area up by 20%'
+    ];
     protected _icon: string = 'kitty_water';
 
     protected _hitboxes: HitBox[] = [];
@@ -19,8 +26,6 @@ export class SantaWaterAttack extends Attack {
     public clearAllAfterDelay: boolean = false;
 
     public Activate(player: PLayer): void {
-        super.Activate(player);
-
         for (let i = 0; i < 2; i++)
         {
             const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
@@ -31,6 +36,8 @@ export class SantaWaterAttack extends Attack {
             hitbox.disableBody(true, true);
             this._hitboxes.push(hitbox);
         }
+
+        super.Activate(player);
     }
 
     Attack() {
@@ -45,6 +52,5 @@ export class SantaWaterAttack extends Attack {
 
     Upgrade() {
         this._level++;
-        console.log('Water is now: ', this._level);
     }
 }

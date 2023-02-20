@@ -22,7 +22,6 @@ export default class MainMenu extends BaseScene {
                 Game.Instance.manager.StartGame();
             })
             .on(Phaser.Input.Events.POINTER_OVER, () => {
-                console.log('over');
                 this.tweens.killTweensOf(startButton);
                 this.tweens.add({
                     targets: startButton,
