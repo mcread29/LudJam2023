@@ -56,6 +56,10 @@ export default class GameScene extends BaseScene {
             Game.Instance.manager.GiveExp(g.exp);
         });
 
+        this.physics.add.overlap(player.attractBody, this.gems, (p: Phaser.Physics.Arcade.Sprite, g: Gem) => {
+            g.startCollect();
+        });
+
         this.physics.add.collider(this.enemies, this.enemies);
 
         this.physics.add.collider(level.collision, player);

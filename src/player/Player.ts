@@ -11,6 +11,8 @@ const speed = 300;
 export class PLayer extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
+    attractBody: Phaser.Physics.Arcade.Sprite;
+
     keys: { [ k: string ]: Phaser.Input.Keyboard.Key; };
 
     colliding = false;
@@ -32,10 +34,19 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     private _speedMod: number = 1;
 
+    private _attractMod: number = 1;
+
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'coots');
         scene.physics.add.existing(this);
         scene.add.existing(this);
+
+        this.attractBody = new Phaser.Physics.Arcade.Sprite(scene, 0, 0, 'circle_hitbox');
+        scene.physics.add.existing(this.attractBody);
+        scene.add.existing(this.attractBody);
+        this.attractBody.setCircle(64)
+            .disableBody(true, true)
+            .enableBody(false, 0, 0, true, false);
 
         this.body.setSize(this.width, this.height / 4);
         this.body.setOffset(0, this.displayHeight - this.displayHeight / 4);
@@ -117,6 +128,8 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
         this.healthBarBG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
         this.healthBarFG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
+
+        this.attractBody.setPosition(this.x, this.y);
     }
 
     collide() {
@@ -145,5 +158,10 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         {
             attack.IncreaseAreaMod(amount);
         }
+    }
+
+    IncreaseAttractMod(amount: number) {
+        this._attractMod *= amount;
+        this.attractBody.setScale(this._attractMod);
     }
 }

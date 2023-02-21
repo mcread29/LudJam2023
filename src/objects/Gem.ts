@@ -1,3 +1,5 @@
+import Game from "../Game";
+import { PLayer } from "../player/Player";
 import GameScene from "../scenes/GameScene";
 
 const expToTexture = (exp: number) => {
@@ -8,6 +10,8 @@ const expToTexture = (exp: number) => {
 
 export class Gem extends Phaser.Physics.Arcade.Sprite {
     public get exp(): number { return this._exp; }
+
+    private _collecting: boolean = false;
 
     constructor(scene: GameScene, x: number, y: number, private _exp: number) {
         super(scene, x, y, expToTexture(_exp));
@@ -23,5 +27,24 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
             yoyo: true,
             loop: -1
         });
+    }
+
+    startCollect() {
+        this.scene.tweens.killTweensOf(this);
+
+        if (this._collecting) return;
+
+        this._collecting = true;
+        this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+    }
+
+    postUpdate() {
+        this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
+        this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+    }
+
+    destroy(fromScene?: boolean): void {
+        this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+        super.destroy(fromScene);
     }
 }

@@ -6,6 +6,7 @@ import { LightningAttack } from "./player/attacks/LightningAttack";
 import { SantaWaterAttack } from "./player/attacks/SantaWaterAttack";
 import { SwipeAttack } from "./player/attacks/SwipeAttack";
 import AreaItem from "./player/items/AreaItem";
+import AttractItem from "./player/items/AttractItem";
 import Catnip from "./player/items/Catnip";
 import HealthItem from "./player/items/HealthItem";
 import { Item } from "./player/items/Item";
@@ -61,7 +62,8 @@ export class GameManager {
             new Catnip(),
             new HealthItem(),
             new SpeedItem(),
-            new AreaItem()
+            new AreaItem(),
+            new AttractItem()
         ];
     }
 
