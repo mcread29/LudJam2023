@@ -5,7 +5,7 @@ export abstract class Item implements PowerUp {
     protected _level = 0;
     get level(): number { return this._level; }
 
-    protected _maxLevel: number;
+    protected abstract _maxLevel: number;
     get maxLevel(): number { return this._maxLevel; }
 
     protected abstract _name: string;
@@ -20,19 +20,16 @@ export abstract class Item implements PowerUp {
     private _active: boolean = false;
     get active(): boolean { return this._active; }
 
-    Activate(player: PLayer): void {
-        if (this._active)
-        {
-            this.Upgrade();
-            return;
-        }
+    protected _player: PLayer;
 
-        // add effects to player
+    Activate(player: PLayer): void {
+        this._active = true;
+        this._player = player;
+
+        player.items.push(this);
     }
     Upgrade(): void {
         this._level++;
-
-        // add effects to player
     }
 
 }

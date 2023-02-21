@@ -25,16 +25,12 @@ export class SantaWaterAttack extends Attack {
     public hitDelay: number = 1.5;
     public clearAllAfterDelay: boolean = false;
 
+    private _duration = 1000;
+
     public Activate(player: PLayer): void {
         for (let i = 0; i < 2; i++)
         {
-            const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
-                .setTint(0x00fff0)
-                .setDepth(500);
-            hitbox.duration = 1000;
-
-            hitbox.disableBody(true, true);
-            this._hitboxes.push(hitbox);
+            this.addProjectile();
         }
 
         super.Activate(player);
@@ -51,6 +47,58 @@ export class SantaWaterAttack extends Attack {
     }
 
     Upgrade() {
-        this._level++;
+        super.Upgrade();
+
+
+        if (this._level === 2)
+        {
+            this.addProjectile();
+            this.IncreaseAreaMod(0.2);
+        }
+        else if (this._level === 3)
+        {
+            this.damage += 10;
+            this._duration += 500;
+            for (let box of this.hitboxes) box.duration = this._duration;
+        }
+        else if (this._level === 4)
+        {
+            this.addProjectile();
+            this.IncreaseAreaMod(0.2);
+        }
+        else if (this._level === 5)
+        {
+            this.damage += 10;
+            this._duration += 300;
+            for (let box of this.hitboxes) box.duration = this._duration;
+        }
+        else if (this.level === 6)
+        {
+            this.addProjectile();
+            this.IncreaseAreaMod(0.2);
+        }
+        else if (this._level === 7)
+        {
+            this.damage += 5;
+            this._duration += 300;
+            for (let box of this.hitboxes) box.duration = this._duration;
+        }
+        else if (this._level === 8)
+        {
+            this.damage += 5;
+            this.IncreaseAreaMod(0.2);
+        }
+
+        this.Attack();
+    }
+
+    private addProjectile() {
+        const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
+            .setTint(0x00fff0)
+            .setDepth(500);
+        hitbox.duration = this._duration;
+
+        hitbox.disableBody(true, true);
+        this._hitboxes.push(hitbox);
     }
 }

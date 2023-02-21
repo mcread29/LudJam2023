@@ -30,13 +30,7 @@ export class LightningAttack extends Attack {
     public Activate(player: PLayer): void {
         for (let i = 0; i < 2; i++)
         {
-            const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true)
-                .setScale(0.1)
-                .setTint(0x00fff0)
-                .setDepth(500);
-
-            hitbox.disableBody(true, true);
-            this._hitboxes.push(hitbox);
+            this.addProjectile();
         }
 
         super.Activate(player);
@@ -57,6 +51,51 @@ export class LightningAttack extends Attack {
     }
 
     Upgrade() {
-        this._level++;
+        super.Upgrade();
+
+
+        if (this._level === 2)
+        {
+            this.addProjectile();
+        }
+        else if (this._level === 3)
+        {
+            this.IncreaseAreaMod(1);
+            this.damage += 10;
+        }
+        else if (this._level === 4)
+        {
+            this.addProjectile();
+        }
+        else if (this._level === 5)
+        {
+            this.IncreaseAreaMod(1);
+            this.damage += 20;
+        }
+        else if (this.level === 6)
+        {
+            this.addProjectile();
+        }
+        else if (this._level === 7)
+        {
+            this.IncreaseAreaMod(1);
+            this.damage += 20;
+        }
+        else if (this._level === 8)
+        {
+            this.addProjectile();
+        }
+
+        this.Attack();
+    }
+
+    private addProjectile() {
+        const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true)
+            .setBaseScale(0.1)
+            .setTint(0x00fff0)
+            .setDepth(500);
+
+        hitbox.disableBody(true, true);
+        this._hitboxes.push(hitbox);
     }
 }

@@ -5,6 +5,9 @@ export class HitBox extends Phaser.Physics.Arcade.Sprite {
     enableTimeout: NodeJS.Timeout;
     duration = 50;
 
+    protected _baseScale: { x: number, y: number; } = { x: 1, y: 1 };
+    public get baseScale(): { x: number, y: number; } { return this._baseScale; };
+
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, private _damage: number, private _autoDisable = false) {
         super(scene, x, y, texture);
         scene.add.existing(this);
@@ -25,6 +28,17 @@ export class HitBox extends Phaser.Physics.Arcade.Sprite {
     enable(x: number, y: number): this {
         super.enableBody(true, x, y, true, true);
         if (this._autoDisable) this.enableTimeout = setTimeout(() => this.disable(), this.duration);
+        return this;
+    }
+
+    setBaseScale(scaleX: number, scaleY?: number): this {
+        this._baseScale = { x: scaleX, y: scaleY || scaleX };
+        return super.setScale(scaleX, scaleY);
+    }
+
+    setScale(x: number, y?: number): this {
+        super.setScale(x * this._baseScale.x, (y || x) * this.baseScale.y);
+        console.log(this.scale, this.scaleX, this.scaleY);
         return this;
     }
 }

@@ -5,7 +5,11 @@ import { HissAttack } from "./player/attacks/HissAttack";
 import { LightningAttack } from "./player/attacks/LightningAttack";
 import { SantaWaterAttack } from "./player/attacks/SantaWaterAttack";
 import { SwipeAttack } from "./player/attacks/SwipeAttack";
+import AreaItem from "./player/items/AreaItem";
+import Catnip from "./player/items/Catnip";
+import HealthItem from "./player/items/HealthItem";
 import { Item } from "./player/items/Item";
+import SpeedItem from "./player/items/SpeedItem";
 import { PLayer } from "./player/Player";
 import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 import GameScene from "./scenes/GameScene";
@@ -43,12 +47,6 @@ export class GameManager {
     }
 
     public AddAttack(attack: PowerUp) {
-        // if (!this._startingAttack)
-        // {
-        //     this._startingAttack = attack;
-        //     return;
-        // }
-
         if (attack.active) attack.Upgrade();
         else attack.Activate(this._player);
     }
@@ -59,7 +57,11 @@ export class GameManager {
             new BookAttack(scene),
             new LightningAttack(scene),
             new SantaWaterAttack(scene),
-            new HissAttack(scene)
+            new HissAttack(scene),
+            new Catnip(),
+            new HealthItem(),
+            new SpeedItem(),
+            new AreaItem()
         ];
     }
 
@@ -87,21 +89,31 @@ export class GameManager {
     }
 
     public LevelUp() {
-        let attacks: PowerUp[] = [];
-        if (this._player.attacks.length >= this._player.maxAttacks) attacks = this._player.attacks;
+        let powerups: PowerUp[] = [];
+        if (this._player.attacks.length >= this._player.maxAttacks) powerups.push(...this._player.attacks);
         else
         {
-            this._powerups.sort(() => 0.5 - Math.random());
-            attacks = [ this._powerups[ 0 ], this._powerups[ 1 ], this._powerups[ 2 ] ];
+            console.log(this.attacks);
+            console.log(this.attacks.sort(() => 0.5 - Math.random()));
+            powerups.push(...this.attacks.sort(() => 0.5 - Math.random()));
         }
 
-        attacks = attacks.filter((value, index, array) => value.level < value.maxLevel);
+        if (this._player.items.length >= this._player.maxItems) powerups.push(...this._player.items);
+        else
+        {
+            console.log(this.items);
+            console.log(this.items.sort(() => 0.5 - Math.random()));
+            powerups.push(...this.items.sort(() => 0.5 - Math.random()));
+        }
+
+        powerups = powerups.filter((value, index, array) => value.level < value.maxLevel);
 
         this.playerExp -= this.playerLevel * 10 - 5;
         this.playerLevel++;
 
         this.eventCenter.emit('levelup', this.playerLevel);
-        Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: attacks });
+        console.log(powerups);
+        Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: powerups.sort(() => 0.5 - Math.random()).splice(0, 3) });
     }
 
     public LevelUpClosed() {

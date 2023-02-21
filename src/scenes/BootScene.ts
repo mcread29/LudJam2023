@@ -65,7 +65,7 @@ export default class BootScene extends BaseScene {
             this.load.image('kitty_water', './assets/images/kitty_water.png');
             this.load.image('uh_oh', './assets/images/uh_oh.png');
 
-            this.load.image('nip_icon', './assets/images/cat_nip.png');
+            this.load.image('cat_nip', './assets/images/cat_nip.png');
 
             this.load.image('icon_bg', './assets/images/itembg.png');
 

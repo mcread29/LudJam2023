@@ -8,7 +8,7 @@ export class SwipeAttack extends Attack {
     protected _name: string = 'Swpies';
     protected _desc: string[] = [
         'Attacks enemies horizontally, passes through enemies',
-        'Fires 1 more projectile',
+        'Base damage up by 5',
         'Base damage up by 5',
         'Base damage up by 5. Base area up by 10%',
         'Base damage up by 5',
@@ -34,13 +34,13 @@ export class SwipeAttack extends Attack {
     public Activate(player: PLayer): void {
         this.leftAttack = new HitBox(this.scene, -player.width / 2, 0, 'box', this.damage, true)
             .setOrigin(1, 0.5)
-            .setScale(0.3, 0.1)
+            .setBaseScale(0.3, 0.1)
             .setTint(0x00fff0);
         this.leftAttack.disableBody(true, true);
 
         this.rightAttack = new HitBox(this.scene, player.width / 2, 0, 'box', this.damage, true)
             .setOrigin(0, 0.5)
-            .setScale(0.3, 0.1)
+            .setBaseScale(0.3, 0.1)
             .setTint(0x00fff0);
         this.rightAttack.disableBody(true, true);
 
@@ -65,6 +65,39 @@ export class SwipeAttack extends Attack {
     }
 
     Upgrade() {
-        this._level++;
+        super.Upgrade();
+
+        if (this._level === 2)
+        {
+            this.damage += 5;
+        }
+        else if (this._level === 3)
+        {
+            this.damage += 5;
+        }
+        else if (this._level === 4)
+        {
+            this.damage += 5;
+            this.IncreaseAreaMod(0.1);
+        }
+        else if (this._level === 5)
+        {
+            this.damage += 5;
+        }
+        else if (this.level === 6)
+        {
+            this.damage += 5;
+            this.IncreaseAreaMod(0.1);
+        }
+        else if (this._level === 7)
+        {
+            this.damage += 5;
+        }
+        else if (this._level === 8)
+        {
+            this.damage += 5;
+        }
+
+        this.Attack();
     }
 }

@@ -4,6 +4,7 @@ import GameScene from "../scenes/GameScene";
 import { Vector } from "../Utils/Vector";
 import { Attack } from "./attacks/Attack";
 import { HitBox } from "./attacks/HitBox";
+import { Item } from "./items/Item";
 
 const speed = 300;
 
@@ -25,6 +26,11 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     public maxAttacks = 3;
     attacks: Attack[];
+
+    public maxItems = 3;
+    items: Item[];
+
+    private _speedMod: number = 1;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'coots');
@@ -54,6 +60,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
 
         this.attacks = [];
+        this.items = [];
 
         scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
             scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
@@ -85,7 +92,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         const move: Vector = inputVector; //.normalize();
         if (move.magnitude > 0) this.body.setImmovable(false);
 
-        this.body.setVelocity(move.x * speed, move.y * speed);
+        this.body.setVelocity(move.x * speed * this._speedMod, move.y * speed * this._speedMod);
 
         this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
         if (this.colliding)
@@ -117,21 +124,26 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.body.setImmovable(true);
     }
 
-    // AddAttack(attack: Attack) {
-    //     if (attack.active)
-    //     {
-    //         attack.Upgrade();
-    //     }
-    //     else
-    //     {
-    //         attack.Activate(this);
-    //         this.attacks.push(attack);
-    //         this.scene.physics.add.overlap(
-    //             attack.hitboxes,
-    //             (this.scene as GameScene).enemies,
-    //             (a: HitBox, e: Enemy) => attack.Hit(e),
-    //             (a: HitBox, e: Enemy) => attack.CanHit(e)
-    //         );
-    //     }
-    // }
+    IncreaseDamageMod(amount: number) {
+        for (let attack of this.attacks)
+        {
+            attack.IncreaseDamageMod(amount);
+        }
+    }
+
+    IncreaseHealthMod(amount: number) {
+        this.maxHealth *= 1.2;
+        this.health *= 1.2;
+    }
+
+    IncreaseSpeedMod(amount: number) {
+        this._speedMod += amount;
+    }
+
+    IncreaseAreaMod(amount: number) {
+        for (let attack of this.attacks)
+        {
+            attack.IncreaseAreaMod(amount);
+        }
+    }
 }

@@ -47,6 +47,44 @@ export class HissAttack extends Attack {
     }
 
     Upgrade() {
-        this._level++;
+        super.Upgrade();
+
+        if (this._level === 2)
+        {
+            this.damage += 2;
+            this.IncreaseAreaMod(0.4);
+        }
+        else if (this._level === 3)
+        {
+            this.damage += 1;
+            this.hitDelay -= 0.1;
+        }
+        else if (this._level === 4)
+        {
+            this.damage += 1;
+            this.IncreaseAreaMod(0.2);
+        }
+        else if (this._level === 5)
+        {
+            this.damage += 2;
+            this.hitDelay -= 1;
+        }
+        else if (this.level === 6)
+        {
+            this.damage += 1;
+            this.IncreaseAreaMod(0.2);
+        }
+        else if (this._level === 7)
+        {
+            this.damage += 1;
+            this.hitDelay -= 0.1;
+        }
+        else if (this._level === 8)
+        {
+            this.damage += 1;
+            this.IncreaseAreaMod(0.2);
+        }
+
+        this.Attack();
     }
 }

@@ -46,6 +46,10 @@ export abstract class Attack implements PowerUp {
     private _active: boolean = false;
     public get active(): boolean { return this._active; }
 
+    protected _damageMod: number = 1;
+
+    protected _areaMod: number = 1;
+
     constructor(protected scene: GameScene) {
         this.hitEnemies = new Map<Enemy, number>();
 
@@ -76,6 +80,8 @@ export abstract class Attack implements PowerUp {
             (a: HitBox, e: Enemy) => this.Hit(e),
             (a: HitBox, e: Enemy) => this.CanHit(e)
         );
+
+        this._level++;
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -107,11 +113,26 @@ export abstract class Attack implements PowerUp {
 
     public Hit(enemy: Enemy) {
         this.hitEnemies.set(enemy, this.hitDelay);
-        enemy.TakeDamage(this.damage);
+        enemy.TakeDamage(this.damage * this._damageMod);
+    }
+
+    IncreaseDamageMod(amount: number) {
+        this._damageMod += amount;
+    }
+
+    IncreaseAreaMod(amount: number) {
+        this._areaMod += amount;
+        console.log(this._areaMod);
+        for (let hitbox of this._hitboxes)
+        {
+            hitbox.setScale(this._areaMod);
+        }
     }
 
     abstract Attack();
+
     Upgrade() {
         this._level++;
+        console.log(this.name, 'is now ', this._level);
     }
 }
