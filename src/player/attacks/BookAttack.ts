@@ -50,8 +50,8 @@ export class BookAttack extends Attack {
 
         for (let i = 0; i < 2; i++)
         {
-            const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, false)
-                .setBaseScale(0.1)
+            const hitbox = new HitBox(this.scene, 0, 0, 'book', this.damage, false)
+                // .setBaseScale(0.1)
                 .setTint(0x00fff0)
                 .setDepth(500);
             this._hitboxes.push(hitbox);
@@ -144,8 +144,7 @@ export class BookAttack extends Attack {
     }
 
     private addProjectile() {
-        const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, false)
-            .setBaseScale(0.1)
+        const hitbox = new HitBox(this.scene, 0, 0, 'book', this.damage, false)
             .setScale(this._areaMod)
             .setTint(0x00fff0)
             .setDepth(500);
@@ -154,7 +153,7 @@ export class BookAttack extends Attack {
 
         for (let i = 0; i < this._hitboxes.length; i++)
         {
-            this._hitboxes[ i ].setPosition(0, 0);
+            this._hitboxes[ i ].setPosition(0, 0).setRotation((i / this._hitboxes.length) * Math.PI * 2);
             Phaser.Actions.RotateAroundDistance([ this._hitboxes[ i ] ], { x: 0, y: 0 }, (i / this._hitboxes.length) * Math.PI * 2, 96);
         }
     }

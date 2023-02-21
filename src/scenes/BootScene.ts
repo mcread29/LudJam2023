@@ -98,6 +98,10 @@ export default class BootScene extends BaseScene {
             this.load.image('controls', './assets/images/controls.png');
 
             this.load.image('slash', './assets/images/slash.png');
+            this.load.image('book', './assets/images/book.png');
+
+            this.load.image('arrow_1', './assets/images/cat_arrow_01.png');
+            this.load.image('arrow_2', './assets/images/cat_arrow_02.png');
 
             this.load.aseprite('lightning', './assets/animations/lit_64x256.png', './assets/animations/Coots_01.json');
 

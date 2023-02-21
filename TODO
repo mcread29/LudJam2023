@@ -1,11 +1,11 @@
 menu:
-    ☐ select start item
+    ✔ select start item @done(23-02-20 17:25)
 gameplay:
     ☐ game over screen
     ✔ exp @done(23-02-19 15:36)
     ✔ levels @done(23-02-19 15:36)
     ✔ level up screen @done(23-02-19 15:36)
-        ☐ attack upgrades
+        ✔ attack upgrades @done(23-02-20 17:25)
     ✔ timer @done(23-02-19 15:36)
 enemies: 
     ☐ damage numbers
