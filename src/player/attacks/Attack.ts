@@ -122,7 +122,6 @@ export abstract class Attack implements PowerUp {
 
     IncreaseAreaMod(amount: number) {
         this._areaMod += amount;
-        console.log(this._areaMod);
         for (let hitbox of this._hitboxes)
         {
             hitbox.setScale(this._areaMod);
@@ -133,6 +132,5 @@ export abstract class Attack implements PowerUp {
 
     Upgrade() {
         this._level++;
-        console.log(this.name, 'is now ', this._level);
     }
 }

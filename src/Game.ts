@@ -12,6 +12,7 @@ import WebFontLoaderPlugin from 'phaser3-rex-plugins/plugins/webfontloader-plugi
 import GrayScalePipelinePlugin from 'phaser3-rex-plugins/plugins/grayscalepipeline-plugin.js';
 import BBCodeTextPlugin from 'phaser3-rex-plugins/plugins/bbcodetext-plugin.js';
 import { GameObjectFactoryPlugin } from "./Plugins/GameObjectFactoryPlugin";
+import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin.js';
 
 import { Plugin as NineSlicePlugin } from 'phaser3-nineslice';
 import Phaser from "phaser";
@@ -43,48 +44,48 @@ export const GameConfig: { maps: MapData[]; } = {
         waves: {
             0: {
                 interval: 1,
-                enemies: [ "BasicEnemy" ],
-                minimum: 50
+                enemies: [ 'Bat' ],
+                minimum: 10
             },
             60: {
                 interval: 1,
-                enemies: [ "BasicEnemy" ],
-                minimum: 20,
+                enemies: [ 'Bat', 'Zambie' ],
+                minimum: 30,
                 boss: 'BasicEnemyBoss'
             },
             120: {
                 interval: 0.5,
-                enemies: [ "BasicEnemy" ],
-                minimum: 30
+                enemies: [ 'Bat', 'Bat2' ],
+                minimum: 50
             },
             180: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Skeleton' ],
                 minimum: 40
             },
             240: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Skeleton', 'Zambie' ],
                 minimum: 50
             },
             300: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Skeleton2' ],
                 minimum: 60
             },
             360: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Skeleton2', 'Zambie2' ],
                 minimum: 70
             },
             420: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Bat3', 'Zambie', 'Skeleton3' ],
                 minimum: 80
             },
             480: {
                 interval: 3,
-                enemies: [ "BasicEnemy" ],
+                enemies: [ 'Zambie', 'Zambie3' ],
                 minimum: 90
             },
             540: {
@@ -175,6 +176,7 @@ export default class Game extends Phaser.Game {
                     { key: 'rexGrayScalePipeline', plugin: GrayScalePipelinePlugin, start: true },
                     { key: 'rexBBCodeTextPlugin', plugin: BBCodeTextPlugin, start: true },
                     { key: 'GameObjectFactoryPlugin', plugin: GameObjectFactoryPlugin, start: true },
+                    { key: 'rexSoundFade', plugin: SoundFadePlugin, start: true },
                     NineSlicePlugin.DefaultCfg
                 ]
             }

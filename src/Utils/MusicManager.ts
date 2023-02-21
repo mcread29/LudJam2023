@@ -1,9 +1,10 @@
-import Game from '../Game'
+import SoundFadePlugin from 'phaser3-rex-plugins/plugins/soundfade-plugin';
+import Game from '../Game';
 
 export class MusicManager {
     private _game: Game;
-    private _currentMusic: Phaser.Sound.BaseSound
-    private _currentKey: string
+    private _currentMusic: Phaser.Sound.BaseSound;
+    private _currentKey: string;
     private _volume: number;
 
     constructor(game: Game, volume: number) {
@@ -11,12 +12,18 @@ export class MusicManager {
         this._volume = volume;
     }
 
-    public play(key: string) {
+    public play(key: string, loop = true) {
         if (key == this._currentKey) return;
-        if (this._currentMusic) this._currentMusic.destroy();
+        let delay = 0;
+        if (this._currentMusic)
+        {
+            (this._game.plugins.get('rexSoundFade') as SoundFadePlugin).fadeOut(this._currentMusic, 250);
+            delay = 250;
+        }
         this._currentMusic = this._game.sound.add(key, {
             volume: this._volume,
-            loop: true
+            loop: loop,
+            delay: 250
         });
         this._currentMusic.play();
         this._currentKey = key;
@@ -36,7 +43,8 @@ export class MusicManager {
     }
 
     public stop() {
-        if (this._currentMusic) {
+        if (this._currentMusic)
+        {
             this._currentMusic.removeAllListeners(Phaser.Sound.Events.COMPLETE);
             this._currentMusic.destroy();
         }

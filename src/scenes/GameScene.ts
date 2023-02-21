@@ -68,6 +68,7 @@ export default class GameScene extends BaseScene {
         this.physics.add.collider(level.collision, this.enemies);
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
+            Game.Instance.music.play('death', false);
             Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
         });
 
@@ -79,26 +80,10 @@ export default class GameScene extends BaseScene {
             Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(ChooseStartAttackScene.SceneName, { attacks: Game.Instance.manager.attacks });
         });
 
-        setTimeout(() => {
-        }, 10);
-    }
-
-    update(time: number, delta: number): void {
-        super.update(time, delta);
-
-        // if (this.enemies.children.size <= 0)
-        // {
-        //     for (let item of this.sys.displayList.list)
-        //     {
-        //         item.destroy();
-        //     }
-
-        //     // Game.Instance.manager.ReturnToMenu();
-        // }
+        Game.Instance.music.play('music');
     }
 
     onLevelUp() {
         Game.Instance.scene.pause(GameScene.SceneName);
-        // start level up screen
     }
 }

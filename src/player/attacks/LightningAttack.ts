@@ -19,6 +19,7 @@ export class LightningAttack extends Attack {
     protected _icon: string = 'kitty_lit';
 
     _hitboxes: HitBox[] = [];
+    private _anims: Phaser.GameObjects.Sprite[] = [];
 
     public attacRate: number = 0.75;
     public attackTimeout: number = 0.75;
@@ -45,6 +46,11 @@ export class LightningAttack extends Attack {
             let enemy = enemiesToTarget[ i ];
             if (enemy)
             {
+                this._anims[ i ].setVisible(true)
+                    .setPosition(enemiesToTarget[ i ].x, enemiesToTarget[ i ].y)
+                    .play({ key: 'Lightning' }).once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+                        this._anims[ i ].setVisible(false);
+                    });
                 this._hitboxes[ i ].enable(enemiesToTarget[ i ].x, enemiesToTarget[ i ].y);
             }
         }
@@ -90,12 +96,18 @@ export class LightningAttack extends Attack {
     }
 
     private addProjectile() {
-        const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true)
+        const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true, false)
             .setBaseScale(0.1)
             .setTint(0x00fff0)
             .setDepth(500);
 
         hitbox.disableBody(true, true);
         this._hitboxes.push(hitbox);
+
+        const anim = this.scene.add.sprite(0, 0, 'lightning')
+            .setOrigin(0.5, 1)
+            .setScale(2)
+            .setVisible(false);
+        this._anims.push(anim);
     }
 }

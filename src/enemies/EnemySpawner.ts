@@ -47,7 +47,6 @@ export class EnemySpawner {
                         EnemyPool.ReturnEnemy(enemy);
                         this.enemyKilled();
                     }
-                    console.log(this.scene.enemies.getChildren().length);
                 }
                 this.lastWave = wave;
                 this._spawnedBoss = false;
@@ -85,6 +84,7 @@ export class EnemySpawner {
         for (let enemyName of whichToSpawn)
         {
             const spawnCount = num.next().value;
+            console.log('spawning', spawnCount, enemyName);
             if (spawnCount)
             {
                 const enemies = EnemyPool.GetEnemies(enemyName, spawnCount);

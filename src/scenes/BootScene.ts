@@ -66,6 +66,10 @@ export default class BootScene extends BaseScene {
             this.load.image('uh_oh', './assets/images/uh_oh.png');
 
             this.load.image('cat_nip', './assets/images/cat_nip.png');
+            this.load.image('wicked', './assets/images/wicked.png');
+            this.load.image('succ', './assets/images/succ.png');
+            this.load.image('qt_candle', './assets/images/qt_candle.png');
+            this.load.image('qt_star', './assets/images/qt_star.png');
 
             this.load.image('icon_bg', './assets/images/itembg.png');
 
@@ -82,22 +86,77 @@ export default class BootScene extends BaseScene {
             this.load.image('clover_kitty', './assets/images/clover_kitty.png');
             this.load.image('clover_kitty_boss', './assets/images/clover_kitty_boss.png');
 
+            this.load.image('pog_bat_01', './assets/images/pog_bat_01.png');
+            this.load.image('skeleton_01', './assets/images/skeleton_01.png');
+            this.load.image('zambie_01', './assets/images/zambie_01.png');
+
             this.load.image('lud_boss', './assets/images/lud_boss.png');
 
             this.load.image('tiles', 'assets/tilemaps/map1.png');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
 
             this.load.image('controls', './assets/images/controls.png');
+
+            this.load.image('slash', './assets/images/slash.png');
+
+            this.load.aseprite('lightning', './assets/animations/lit_64x256.png', './assets/animations/Coots_01.json');
+
+            this.load.audio('title', './assets/music/Coots_Title_01.mp3');
+            this.load.audio('death', './assets/music/Coots_Death_01.mp3');
+            this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
         }
     }
 
     create(): void {
         super.create();
 
-        Game.Instance.scene.stop(BootScene.SceneName).start(MainMenu.SceneName);
+        this.hueShift('pog_bat_01', 'pog_bat_02', 0.1);
+        this.hueShift('pog_bat_01', 'pog_bat_03', 0.5);
+
+        this.hueShift('skeleton_01', 'skeleton_02', 0.1);
+        this.hueShift('skeleton_01', 'skeleton_03', 0.5);
+
+        this.hueShift('zambie_01', 'zambie_02', 0.1);
+        this.hueShift('zambie_01', 'zambie_03', 0.5);
+
+        const anims = this.anims.createFromAseprite('lightning');
+        console.log(anims);
+
+        Game.Instance.scene.start(MainMenu.SceneName);
     }
 
     shutdown(): void {
         super.shutdown();
+    }
+
+    hueShift(textureKey: string, newTextureKey, shiftAmount: number) {
+        const originalTexture = this.textures.get(textureKey).getSourceImage();
+        const newTexture = this.textures.createCanvas(newTextureKey, originalTexture.width, originalTexture.height);
+        const context = (newTexture.getSourceImage() as any).getContext('2d');
+        context.drawImage(originalTexture, 0, 0);
+
+
+        const pixels = context.getImageData(0, 0, originalTexture.width, originalTexture.height);
+
+        for (let i = 0; i < pixels.data.length / 4; i++)
+        {
+            const r = pixels.data[ i * 4 ];
+            const g = pixels.data[ i * 4 + 1 ];
+            const b = pixels.data[ i * 4 + 2 ];
+
+            const hsv = Phaser.Display.Color.RGBToHSV(r, g, b);
+
+            const h = hsv.h + shiftAmount;
+
+            const rgb = Phaser.Display.Color.HSVToRGB(h, hsv.s, hsv.v) as Phaser.Types.Display.ColorObject;
+
+            pixels.data[ i * 4 ] = rgb.r;
+            pixels.data[ i * 4 + 1 ] = rgb.g;
+            pixels.data[ i * 4 + 2 ] = rgb.b;
+        }
+
+        context.putImageData(pixels, 0, 0);
+
+        newTexture.refresh();
     }
 }

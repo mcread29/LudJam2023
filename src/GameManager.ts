@@ -95,16 +95,12 @@ export class GameManager {
         if (this._player.attacks.length >= this._player.maxAttacks) powerups.push(...this._player.attacks);
         else
         {
-            console.log(this.attacks);
-            console.log(this.attacks.sort(() => 0.5 - Math.random()));
             powerups.push(...this.attacks.sort(() => 0.5 - Math.random()));
         }
 
         if (this._player.items.length >= this._player.maxItems) powerups.push(...this._player.items);
         else
         {
-            console.log(this.items);
-            console.log(this.items.sort(() => 0.5 - Math.random()));
             powerups.push(...this.items.sort(() => 0.5 - Math.random()));
         }
 
@@ -114,7 +110,6 @@ export class GameManager {
         this.playerLevel++;
 
         this.eventCenter.emit('levelup', this.playerLevel);
-        console.log(powerups);
         Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: powerups.sort(() => 0.5 - Math.random()).splice(0, 3) });
     }
 

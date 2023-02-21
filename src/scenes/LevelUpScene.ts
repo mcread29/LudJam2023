@@ -36,7 +36,8 @@ export class PowerUpDisplay extends Phaser.GameObjects.Container {
             }
         }).setOrigin(0, 0);
 
-        const lvl = scene.add.rexBBCodeText(bg.width - 12.5, 12.5, `Lvl. ${attack.level + 1}`, {
+        const text = attack.level < 1 ? 'New!' : `Lvl. ${attack.level + 1}`;
+        const lvl = scene.add.rexBBCodeText(bg.width - 12.5, 12.5, text, {
             fontFamily: 'Comic Sans MS',
             color: '#ffffff',
             fontSize: '15px',
@@ -59,7 +60,6 @@ export class LevelUpScene extends BaseScene {
 
     init(data: { attacks: PowerUp[]; }) {
         this.attacks = data.attacks;
-        console.log(this.attacks);
     }
 
     create(): void {

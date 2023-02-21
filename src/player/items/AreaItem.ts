@@ -2,7 +2,7 @@ import { PLayer } from "../Player";
 import { Item } from "./Item";
 
 export default class AreaItem extends Item {
-    protected _name: string = 'Area Item';
+    protected _name: string = 'QT Candle';
     protected _desc: string[] = [
         'Augments area of attacks by 10%',
         'Base area up by 10%',
@@ -10,7 +10,7 @@ export default class AreaItem extends Item {
         'Base area up by 10%',
         'Base area up by 10%'
     ];
-    protected _icon: string = 'cat_nip';
+    protected _icon: string = 'qt_candle';
 
     protected _maxLevel = 5;
 

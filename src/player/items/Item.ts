@@ -27,7 +27,10 @@ export abstract class Item implements PowerUp {
         this._player = player;
 
         player.items.push(this);
+
+        this._level++;
     }
+
     Upgrade(): void {
         this._level++;
     }

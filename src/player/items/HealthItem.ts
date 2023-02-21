@@ -2,7 +2,7 @@ import { PLayer } from "../Player";
 import { Item } from "./Item";
 
 export default class HealthItem extends Item {
-    protected _name: string = 'Health Item';
+    protected _name: string = 'QT Star';
     protected _desc: string[] = [
         'Augment max health by 20%',
         'Max health increases by 20%',
@@ -10,7 +10,7 @@ export default class HealthItem extends Item {
         'Max health increases by 20%',
         'Max health increases by 20%'
     ];
-    protected _icon: string = 'cat_nip';
+    protected _icon: string = 'qt_star';
 
     protected _maxLevel = 5;
 

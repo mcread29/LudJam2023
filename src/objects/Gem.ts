@@ -39,12 +39,18 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
     }
 
     postUpdate() {
-        this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
-        this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+        if (this.scene)
+        {
+            this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
+            this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+        }
     }
 
     destroy(fromScene?: boolean): void {
-        this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+        if (this.scene && !fromScene)
+        {
+            this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+        }
         super.destroy(fromScene);
     }
 }

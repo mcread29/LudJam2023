@@ -2,7 +2,7 @@ import { PLayer } from "../Player";
 import { Item } from "./Item";
 
 export default class SpeedItem extends Item {
-    protected _name: string = 'Speed Item';
+    protected _name: string = 'WICKED';
     protected _desc: string[] = [
         'Character moves 10% faster',
         'Movement speed increases by 10%',
@@ -10,7 +10,7 @@ export default class SpeedItem extends Item {
         'Movement speed increases by 10%',
         'Movement speed increases by 10%'
     ];
-    protected _icon: string = 'cat_nip';
+    protected _icon: string = 'wicked';
 
     protected _maxLevel = 5;
 

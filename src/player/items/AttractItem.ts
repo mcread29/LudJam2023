@@ -2,7 +2,7 @@ import { PLayer } from "../Player";
 import { Item } from "./Item";
 
 export default class AttractItem extends Item {
-    protected _name: string = 'Attract Item';
+    protected _name: string = 'Succ';
     protected _desc: string[] = [
         'Character picks up items from further away',
         'Pickup range increased by 33%',
@@ -10,7 +10,7 @@ export default class AttractItem extends Item {
         'Pickup range increased by 20%',
         'Pickup range increased by 33%'
     ];
-    protected _icon: string = 'cat_nip';
+    protected _icon: string = 'succ';
 
     protected _maxLevel = 5;
 

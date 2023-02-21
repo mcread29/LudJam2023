@@ -39,6 +39,8 @@ export default class MainMenu extends BaseScene {
                     ease: Phaser.Math.Easing.Quadratic.Out
                 });
             });
+
+        Game.Instance.music.play('title', false);
     }
 
     startGame() {
