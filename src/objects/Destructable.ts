@@ -42,7 +42,6 @@ export class Destructable extends Phaser.Physics.Arcade.Sprite {
 
         const index = Math.floor(Math.random() * this._pickups.length);
         const p: pickUp = this._pickups[ index ];
-        console.log(p, this._pickups, index);
 
         new p(this.scene as GameScene, this.x, this.y);
     }

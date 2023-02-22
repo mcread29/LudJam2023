@@ -17,6 +17,36 @@ export interface PowerUp {
     Upgrade(): void;
 }
 
+export class CoinPowerup implements PowerUp {
+    get level(): number { return 0; }
+    get maxLevel(): number { return 0; }
+    get name(): string { return 'Coins!'; }
+    get desc(): string { return 'Gain 100 coins!'; }
+    get icon(): string { return 'coin_01'; }
+    get active(): boolean { return true; }
+    Activate(player: PLayer): void { }
+    Upgrade(): void {
+        Game.Instance.playerData.saveData.coinCount += 100;
+        Game.Instance.playerData.save();
+    }
+}
+
+export class HealthPowerup implements PowerUp {
+    get level(): number { return 0; }
+    get maxLevel(): number { return 0; }
+    get name(): string { return 'Health!'; }
+    get desc(): string { return 'Heal 30!'; }
+    get icon(): string { return 'chimken'; }
+    get active(): boolean { return true; }
+
+    constructor(private _player: PLayer) { }
+
+    Activate(player: PLayer): void { }
+    Upgrade(): void {
+        this._player.Heal(30);
+    }
+}
+
 export abstract class Attack implements PowerUp {
     protected _level = 0;
     public get level(): number { return this._level; }

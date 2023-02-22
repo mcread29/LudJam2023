@@ -1,5 +1,5 @@
 import Game from "./Game";
-import { Attack, PowerUp } from "./player/attacks/Attack";
+import { Attack, CoinPowerup, HealthPowerup, PowerUp } from "./player/attacks/Attack";
 import { BookAttack } from "./player/attacks/BookAttack";
 import { HissAttack } from "./player/attacks/HissAttack";
 import { LightningAttack } from "./player/attacks/LightningAttack";
@@ -36,8 +36,6 @@ export class GameManager {
     private _powerups: PowerUp[];
     public get attacks(): Attack[] { return this._powerups.filter((powerup) => (powerup instanceof Attack)) as Attack[]; }
     public get items(): Item[] { return this._powerups.filter((powerup) => (powerup instanceof Item)) as Item[]; }
-
-    private _startingAttack: PowerUp;
 
     constructor() {
         this._eventCenter = new Phaser.Events.EventEmitter();
@@ -118,6 +116,8 @@ export class GameManager {
         this.playerLevel++;
 
         this.eventCenter.emit('levelup', this.playerLevel);
+        if (powerups.length < 1) powerups = [ new CoinPowerup(), new HealthPowerup(this._player) ];
+        console.log(powerups);
         Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: powerups.sort(() => 0.5 - Math.random()).splice(0, 3) });
     }
 
@@ -131,7 +131,10 @@ export class GameManager {
     }
 
     private pickupChest() {
-        let powerups: PowerUp[] = [ ...this._player.attacks, ...this._player.items ].sort(() => 0.5 - Math.random());
+        let powerups: PowerUp[] = [ ...this._player.attacks, ...this._player.items ]
+            .filter((powerup) => powerup.level < powerup.maxLevel)
+            .sort(() => 0.5 - Math.random());
+        if (powerups.length < 1) powerups = [ new CoinPowerup(), new HealthPowerup(this._player) ];
         Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(PickupChestScene.SceneName, { powerUp: powerups[ 0 ] });
     }
 

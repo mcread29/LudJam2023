@@ -117,7 +117,7 @@ export default class BootScene extends BaseScene {
             this.load.aseprite('lightning', './assets/animations/lightning.png', './assets/animations/lightning.json');
             this.load.aseprite('waterAnim', './assets/animations/kitty_water_01.png', './assets/animations/kitty_water_01.json');
             this.load.aseprite('chestAnim', './assets/animations/chest_01_64x64.png', './assets/animations/chest_01.json');
-            this.load.aseprite('coin', './assets/animations/coin.png', './assets/animations/coin.json');
+            this.load.aseprite('coin_01', './assets/animations/coin.png', './assets/animations/coin.json');
 
             this.load.image('waterAttack', './assets/images/water.png');
 
@@ -151,7 +151,8 @@ export default class BootScene extends BaseScene {
         this.anims.createFromAseprite('lightning');
         this.anims.createFromAseprite('waterAnim');
         this.anims.createFromAseprite('chestAnim');
-        this.anims.createFromAseprite('coin');
+
+        console.log(this.anims.createFromAseprite('coin_01'));
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }

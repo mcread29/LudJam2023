@@ -6,7 +6,7 @@ import { Pickup } from "./PIckup";
 export class Coin extends Pickup {
 
     constructor(scene: GameScene, x: number, y: number) {
-        super(scene, x, y, 'coin');
+        super(scene, x, y, 'coin_01');
         this.play({ key: 'Coin', repeat: -1 });
         scene.add.existing(this);
         scene.physics.add.existing(this);

@@ -13,7 +13,8 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     shutdown: () => void;
 
-    protected abstract _health: number;
+    protected _health: number;
+    protected abstract _maxHealth: number;
     protected abstract _exp: number;
     protected abstract _speed: number;
     protected abstract _power: number;
@@ -32,6 +33,8 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     public Enable() {
+        this._health = this._maxHealth;
+        console.log(this._health, this._maxHealth);
         (this.scene as GameScene).enemies.add(this);
         this.enableBody(false, this.x, this.y, true, true);
         this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
@@ -109,7 +112,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 export class TEMPBOSS extends Enemy {
     protected _Type: string = 'TEMPBOSS';
-    protected _health: number = 1;
+    protected _maxHealth: number = 1;
     protected _exp: number = 30;
     protected _speed: number = 60;
     protected _power: number = 10;
@@ -123,7 +126,7 @@ export class TEMPBOSS extends Enemy {
 export class BasicEnemy extends Enemy {
     protected _Type: string = 'BasicEnemy';
 
-    protected _health: number = 5;
+    protected _maxHealth: number = 5;
     protected _exp: number = 1;
     protected _speed: number = 140;
     protected _power: number = 5;
@@ -136,7 +139,7 @@ export class BasicEnemy extends Enemy {
 
 export class BasicEnemyBoss extends Enemy {
     protected _Type: string = 'BasicEnemyBoss';
-    protected _health: number = 50;
+    protected _maxHealth: number = 50;
     protected _exp: number = 30;
     protected _speed: number = 60;
     protected _power: number = 10;
@@ -156,7 +159,7 @@ export class BasicEnemyBoss extends Enemy {
 
 export class Bat extends Enemy {
     protected _Type: string = 'Bat';
-    protected _health: number = 1;
+    protected _maxHealth: number = 1;
     protected _exp: number = 1;
     protected _speed: number = 140;
     protected _power: number = 5;
@@ -169,7 +172,7 @@ export class Bat extends Enemy {
 
 export class Bat2 extends Enemy {
     protected _Type: string = 'Bat2';
-    protected _health: number = 5;
+    protected _maxHealth: number = 5;
     protected _exp: number = 1;
     protected _speed: number = 140;
     protected _power: number = 5;
@@ -182,7 +185,7 @@ export class Bat2 extends Enemy {
 
 export class Bat3 extends Enemy {
     protected _Type: string = 'Bat3';
-    protected _health: number = 20;
+    protected _maxHealth: number = 20;
     protected _exp: number = 1;
     protected _speed: number = 140;
     protected _power: number = 5;
@@ -196,7 +199,7 @@ export class Bat3 extends Enemy {
 
 export class Zambie extends Enemy {
     protected _Type: string = 'Zambie';
-    protected _health: number = 10;
+    protected _maxHealth: number = 10;
     protected _exp: number = 1;
     protected _speed: number = 100;
     protected _power: number = 10;
@@ -209,7 +212,7 @@ export class Zambie extends Enemy {
 
 export class Zambie2 extends Enemy {
     protected _Type: string = 'Zambie2';
-    protected _health: number = 30;
+    protected _maxHealth: number = 30;
     protected _exp: number = 5;
     protected _speed: number = 100;
     protected _power: number = 10;
@@ -222,7 +225,7 @@ export class Zambie2 extends Enemy {
 
 export class Zambie3 extends Enemy {
     protected _Type: string = 'Zambie3';
-    protected _health: number = 60;
+    protected _maxHealth: number = 60;
     protected _exp: number = 5;
     protected _speed: number = 100;
     protected _power: number = 15;
@@ -236,7 +239,7 @@ export class Zambie3 extends Enemy {
 
 export class Skeleton extends Enemy {
     protected _Type: string = 'Skeleton';
-    protected _health: number = 15;
+    protected _maxHealth: number = 15;
     protected _exp: number = 5;
     protected _speed: number = 100;
     protected _power: number = 5;
@@ -249,7 +252,7 @@ export class Skeleton extends Enemy {
 
 export class Skeleton2 extends Enemy {
     protected _Type: string = 'Skeleton2';
-    protected _health: number = 50;
+    protected _maxHealth: number = 50;
     protected _exp: number = 10;
     protected _speed: number = 100;
     protected _power: number = 10;
@@ -262,7 +265,7 @@ export class Skeleton2 extends Enemy {
 
 export class Skeleton3 extends Enemy {
     protected _Type: string = 'Skeleton3';
-    protected _health: number = 100;
+    protected _maxHealth: number = 100;
     protected _exp: number = 15;
     protected _speed: number = 100;
     protected _power: number = 15;
@@ -277,7 +280,7 @@ export class Skeleton3 extends Enemy {
 
 export class LudBoss extends Enemy {
     protected _Type: string = 'LudBoss';
-    protected _health: number = Number.MAX_SAFE_INTEGER;
+    protected _maxHealth: number = Number.MAX_SAFE_INTEGER;
     protected _exp: number = Number.MAX_SAFE_INTEGER;
     protected _speed: number = 1000;
     protected _power: number = 1000;
