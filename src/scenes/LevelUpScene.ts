@@ -209,13 +209,13 @@ export class LevelUpScene extends BaseScene {
         {
             this.powerUps[ this.selectedIndex ].select();
         }
-        if ((Phaser.Input.Keyboard.JustDown(this.up) || Phaser.Input.Keyboard.JustDown(this.w)) && this.canChangeSelection)
+        if ((Phaser.Input.Keyboard.JustDown(this.up) || Phaser.Input.Keyboard.JustDown(this.w)) && this.canChangeSelection && this.powerUps.length > 0)
         {
             this.selectedIndex -= 1;
             this.selectedIndex = ((this.selectedIndex % this.attacks.length) + this.attacks.length) % this.attacks.length;
             this.setSelection();
         }
-        if ((Phaser.Input.Keyboard.JustDown(this.down) || Phaser.Input.Keyboard.JustDown(this.s)) && this.canChangeSelection)
+        if ((Phaser.Input.Keyboard.JustDown(this.down) || Phaser.Input.Keyboard.JustDown(this.s)) && this.canChangeSelection && this.powerUps.length > 0)
         {
             this.selectedIndex += 1;
             this.selectedIndex = ((this.selectedIndex % this.attacks.length) + this.attacks.length) % this.attacks.length;

@@ -1,5 +1,6 @@
 import Game from "../Game";
 import { Timer } from "../objects/Timer";
+import { Attack, PowerUp } from "../player/attacks/Attack";
 import BaseScene from "./Scene";
 
 export class UIScene extends BaseScene {
@@ -12,6 +13,12 @@ export class UIScene extends BaseScene {
     levelText: BBCodeText.BBCodeText;
 
     timer: Timer;
+
+    attackIconIndex: number;
+    attackIcons: Phaser.GameObjects.Image[];
+
+    itemIconInexx: number;
+    itemIcons: Phaser.GameObjects.Image[];
 
     create() {
         super.create();
@@ -33,13 +40,28 @@ export class UIScene extends BaseScene {
             fontSize: '20px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(1, 0.5).setResolution(5);;
+        }).setOrigin(1, 0.5).setResolution(5);
 
         this.timer = new Timer(this, Game.Instance.DefaultWidth / 2, 48);
         this.timer.Start();
 
+        this.attackIconIndex = 0;
+        this.attackIcons = [
+            this.add.image(3, 35, 'icon_bg').setOrigin(0),
+            this.add.image(45, 35, 'icon_bg').setOrigin(0),
+            this.add.image(87, 35, 'icon_bg').setOrigin(0)
+        ];
+
+        this.itemIconInexx = 0;
+        this.itemIcons = [
+            this.add.image(3, 77, 'icon_bg').setOrigin(0),
+            this.add.image(45, 77, 'icon_bg').setOrigin(0),
+            this.add.image(87, 77, 'icon_bg').setOrigin(0)
+        ];
+
         Game.Instance.manager.eventCenter.on('meterProgress', this.setMeterFillProgress, this);
         Game.Instance.manager.eventCenter.on('levelup', this.levelUP, this);
+        Game.Instance.manager.eventCenter.on('add_powerup', this.AddPowerup, this);
     }
 
     update(time: number, delta: number): void {
@@ -58,5 +80,19 @@ export class UIScene extends BaseScene {
 
     levelUP(level: number) {
         this.levelText.setText(`Lvl. ${level}`);
+    }
+
+    AddPowerup(powerUp: PowerUp) {
+        const icon = this.add.image(0, 0, powerUp.icon);
+        if (powerUp instanceof Attack)
+        {
+            Phaser.Display.Align.In.Center(icon, this.attackIcons[ this.attackIconIndex ]);
+            this.attackIconIndex++;
+        }
+        else
+        {
+            Phaser.Display.Align.In.Center(icon, this.itemIcons[ this.itemIconInexx ]);
+            this.itemIconInexx++;
+        }
     }
 }

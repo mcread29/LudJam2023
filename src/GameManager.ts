@@ -49,9 +49,13 @@ export class GameManager {
         // this._startingAttack.Activate(player);
     }
 
-    public AddAttack(attack: PowerUp) {
-        if (attack.active) attack.Upgrade();
-        else attack.Activate(this._player);
+    public AddAttack(powerUp: PowerUp) {
+        if (powerUp.active) powerUp.Upgrade();
+        else
+        {
+            powerUp.Activate(this._player);
+            this.eventCenter.emit('add_powerup', powerUp);
+        }
     }
 
     public SetupAttacks(scene: GameScene) {
