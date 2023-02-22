@@ -85,7 +85,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
     }
 
     postUpdate(time: number, delta: number) {
-        if (this.health <= 0) return;
+        if (this.dead) return;
 
         this.body.setVelocity(0);
         let inputVector = new Phaser.Math.Vector2(0, 0);
@@ -120,6 +120,10 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
                 {
                     this.dead = true;
                     Game.Instance.manager.eventCenter.emit('player_die');
+                    for (const attack of this.attacks)
+                    {
+                        attack.Deactivate();
+                    }
                 }
             }
         }

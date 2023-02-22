@@ -23,6 +23,7 @@ import { GameManager } from "./GameManager";
 import { LevelUpScene } from "./scenes/LevelUpScene";
 import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 import { PickupChestScene } from "./scenes/PickupChest";
+import { GameOverScene } from "./scenes/GameOver";
 
 export type gameConfig = {};
 
@@ -208,6 +209,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(LevelUpScene.SceneName, LevelUpScene);
         this.scene.add(ChooseStartAttackScene.SceneName, ChooseStartAttackScene);
         this.scene.add(PickupChestScene.SceneName, PickupChestScene);
+        this.scene.add(GameOverScene.SceneName, GameOverScene);
     }
 
     public step(time: number, delta: number): void {

@@ -62,7 +62,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         super.destroy(fromScene);
     }
 
-    TakeDamage(damage: number) {
+    TakeDamage(damage: number): { damage: number, killed: boolean; } {
         this._health -= damage;
 
         const text = this.scene.add.rexBBCodeText(Math.round(this.x), Math.round(this.y), `[b]${Math.round(damage)}[/b]`, {
@@ -71,8 +71,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
             fontSize: '30px',
             halign: 'center',
             valign: 'center'
-        })
-            .setOrigin(0.5)
+        }).setOrigin(0.5)
             .setDepth(500)
             .setResolution(5)
             .setStroke('0x000000', 5);
@@ -91,7 +90,13 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
             onComplete: () => text.destroy()
         });
 
-        if (this._health <= 0) this.Kill();
+        if (this._health <= 0)
+        {
+            this.Kill();
+            console.log('kill with:', damage, 'overkill: ', this._health, 'actual damage: ', damage + this._health);
+            return { damage: damage + this._health, killed: true };
+        }
+        return { damage: damage, killed: false };
     }
 
     Kill() {

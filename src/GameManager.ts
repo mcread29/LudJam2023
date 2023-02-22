@@ -13,6 +13,7 @@ import { Item } from "./player/items/Item";
 import SpeedItem from "./player/items/SpeedItem";
 import { PLayer } from "./player/Player";
 import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
+import { GameOverScene } from "./scenes/GameOver";
 import GameScene from "./scenes/GameScene";
 import { LevelUpScene } from "./scenes/LevelUpScene";
 import MainMenu from "./scenes/MainMenu";
@@ -80,10 +81,6 @@ export class GameManager {
         Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
     }
 
-    public ReturnToMenu() {
-        Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
-    }
-
     public GiveExp(exp: number) {
         this.playerExp += exp;
         if (this.playerExp >= this.playerLevel * 10 - 5)
@@ -137,4 +134,7 @@ export class GameManager {
         Game.Instance.scene.stop(PickupChestScene.SceneName).resume(GameScene.SceneName).resume(UIScene.SceneName);
     }
 
+    public ReturnToMenu() {
+        Game.Instance.scene.stop(GameScene.SceneName).stop(UIScene.SceneName).stop(GameOverScene.SceneName).start(MainMenu.SceneName);
+    }
 }

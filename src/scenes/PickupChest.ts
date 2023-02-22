@@ -6,10 +6,7 @@ export class PickupChestScene extends BaseScene {
     public static SceneName = 'PickupChestScene';
 
     powerUp: PowerUp;
-
     animComplete: boolean;
-
-    arrow: Phaser.GameObjects.Image;
 
     init(data: { powerUp: PowerUp; }) {
         this.powerUp = data.powerUp;
@@ -23,10 +20,10 @@ export class PickupChestScene extends BaseScene {
             if (this.animComplete === false) return;
 
             this.animComplete = false;
-            this.arrow.setTexture('arrow_2');
+            arrow.setTexture('arrow_2');
 
             this.add.tween({
-                targets: this.arrow,
+                targets: arrow,
                 x: -100,
                 duration: 300,
                 delay: 500,
@@ -82,7 +79,7 @@ export class PickupChestScene extends BaseScene {
             valign: 'center'
         }).setOrigin(0.5).setMask(mask1);
 
-        this.arrow = this.add.image(0, 490, 'arrow_1').setMask(mask1);
+        const arrow = this.add.image(0, 490, 'arrow_1').setMask(mask1);
 
         const chest = this.add.sprite(button.x, 385, 'chestAnim')
             .setOrigin(0.5, 1)
@@ -95,7 +92,7 @@ export class PickupChestScene extends BaseScene {
                     duration: 500,
                     onComplete: () => {
                         this.add.tween({
-                            targets: this.arrow,
+                            targets: arrow,
                             x: 300,
                             duration: 300,
                             ease: Phaser.Math.Easing.Sine.Out,

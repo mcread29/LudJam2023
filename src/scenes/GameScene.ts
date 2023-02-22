@@ -8,6 +8,7 @@ import { Gem } from "../objects/Gem";
 import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
 import ChooseStartAttackScene from "./ChooseStartAttack";
+import { GameOverScene } from "./GameOver";
 import { LevelUpScene } from "./LevelUpScene";
 import MainMenu from "./MainMenu";
 import BaseScene, { SceneInit } from "./Scene";
@@ -31,7 +32,7 @@ export default class GameScene extends BaseScene {
     }
 
     shutdown(): void {
-        this.spawner.Destroy();
+        this.spawner = null;
         this.physics.shutdown();
         Game.Instance.scene.stop(UIScene.SceneName);
 
@@ -84,7 +85,9 @@ export default class GameScene extends BaseScene {
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.music.play('death', false);
-            Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
+            this.spawner.Destroy();
+            Game.Instance.scene.start(GameOverScene.SceneName).pause(UIScene.SceneName);
+            // Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
         });
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);

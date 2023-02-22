@@ -51,6 +51,15 @@ export abstract class Attack implements PowerUp {
 
     protected _areaMod: number = 1;
 
+    private _enemyCollider: Phaser.Physics.Arcade.Collider;
+    private _destructableCollider: Phaser.Physics.Arcade.Collider;
+
+    public get damageDealt(): number { return this._damageDealt; }
+    private _damageDealt: number = 0;
+
+    public get numKilled(): number { return this._numKilled; }
+    private _numKilled: number = 0;
+
     constructor(protected scene: GameScene) {
         this.hitEnemies = new Map<Enemy, number>();
 
@@ -58,6 +67,14 @@ export abstract class Attack implements PowerUp {
             this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
         });
+    }
+
+    public Deactivate() {
+        this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
+        this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
+
+        this._enemyCollider.destroy();
+        this._destructableCollider.destroy();
     }
 
     public Activate(player: PLayer) {
@@ -75,7 +92,7 @@ export abstract class Attack implements PowerUp {
 
         player.attacks.push(this);
 
-        this.scene.physics.add.overlap(
+        this._enemyCollider = this.scene.physics.add.overlap(
             this.hitboxes,
             (this.scene as GameScene).enemies,
             (a: HitBox, e: Enemy) => this.Hit(e),
@@ -83,7 +100,7 @@ export abstract class Attack implements PowerUp {
         );
 
 
-        this.scene.physics.add.overlap(
+        this._destructableCollider = this.scene.physics.add.overlap(
             this.hitboxes,
             (this.scene as GameScene).destructables,
             (a: HitBox, d: Destructable) => {
@@ -123,7 +140,9 @@ export abstract class Attack implements PowerUp {
 
     public Hit(enemy: Enemy) {
         this.hitEnemies.set(enemy, this.hitDelay);
-        enemy.TakeDamage(this.damage * this._damageMod);
+        const { damage, killed } = enemy.TakeDamage(this.damage * this._damageMod);
+        this._damageDealt += damage;
+        if (killed) this._numKilled++;
     }
 
     IncreaseDamageMod(amount: number) {

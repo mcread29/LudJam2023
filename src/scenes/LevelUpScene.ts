@@ -137,7 +137,7 @@ export class LevelUpScene extends BaseScene {
             fontSize: '50px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(0.5).setResolution(5);;
+        }).setOrigin(0.5).setResolution(5);
 
         const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 200, 'box')
             .setScale(1, 0.3)
