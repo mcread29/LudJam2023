@@ -48,6 +48,7 @@ export default class BootScene extends BaseScene {
             this.load.image('start_button', './assets/images/press_start.png');
 
             this.load.image('border_1', './assets/images/border_1.png');
+            this.load.image('border_2', './assets/images/border_2.png');
 
             this.load.image('box', './assets/images/box.png');
             this.load.image('box2', './assets/images/box_2.png');
@@ -72,6 +73,7 @@ export default class BootScene extends BaseScene {
             this.load.image('qt_star', './assets/images/qt_star.png');
 
             this.load.image('icon_bg', './assets/images/itembg.png');
+            this.load.image('upgrade_fill', './assets/images/upgrade_fill.png');
 
             this.load.image('gem_1', './assets/images/gem_1.png');
             this.load.image('gem_2', './assets/images/gem_2.png');

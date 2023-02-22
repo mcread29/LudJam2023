@@ -19,6 +19,7 @@ import { LevelUpScene } from "./scenes/LevelUpScene";
 import MainMenu from "./scenes/MainMenu";
 import { PickupChestScene } from "./scenes/PickupChest";
 import { UIScene } from "./scenes/UIScene";
+import { UpgradeScene } from "./scenes/UpgradeScene";
 
 export class GameManager {
 
@@ -47,7 +48,6 @@ export class GameManager {
 
     public SetPlayer(player: PLayer) {
         this._player = player;
-        // this._startingAttack.Activate(player);
     }
 
     public AddAttack(powerUp: PowerUp) {
@@ -75,10 +75,11 @@ export class GameManager {
     }
 
     public StartGame() {
-        this.playerLevel = 1;
-        this.playerExp = 0;
-
         Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
+    }
+
+    public ShowUpgrades() {
+        Game.Instance.scene.start(UpgradeScene.SceneName);
     }
 
     public GiveExp(exp: number) {

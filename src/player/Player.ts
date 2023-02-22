@@ -78,6 +78,11 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
             this.health = 0;
             this.attacks = [];
         });
+
+        this._speedMod += 0.05 * Game.Instance.playerData.saveData.WickedTier;
+        this._attractMod += 0.05 * Game.Instance.playerData.saveData.SuccTier;
+        this.maxHealth *= 1 + (0.05 * Game.Instance.playerData.saveData.StarTier);
+        this.health *= 1 + (0.05 * Game.Instance.playerData.saveData.StarTier);
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -149,8 +154,8 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
     }
 
     IncreaseHealthMod(amount: number) {
-        this.maxHealth *= 1.2;
-        this.health *= 1.2;
+        this.maxHealth *= amount;
+        this.health *= amount;
     }
 
     IncreaseSpeedMod(amount: number) {

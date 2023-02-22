@@ -24,6 +24,7 @@ import { LevelUpScene } from "./scenes/LevelUpScene";
 import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 import { PickupChestScene } from "./scenes/PickupChest";
 import { GameOverScene } from "./scenes/GameOver";
+import { UpgradeScene } from "./scenes/UpgradeScene";
 
 export type gameConfig = {};
 
@@ -119,7 +120,9 @@ export default class Game extends Phaser.Game {
         return this._scaleManager;
     }
 
-    protected playerData: PlayerData;
+    protected _playerData: PlayerData;
+    public get playerData(): PlayerData { return this._playerData; }
+
     protected static _instance: Game;
     public static get Instance(): Game {
         return this._instance;
@@ -197,7 +200,8 @@ export default class Game extends Phaser.Game {
 
         this._music = new MusicManager(this, 0.4);
 
-        this.playerData = new PlayerData("GAME-NAME");
+        this._playerData = new PlayerData("Coots-Clash");
+        this._playerData.load();
 
         Game._instance = this;
 
@@ -210,6 +214,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(ChooseStartAttackScene.SceneName, ChooseStartAttackScene);
         this.scene.add(PickupChestScene.SceneName, PickupChestScene);
         this.scene.add(GameOverScene.SceneName, GameOverScene);
+        this.scene.add(UpgradeScene.SceneName, UpgradeScene);
     }
 
     public step(time: number, delta: number): void {

@@ -1,4 +1,5 @@
 import { Enemy } from "../../enemies/Enemy";
+import Game from "../../Game";
 import { Destructable } from "../../objects/Destructable";
 import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
@@ -67,6 +68,9 @@ export abstract class Attack implements PowerUp {
             this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
         });
+
+        this._damageDealt += 0.05 * Game.Instance.playerData.saveData.CatNipTier;
+        this._areaMod += 0.05 * Game.Instance.playerData.saveData.CandleTier;
     }
 
     public Deactivate() {

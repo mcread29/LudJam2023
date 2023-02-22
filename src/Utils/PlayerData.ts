@@ -1,4 +1,11 @@
-export class SaveData { }
+export class SaveData {
+    coinCount: number = 0;
+    SuccTier: number = 0; //
+    WickedTier: number = 0; //
+    CandleTier: number = 0; //
+    CatNipTier: number = 0; //
+    StarTier: number = 0; //
+}
 
 export default class PlayerData {
     public static Instance: PlayerData;
@@ -21,20 +28,22 @@ export default class PlayerData {
 
     load() {
         let base64String = localStorage.getItem(this.localStorageKey);
-        if (base64String != '' && base64String != null) {
+        if (base64String != '' && base64String != null)
+        {
             let jsonText = window.atob(base64String);
             this._saveData = new SaveData();
             let saveData = <SaveData>(JSON.parse(jsonText));
-            for (let key in saveData) (<any>this._saveData)[key] = (<any>saveData)[key];
+            for (let key in saveData) (<any>this._saveData)[ key ] = (<any>saveData)[ key ];
         }
-        else {
+        else
+        {
             this._saveData = new SaveData();
         }
     }
 
     save() {
         let jsonString = JSON.stringify(this._saveData);
-        let base64String = window.btoa(jsonString)
+        let base64String = window.btoa(jsonString);
         localStorage.setItem(this.localStorageKey, base64String);
     }
 

@@ -17,8 +17,8 @@ export default class MainMenu extends BaseScene {
 
         this.add.image(0, 0, 'coots_clash').setOrigin(0);
 
-        const startButton = this.add.image(189.5, 480.5, 'start_button');
-        startButton.setInteractive()
+        const startButton = this.add.image(189.5, 480.5, 'start_button')
+            .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
                 Game.Instance.manager.StartGame();
             })
@@ -41,11 +41,38 @@ export default class MainMenu extends BaseScene {
                 });
             });
 
-        Game.Instance.music.play('title', false);
-    }
+        const upgradeButton = this.add.image(189.5, 600, 'start_button')
+            .setInteractive()
+            .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.manager.ShowUpgrades();
+                this.tweens.killTweensOf(upgradeButton);
+                this.tweens.add({
+                    targets: upgradeButton,
+                    scale: 1,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            })
+            .on(Phaser.Input.Events.POINTER_OVER, () => {
+                this.tweens.killTweensOf(upgradeButton);
+                this.tweens.add({
+                    targets: upgradeButton,
+                    scale: 1.15,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            })
+            .on(Phaser.Input.Events.POINTER_OUT, () => {
+                this.tweens.killTweensOf(upgradeButton);
+                this.tweens.add({
+                    targets: upgradeButton,
+                    scale: 1,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            });
 
-    startGame() {
-        Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName);
+        Game.Instance.music.play('title', false);
     }
 
     update(time: number, delta: number): void {
