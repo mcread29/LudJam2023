@@ -111,7 +111,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
         this.body.setVelocity(Math.round(move.x * speed * this._speedMod), Math.round(move.y * speed * this._speedMod));
 
-        this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
+        this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
         if (this.colliding)
         {
             this.setTint(0xff0000);

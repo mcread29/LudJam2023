@@ -1,10 +1,20 @@
 import Game from "../Game";
 import GameScene from "../scenes/GameScene";
 import { Chimken } from "./Chickmen";
+import { Coin } from "./Coin";
+import { Pickup } from "./PIckup";
+
+type pickUp = (typeof Chimken | typeof Coin);
 
 export class Destructable extends Phaser.Physics.Arcade.Sprite {
     private _timeToReenable: number = 30000;
     private _disabledTime: number = 0;
+
+
+    private _pickups: pickUp[] = [
+        Coin,
+        Chimken
+    ];
 
     constructor(scene: GameScene, x: number, y: number) {
         super(scene, x, y, 'tree');
@@ -13,7 +23,7 @@ export class Destructable extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
-        this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
+        this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
 
         scene.destructables.add(this);
     }
@@ -30,6 +40,10 @@ export class Destructable extends Phaser.Physics.Arcade.Sprite {
         this.disableBody(false, true);
         this._disabledTime = 0;
 
-        new Chimken(this.scene as GameScene, this.x, this.y);
+        const index = Math.floor(Math.random() * this._pickups.length);
+        const p: pickUp = this._pickups[ index ];
+        console.log(p, this._pickups, index);
+
+        new p(this.scene as GameScene, this.x, this.y);
     }
 }

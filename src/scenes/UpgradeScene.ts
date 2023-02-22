@@ -21,12 +21,13 @@ const coinCosts = {
 
 class UpgradeDisplay extends Phaser.GameObjects.Container {
     fills: Phaser.GameObjects.Image[];
+    costText: BBCodeText.BBCodeText;
 
     constructor(scene: Phaser.Scene, x: number, y: number, private _name: string, private currentLevel: number, maxLevel: number, private _onUpgrade: () => void) {
         super(scene, x, y);
         scene.add.existing(this);
 
-        const text = scene.add.rexBBCodeText(0, -56, _name, {
+        const text = scene.add.rexBBCodeText(0, -65, _name, {
             fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '30px',
@@ -35,7 +36,16 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
         }).setOrigin(0.5).setResolution(5);
         const bg = scene.add.nineslice(0, 0, 20 + 40 * maxLevel + 5 * (maxLevel - 1), 60, 'border_2', [ 10, 10, 10, 10 ]).setOrigin(0.5);
 
-        this.add([ bg, text ]);
+        console.log(this._name, coinCosts[ this._name ]);
+        const costText = this.costText = scene.add.rexBBCodeText(0, -40, `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]`, {
+            fontFamily: 'FutilePro',
+            color: '#ffffff',
+            fontSize: '15px',
+            halign: 'center',
+            valign: 'center'
+        }).setOrigin(0.5).setResolution(5);
+
+        this.add([ bg, text, costText ]);
 
         this.fills = [];
         for (let i = 0; i < maxLevel; i++)
@@ -111,6 +121,7 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
         this.fills[ this.currentLevel ].setTint(0x00ffff);
         this.currentLevel++;
         this._onUpgrade();
+        this.costText.setText(`[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]`);
     }
 }
 
@@ -135,7 +146,7 @@ export class UpgradeScene extends BaseScene {
             valign: 'center'
         }).setOrigin(0.5, 0).setResolution(5);
 
-        const coinText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 180, `Coins: ${Game.Instance.playerData.saveData.coinCount}`, {
+        const coinText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 180, `Coins: [color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`, {
             fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '30px',

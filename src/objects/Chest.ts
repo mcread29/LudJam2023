@@ -1,7 +1,7 @@
 import Game from "../Game";
 import { PLayer } from "../player/Player";
 import GameScene from "../scenes/GameScene";
-import { Pickup } from "./Chickmen";
+import { Pickup } from "./PIckup";
 
 export class Chest extends Pickup {
     constructor(scene: GameScene, x: number, y: number) {

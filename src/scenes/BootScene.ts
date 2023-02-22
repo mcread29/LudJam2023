@@ -19,7 +19,7 @@ export default class BootScene extends BaseScene {
             fontSize: '100px',
             halign: 'center',
             valign: 'center'
-        }).setDepth(100).setOrigin(0.5, 0).setResolution(5);
+        }).setDepth(Game.maxDepth).setOrigin(0.5, 0).setResolution(5);
 
         const loadBG = this.add.image(0, 0, 'loadBG').setOrigin(0, 0.5);
         loadBG.setPosition(Game.Instance.DefaultWidth / 2 - loadBG.displayWidth / 2, 1080 / 2);
@@ -117,6 +117,7 @@ export default class BootScene extends BaseScene {
             this.load.aseprite('lightning', './assets/animations/lightning.png', './assets/animations/lightning.json');
             this.load.aseprite('waterAnim', './assets/animations/kitty_water_01.png', './assets/animations/kitty_water_01.json');
             this.load.aseprite('chestAnim', './assets/animations/chest_01_64x64.png', './assets/animations/chest_01.json');
+            this.load.aseprite('coin', './assets/animations/coin.png', './assets/animations/coin.json');
 
             this.load.image('waterAttack', './assets/images/water.png');
 
@@ -150,6 +151,7 @@ export default class BootScene extends BaseScene {
         this.anims.createFromAseprite('lightning');
         this.anims.createFromAseprite('waterAnim');
         this.anims.createFromAseprite('chestAnim');
+        this.anims.createFromAseprite('coin');
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }

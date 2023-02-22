@@ -54,7 +54,7 @@ export class SantaWaterAttack extends Attack {
                     this._hitboxes[ i ].enable(x, y);
                     const anim = this.scene.add.sprite(x, y, 'waterAnim')
                         .play({ key: 'Flames', repeat: -1 })
-                        .setDepth((y / Game.Instance.DefaultHeight) * Game.maxDepth)
+                        .setDepth((y / this.scene.physics.world.bounds.height) * Game.maxDepth)
                         .setScale(this._areaMod * 5);
                     setTimeout(() => {
                         if (anim) anim.destroy();

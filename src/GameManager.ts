@@ -75,6 +75,9 @@ export class GameManager {
     }
 
     public StartGame() {
+        this.playerLevel = 1;
+        this.playerExp = 0;
+
         Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
     }
 
@@ -84,6 +87,7 @@ export class GameManager {
 
     public GiveExp(exp: number) {
         this.playerExp += exp;
+        console.log(this.playerExp);
         if (this.playerExp >= this.playerLevel * 10 - 5)
         {
             this.LevelUp();

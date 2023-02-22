@@ -51,7 +51,7 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
         if (this.scene)
         {
             this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
-            this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
+            this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
         }
     }
 

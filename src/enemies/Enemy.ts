@@ -49,7 +49,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         {
             this.scene.physics.moveToObject(this, Game.Instance.manager.player, this._speed);
             this.setFlipX(this.body.velocity.x < 0);
-            this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
+            this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
         }
     }
 
@@ -72,7 +72,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5)
-            .setDepth(500)
+            .setDepth(Game.maxDepth)
             .setResolution(5)
             .setStroke('0x000000', 5);
 
