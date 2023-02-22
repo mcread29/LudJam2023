@@ -28,12 +28,12 @@ export class UIScene extends BaseScene {
         this.meterFill.setMask(this.meterFillMask.createGeometryMask());
 
         this.levelText = this.add.rexBBCodeText(Game.Instance.DefaultWidth - 16, 16, 'Lv. 1', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '20px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(1, 0.5);
+        }).setOrigin(1, 0.5).setResolution(5);;
 
         this.timer = new Timer(this, Game.Instance.DefaultWidth / 2, 48);
         this.timer.Start();

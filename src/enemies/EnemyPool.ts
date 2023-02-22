@@ -1,5 +1,5 @@
 import GameScene from "../scenes/GameScene";
-import { BasicEnemy, BasicEnemyBoss, Bat, Bat2, Bat3, Enemy, LudBoss, Skeleton, Skeleton2, Skeleton3, Zambie, Zambie2, Zambie3 } from "./Enemy";
+import { BasicEnemy, BasicEnemyBoss, Bat, Bat2, Bat3, Enemy, LudBoss, Skeleton, Skeleton2, Skeleton3, TEMPBOSS, Zambie, Zambie2, Zambie3 } from "./Enemy";
 
 export class EnemyPool {
     public static get enemies(): Map<string, Enemy[]> { return this._enemies; }
@@ -7,6 +7,15 @@ export class EnemyPool {
 
     public static Initialize(scene: GameScene) {
         this._enemies = new Map<string, Enemy[]>();
+
+        this._enemies.set('TEMPBOSS', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new TEMPBOSS(scene);
+            enemy.Disable();
+            this._enemies.get('TEMPBOSS').push(enemy);
+        }
+
         this._enemies.set('BasicEnemy', []);
         for (let i = 0; i < 100; i++)
         {

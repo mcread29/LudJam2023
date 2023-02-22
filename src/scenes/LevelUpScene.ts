@@ -23,37 +23,37 @@ export class PowerUpDisplay extends Phaser.GameObjects.Container {
         const icon = scene.add.image(25, 25, _attack.icon);
 
         const name = scene.add.rexBBCodeText(30 + icon.width / 2, 25, _attack.name, {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'ExpressionPro',
             color: '#ffffff',
-            fontSize: '20px',
+            fontSize: '30px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(0, 0.5);
+        }).setOrigin(0, 0.5).setResolution(5);
 
         const desc = scene.add.rexBBCodeText(25, 30 + icon.height / 2, _attack.desc, {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'ExpressionPro',
             color: '#ffffff',
-            fontSize: '15px',
+            fontSize: '20px',
             halign: 'left',
             valign: 'center',
             wrap: {
                 mode: 'word',
                 width: 240
             }
-        }).setOrigin(0, 0);
+        }).setOrigin(0, 0).setResolution(5);
 
         const text = _attack.level < 1 ? 'New!' : `Lvl. ${_attack.level + 1}`;
         const lvl = scene.add.rexBBCodeText(bg.width - 12.5, 12.5, text, {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'ExpressionPro',
             color: '#ffffff',
-            fontSize: '15px',
+            fontSize: '20px',
             halign: 'right',
             valign: 'center',
             wrap: {
                 mode: 'word',
                 width: 240
             }
-        }).setOrigin(1, 0);
+        }).setOrigin(1, 0).setResolution(5);
 
         this.add([ bg, icon, name, desc, lvl ]);
     }
@@ -123,18 +123,21 @@ export class LevelUpScene extends BaseScene {
             const powerUp = new PowerUpDisplay(this, 300, 200 + space, attack);
             powerUp.setMask(mask);
             powerUp.select = this.selectCurrent.bind(this);
-            powerUp.over = () => this.setSelection(i);
+            powerUp.over = () => {
+                this.selectedIndex = i;
+                this.setSelection();
+            };
             this.powerUps.push(powerUp);
             space += 105;
         }
 
         this.add.rexBBCodeText(480, 150, 'Level Up!', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '50px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setResolution(5);;
 
         const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 200, 'box')
             .setScale(1, 0.3)
@@ -143,12 +146,12 @@ export class LevelUpScene extends BaseScene {
             });
 
         const startText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2, 'Close [TEMP]', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ff0000',
             fontSize: '25px',
             halign: 'center',
             valign: 'center'
-        }).setDepth(100).setOrigin(0.5);
+        }).setDepth(Game.maxDepth).setOrigin(0.5).setResolution(5);;
         Phaser.Display.Align.In.Center(startText, startButton);
 
         this.arrow = this.add.image(0, 280, 'arrow_1');
@@ -165,7 +168,7 @@ export class LevelUpScene extends BaseScene {
         this.selectedIndex = 0;
     }
 
-    setSelection(index: number) {
+    setSelection() {
         this.canChangeSelection = false;
         this.add.tween({
             targets: this.arrow,
@@ -199,7 +202,6 @@ export class LevelUpScene extends BaseScene {
                 this.close();
             }
         });
-
     }
 
     update(time: number, delta: number): void {
@@ -211,13 +213,13 @@ export class LevelUpScene extends BaseScene {
         {
             this.selectedIndex -= 1;
             this.selectedIndex = ((this.selectedIndex % this.attacks.length) + this.attacks.length) % this.attacks.length;
-            this.setSelection(this.selectedIndex);
+            this.setSelection();
         }
         if ((Phaser.Input.Keyboard.JustDown(this.down) || Phaser.Input.Keyboard.JustDown(this.s)) && this.canChangeSelection)
         {
             this.selectedIndex += 1;
             this.selectedIndex = ((this.selectedIndex % this.attacks.length) + this.attacks.length) % this.attacks.length;
-            this.setSelection(this.selectedIndex);
+            this.setSelection();
         }
     }
 

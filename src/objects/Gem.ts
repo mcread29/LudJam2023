@@ -13,6 +13,9 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
 
     private _collecting: boolean = false;
 
+    private _lifespan = 60000;
+    private _destroyTimeout: NodeJS.Timeout;
+
     constructor(scene: GameScene, x: number, y: number, private _exp: number) {
         super(scene, x, y, expToTexture(_exp));
         scene.add.existing(this);
@@ -27,9 +30,15 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
             yoyo: true,
             loop: -1
         });
+
+        this._destroyTimeout = setTimeout(() => {
+            this.destroy();
+        }, this._lifespan);
     }
 
     startCollect() {
+        clearTimeout(this._destroyTimeout);
+
         this.scene.tweens.killTweensOf(this);
 
         if (this._collecting) return;
@@ -42,7 +51,7 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
         if (this.scene)
         {
             this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
-            this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+            this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
         }
     }
 

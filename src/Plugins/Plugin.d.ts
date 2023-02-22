@@ -62,8 +62,11 @@ declare namespace Phaser.GameObjects {
     }
 }
 
+declare type RexFontConfig = Object;
+
 declare namespace Phaser.Loader {
     interface LoaderPlugin {
         webfont(key: string, url: string, overwrite: boolean = true): Phaser.Loader.LoaderPlugin;
+        rexWebFont(config: RexFontConfig): Phaser.Loader.LoaderPlugin;
     }
 }

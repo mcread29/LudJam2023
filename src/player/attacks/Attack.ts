@@ -1,4 +1,5 @@
 import { Enemy } from "../../enemies/Enemy";
+import { Destructable } from "../../objects/Destructable";
 import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { HitBox } from "./HitBox";
@@ -79,6 +80,15 @@ export abstract class Attack implements PowerUp {
             (this.scene as GameScene).enemies,
             (a: HitBox, e: Enemy) => this.Hit(e),
             (a: HitBox, e: Enemy) => this.CanHit(e)
+        );
+
+
+        this.scene.physics.add.overlap(
+            this.hitboxes,
+            (this.scene as GameScene).destructables,
+            (a: HitBox, d: Destructable) => {
+                d.Destruct();
+            }
         );
 
         this._level++;

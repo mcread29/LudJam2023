@@ -1,4 +1,5 @@
 import { Enemy } from "../../enemies/Enemy";
+import Game from "../../Game";
 import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { Attack } from "./Attack";
@@ -59,7 +60,6 @@ export class LightningAttack extends Attack {
     Upgrade() {
         super.Upgrade();
 
-
         if (this._level === 2)
         {
             this.addProjectile();
@@ -99,7 +99,7 @@ export class LightningAttack extends Attack {
         const hitbox = new HitBox(this.scene, 0, 0, 'box', this.damage, true, false)
             .setBaseScale(0.1)
             .setTint(0x00fff0)
-            .setDepth(500);
+            .setDepth(Game.maxDepth);
 
         hitbox.disableBody(true, true);
         this._hitboxes.push(hitbox);

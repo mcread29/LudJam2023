@@ -14,12 +14,12 @@ export default class BootScene extends BaseScene {
         super.preload();
 
         const loadText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 250, 'Loading...', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '100px',
             halign: 'center',
             valign: 'center'
-        }).setDepth(100).setOrigin(0.5, 0);
+        }).setDepth(100).setOrigin(0.5, 0).setResolution(5);
 
         const loadBG = this.add.image(0, 0, 'loadBG').setOrigin(0, 0.5);
         loadBG.setPosition(Game.Instance.DefaultWidth / 2 - loadBG.displayWidth / 2, 1080 / 2);
@@ -89,6 +89,9 @@ export default class BootScene extends BaseScene {
             this.load.image('pog_bat_01', './assets/images/pog_bat_01.png');
             this.load.image('skeleton_01', './assets/images/skeleton_01.png');
             this.load.image('zambie_01', './assets/images/zambie_01.png');
+            this.load.image('sadge_ghost_01', './assets/images/sadge_ghost_01.png');
+            this.load.image('krey_flower_01', './assets/images/krey_flower.png');
+            this.load.image('pog_man_01', './assets/images/pog_man.png');
 
             this.load.image('lud_boss', './assets/images/lud_boss.png');
 
@@ -103,7 +106,17 @@ export default class BootScene extends BaseScene {
             this.load.image('arrow_1', './assets/images/cat_arrow_01.png');
             this.load.image('arrow_2', './assets/images/cat_arrow_02.png');
 
-            this.load.aseprite('lightning', './assets/animations/lit_64x256.png', './assets/animations/Coots_01.json');
+            this.load.image('tree', './assets/images/tree.png');
+
+            this.load.image('chimken', './assets/images/chimken.png');
+
+            this.load.image('chest', './assets/images/chest.png');
+
+            this.load.aseprite('lightning', './assets/animations/lightning.png', './assets/animations/lightning.json');
+            this.load.aseprite('waterAnim', './assets/animations/kitty_water_01.png', './assets/animations/kitty_water_01.json');
+            this.load.aseprite('chestAnim', './assets/animations/chest_01_64x64.png', './assets/animations/chest_01.json');
+
+            this.load.image('waterAttack', './assets/images/water.png');
 
             this.load.audio('title', './assets/music/Coots_Title_01.mp3');
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
@@ -123,8 +136,18 @@ export default class BootScene extends BaseScene {
         this.hueShift('zambie_01', 'zambie_02', 0.1);
         this.hueShift('zambie_01', 'zambie_03', 0.5);
 
-        const anims = this.anims.createFromAseprite('lightning');
-        console.log(anims);
+        this.hueShift('sadge_ghost_01', 'sadge_ghost_02', 0.1);
+        this.hueShift('sadge_ghost_01', 'sadge_ghost_03', 0.5);
+
+        this.hueShift('krey_flower_01', 'krey_flower_02', 0.1);
+        this.hueShift('krey_flower_01', 'krey_flower_03', 0.5);
+
+        this.hueShift('pog_man_01', 'pog_man_02', 0.1);
+        this.hueShift('pog_man_01', 'pog_man_03', 0.5);
+
+        this.anims.createFromAseprite('lightning');
+        this.anims.createFromAseprite('waterAnim');
+        this.anims.createFromAseprite('chestAnim');
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }

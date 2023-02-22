@@ -1,4 +1,5 @@
 import Game from "../Game";
+import { Chest } from "../objects/Chest";
 import { Gem } from "../objects/Gem";
 import { PLayer } from "../player/Player";
 import GameScene from "../scenes/GameScene";
@@ -48,7 +49,7 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         {
             this.scene.physics.moveToObject(this, Game.Instance.manager.player, this._speed);
             this.setFlipX(this.body.velocity.x < 0);
-            this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+            this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
         }
     }
 
@@ -64,6 +65,32 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
     TakeDamage(damage: number) {
         this._health -= damage;
 
+        const text = this.scene.add.rexBBCodeText(Math.round(this.x), Math.round(this.y), `[b]${Math.round(damage)}[/b]`, {
+            fontFamily: 'FutilePro',
+            color: '#ff0000',
+            fontSize: '30px',
+            halign: 'center',
+            valign: 'center'
+        })
+            .setOrigin(0.5)
+            .setDepth(500)
+            .setResolution(5)
+            .setStroke('0x000000', 5);
+
+        this.scene.add.tween({
+            targets: text,
+            scale: 1.5,
+            ease: Phaser.Math.Easing.Back.Out,
+            duration: 700
+        });
+        this.scene.add.tween({
+            targets: text,
+            alpha: 0,
+            duration: 300,
+            delay: 400,
+            onComplete: () => text.destroy()
+        });
+
         if (this._health <= 0) this.Kill();
     }
 
@@ -72,6 +99,19 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         Game.Instance.manager.eventCenter.emit('enemyKilled');
         this.Disable();
         EnemyPool.ReturnEnemy(this);
+    }
+}
+
+export class TEMPBOSS extends Enemy {
+    protected _Type: string = 'TEMPBOSS';
+    protected _health: number = 1;
+    protected _exp: number = 30;
+    protected _speed: number = 60;
+    protected _power: number = 10;
+
+    constructor(scene: GameScene) {
+        super(scene, 'clover_kitty_boss');
+        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
     }
 }
 
@@ -99,6 +139,13 @@ export class BasicEnemyBoss extends Enemy {
     constructor(scene: GameScene) {
         super(scene, 'clover_kitty_boss');
         this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+    }
+
+    Kill(): void {
+        new Chest(this.scene as GameScene, this.x, this.y);
+        Game.Instance.manager.eventCenter.emit('enemyKilled');
+        this.Disable();
+        EnemyPool.ReturnEnemy(this);
     }
 }
 

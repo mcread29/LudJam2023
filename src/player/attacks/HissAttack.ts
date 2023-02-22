@@ -1,3 +1,4 @@
+import Game from "../../Game";
 import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { Attack } from "./Attack";
@@ -30,7 +31,7 @@ export class HissAttack extends Attack {
         this._hitboxes = [
             new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
                 .setTint(0x00fff0)
-                .setDepth(500)
+                .setDepth(Game.maxDepth)
                 .setAlpha(0.25)
         ];
 

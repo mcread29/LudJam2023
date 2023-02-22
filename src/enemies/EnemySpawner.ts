@@ -27,6 +27,11 @@ export class EnemySpawner {
         this.SpawnWave(this.data.waves[ 0 ]);
     }
 
+    Destroy() {
+        this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.Update, this);
+        Game.Instance.manager.eventCenter.off('enemyKilled', this.enemyKilled, this);
+    }
+
     private enemyKilled() {
         this._activeEnemies--;
     }
@@ -75,7 +80,7 @@ export class EnemySpawner {
         const numToSpawn = wave.minimum - this._activeEnemies;
         if (numToSpawn < 1) return;
 
-        console.log('spawn', numToSpawn);
+        // console.log('spawn', numToSpawn);
 
         const whichToSpawn = wave.enemies;
 
@@ -84,7 +89,7 @@ export class EnemySpawner {
         for (let enemyName of whichToSpawn)
         {
             const spawnCount = num.next().value;
-            console.log('spawning', spawnCount, enemyName);
+            // console.log('spawning', spawnCount, enemyName);
             if (spawnCount)
             {
                 const enemies = EnemyPool.GetEnemies(enemyName, spawnCount);

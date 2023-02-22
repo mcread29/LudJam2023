@@ -1,3 +1,4 @@
+import Game from "../../Game";
 import { PLayer } from "../Player";
 import { Attack } from "./Attack";
 import { CircleHitBox } from "./CircleHitbox";
@@ -42,8 +43,28 @@ export class SantaWaterAttack extends Attack {
             const x = (this.scene.cameras.main.displayWidth * Math.random()) + this.scene.cameras.main.scrollX;
             const y = (this.scene.cameras.main.displayHeight * Math.random()) + this.scene.cameras.main.scrollY;
 
-            this._hitboxes[ i ].enable(x, y);
+            const water = this.scene.add.image(x, -50, 'waterAttack');
+            this.scene.add.tween({
+                targets: water,
+                y: y,
+                duration: 650,
+                delay: Math.random() * 50,
+                onComplete: () => {
+                    water.destroy();
+                    this._hitboxes[ i ].enable(x, y);
+                    const anim = this.scene.add.sprite(x, y, 'waterAnim')
+                        .play({ key: 'Flames', repeat: -1 })
+                        .setDepth((y / Game.Instance.DefaultHeight) * Game.maxDepth)
+                        .setScale(this._areaMod * 5);
+                    setTimeout(() => {
+                        if (anim) anim.destroy();
+                    }, this._duration);
+                }
+            });
         }
+    }
+
+    private EnableHitboxes() {
     }
 
     Upgrade() {
@@ -93,9 +114,9 @@ export class SantaWaterAttack extends Attack {
     }
 
     private addProjectile() {
-        const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true)
+        const hitbox = new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, true, false)
             .setTint(0x00fff0)
-            .setDepth(500);
+            .setDepth(Game.maxDepth);
         hitbox.duration = this._duration;
 
         hitbox.disableBody(true, true);

@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'CompassPro';
+    src: url('./assets/fonts/CompassPro.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EquipmentPro';
+    src: url('./assets/fonts/CompassPro.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ExpressionPro';
+    src: url('./assets/fonts/CompassPro.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FutilePro';
+    src: url('./assets/fonts/FutilePro.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MatchupPro';
+    src: url('./assets/fonts/FutilePro.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LazyFox Pixel Font 6';
+    src: url('./assets/fonts/LazyFox Pixel Font 6.woff2') format('woff2'),
+        url('./assets/fonts/LazyFox Pixel Font 6.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/COMIC.woff2') format('woff2'),
+        url('./assets/fonts/COMIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/comici.woff2') format('woff2'),
+        url('./assets/fonts/comici.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/design.graffiti.comicsansmsgras.woff2') format('woff2'),
+        url('./assets/fonts/design.graffiti.comicsansmsgras.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Comic Sans MS';
+    src: url('./assets/fonts/comicz.woff2') format('woff2'),
+        url('./assets/fonts/comicz.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'EurostileExtended';
+    src: url('./assets/fonts/EurostileExtended.woff2') format('woff2'),
+        url('./assets/fonts/EurostileExtended.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'EurostileExtendedBlack';
+    src: url('./assets/fonts/EurostileExtendedBlack.woff2') format('woff2'),
+        url('./assets/fonts/EurostileExtendedBlack.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

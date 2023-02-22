@@ -60,12 +60,12 @@ export default class ChooseStartAttackScene extends BaseScene {
         }
 
         this.add.rexBBCodeText(480, 150, 'Choose Start', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '50px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setResolution(5);
 
         this.arrow = this.add.image(0, 280, 'arrow_1');
         this.arrow.setMask(mask);

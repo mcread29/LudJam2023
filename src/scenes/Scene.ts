@@ -5,6 +5,7 @@ export default class BaseScene extends Phaser.Scene {
     init(data: SceneInit = {}): void { }
     preload(): void { };
     create(): void {
+        this.cameras.main.setRoundPixels(true);
         this.events.on(Phaser.Scenes.Events.SHUTDOWN, this.shutdown, this);
         this.events.on(Phaser.Scenes.Events.SLEEP, this.sleep, this);
     };

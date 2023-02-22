@@ -3,6 +3,7 @@ import { BasicEnemy, Enemy } from "../enemies/Enemy";
 import { EnemySpawner } from "../enemies/EnemySpawner";
 import Game, { GameConfig } from "../Game";
 import { Level } from "../Level";
+import { Pickup } from "../objects/Chickmen";
 import { Gem } from "../objects/Gem";
 import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
@@ -19,21 +20,33 @@ export default class GameScene extends BaseScene {
 
     enemies: Phaser.GameObjects.Group;
     gems: Phaser.GameObjects.Group;
+    destructables: Phaser.GameObjects.Group;
+    pickups: Phaser.GameObjects.Group;
     player: PLayer;
+
+    spawner: EnemySpawner;
 
     init(data: GameSceneInit) {
         super.init(data);
     }
 
     shutdown(): void {
-        super.shutdown();
+        this.spawner.Destroy();
         this.physics.shutdown();
-
         Game.Instance.scene.stop(UIScene.SceneName);
+
+        super.shutdown();
     }
 
     create(): void {
         super.create();
+
+        this.enemies = this.add.group();
+        this.gems = this.add.group();
+        this.destructables = this.add.group();
+        this.pickups = this.add.group();
+
+        this.cameras.main.setRoundPixels(true);
 
         Game.Instance.manager.SetupAttacks(this);
 
@@ -42,8 +55,6 @@ export default class GameScene extends BaseScene {
 
         const level = new Level(this, 'map', { key: 'tileset_1', image: 'tiles' });
 
-        this.enemies = this.add.group();
-        this.gems = this.add.group();
         let player = this.player = new PLayer(this, 2048, 2048);
         Game.Instance.manager.SetPlayer(player);
 
@@ -56,8 +67,12 @@ export default class GameScene extends BaseScene {
             Game.Instance.manager.GiveExp(g.exp);
         });
 
-        this.physics.add.overlap(player.attractBody, this.gems, (p: Phaser.Physics.Arcade.Sprite, g: Gem) => {
+        this.physics.add.overlap(player.attractBody, this.gems, (p: PLayer, g: Gem) => {
             g.startCollect();
+        });
+
+        this.physics.add.overlap(player, this.pickups, (player: PLayer, pickup: Pickup) => {
+            pickup.Pickup(player);
         });
 
         this.physics.add.collider(this.enemies, this.enemies);
@@ -74,7 +89,7 @@ export default class GameScene extends BaseScene {
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);
 
-        const spawner = new EnemySpawner(this, GameConfig.maps[ 0 ]);
+        this.spawner = new EnemySpawner(this, GameConfig.maps[ 0 ]);
 
         this.events.once(Phaser.Scenes.Events.UPDATE, () => {
             Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(ChooseStartAttackScene.SceneName, { attacks: Game.Instance.manager.attacks });

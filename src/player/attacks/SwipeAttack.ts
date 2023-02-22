@@ -1,3 +1,4 @@
+import Game from "../../Game";
 import GameScene from "../../scenes/GameScene";
 import { Vector } from "../../Utils/Vector";
 import { PLayer } from "../Player";
@@ -48,7 +49,7 @@ export class SwipeAttack extends Attack {
         this.rightAttack.disableBody(true, true);
 
         this.parent = this.scene.add.container(0, 0, [ this.leftAttack, this.rightAttack ])
-            .setDepth(500);
+            .setDepth(Game.maxDepth);
 
         this._hitboxes = [ this.leftAttack, this.rightAttack ];
 

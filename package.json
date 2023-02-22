@@ -7,20 +7,21 @@
     "server": "./node_modules/.bin/http-server ./public",
     "watch": "webpack watch --config webpack.config.js",
     "build": "webpack --config webpack.config.js",
-    "zip": "./node_modules/.bin/zip-build ./public ./builds -i -t %NAME%.%EXT% -o"
+    "zip": "./node_modules/.bin/zip-build ./public ./builds -i -t %NAME%.%EXT% -o",
+    "package": "yarn build && yarn zip"
   },
   "dependencies": {
     "detect-gpu": "^5.0.11",
     "fontfaceobserver": "^2.3.0",
     "phaser": "^3.55.2",
     "phaser3-nineslice": "^0.5.0",
-    "phaser3-rex-plugins": "^1.1.81",
-    "phaser3-rex-plugins-types": "^0.2.0"
+    "phaser3-rex-plugins": "^1.1.81"
   },
   "devDependencies": {
     "@types/typescript": "^2.0.0",
     "@webpack-cli/serve": "^2.0.1",
     "http-server": "^14.1.1",
+    "phaser3-webfont-loader": "^1.0.0",
     "ts-loader": "^9.4.2",
     "ts-node": "^10.9.1",
     "typescript": "~4.5.4",

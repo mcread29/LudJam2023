@@ -8,7 +8,8 @@ import BootScene from "./scenes/BootScene";
 import MainMenu from "./scenes/MainMenu";
 import HiddenInputTextPlugin from 'phaser3-rex-plugins/plugins/hiddeninputtext-plugin.js';
 import GameScene from "./scenes/GameScene";
-import WebFontLoaderPlugin from 'phaser3-rex-plugins/plugins/webfontloader-plugin.js';
+// import WebFontLoaderPlugin from 'phaser3-rex-plugins/plugins/webfontloader-plugin.js';
+import { WebFontLoaderPlugin } from 'phaser3-webfont-loader';
 import GrayScalePipelinePlugin from 'phaser3-rex-plugins/plugins/grayscalepipeline-plugin.js';
 import BBCodeTextPlugin from 'phaser3-rex-plugins/plugins/bbcodetext-plugin.js';
 import { GameObjectFactoryPlugin } from "./Plugins/GameObjectFactoryPlugin";
@@ -21,6 +22,7 @@ import { UIScene } from "./scenes/UIScene";
 import { GameManager } from "./GameManager";
 import { LevelUpScene } from "./scenes/LevelUpScene";
 import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
+import { PickupChestScene } from "./scenes/PickupChest";
 
 export type gameConfig = {};
 
@@ -142,6 +144,9 @@ export default class Game extends Phaser.Game {
     private _manager: GameManager;
     public get manager(): GameManager { return this._manager; }
 
+    private static _maxDepth = 1000;
+    public static get maxDepth(): number { return this._maxDepth; }
+
     boot() {
         super.boot();
     }
@@ -202,6 +207,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(UIScene.SceneName, UIScene);
         this.scene.add(LevelUpScene.SceneName, LevelUpScene);
         this.scene.add(ChooseStartAttackScene.SceneName, ChooseStartAttackScene);
+        this.scene.add(PickupChestScene.SceneName, PickupChestScene);
     }
 
     public step(time: number, delta: number): void {

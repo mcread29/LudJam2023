@@ -16,6 +16,7 @@ import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 import GameScene from "./scenes/GameScene";
 import { LevelUpScene } from "./scenes/LevelUpScene";
 import MainMenu from "./scenes/MainMenu";
+import { PickupChestScene } from "./scenes/PickupChest";
 import { UIScene } from "./scenes/UIScene";
 
 export class GameManager {
@@ -40,6 +41,7 @@ export class GameManager {
         this._eventCenter = new Phaser.Events.EventEmitter();
 
         this._eventCenter.on('level_up_closed', this.LevelUpClosed, this);
+        this._eventCenter.on('pickup-chest', this.pickupChest, this);
     }
 
     public SetPlayer(player: PLayer) {
@@ -121,4 +123,14 @@ export class GameManager {
     public ChooseStartClosed() {
         Game.Instance.scene.stop(ChooseStartAttackScene.SceneName).resume(GameScene.SceneName).resume(UIScene.SceneName);
     }
+
+    private pickupChest() {
+        let powerups: PowerUp[] = [ ...this._player.attacks, ...this._player.items ].sort(() => 0.5 - Math.random());
+        Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(PickupChestScene.SceneName, { powerUp: powerups[ 0 ] });
+    }
+
+    public PickupChestClosed() {
+        Game.Instance.scene.stop(PickupChestScene.SceneName).resume(GameScene.SceneName).resume(UIScene.SceneName);
+    }
+
 }

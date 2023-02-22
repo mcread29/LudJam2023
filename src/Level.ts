@@ -1,3 +1,4 @@
+import { Destructable } from "./objects/Destructable";
 import GameScene from "./scenes/GameScene";
 
 export class Level {
@@ -17,5 +18,18 @@ export class Level {
 
         this.bounds = this.map.createLayer('BOUNDS', this.tileset);
         this.bounds.setCollisionByExclusion([ -1 ], true);
+
+        const destructables = this.map.createLayer('destructables', this.tileset);
+        destructables.setVisible(false);
+        for (let row of destructables.layer.data)
+        {
+            for (let tile of row)
+            {
+                if (tile.index !== -1)
+                {
+                    new Destructable(scene, tile.getCenterX(), tile.getCenterY());
+                }
+            }
+        }
     }
 }

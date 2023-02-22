@@ -228,11 +228,6 @@
   dependencies:
     typescript "*"
 
-"@types/webfontloader@*":
-  version "1.6.35"
-  resolved "https://registry.yarnpkg.com/@types/webfontloader/-/webfontloader-1.6.35.tgz#c9cedff2995c61ee9b2064714e7f7d7763ac50bd"
-  integrity sha512-IJlrsiDWq6KghQ7tPlL5tcwSUyOxLDceT+AFUY7Ylj0Fcv3/h3QkANqQxZ0B5mEpEKxhTw76vDmvrruSMV9n9Q==
-
 "@types/ws@^8.5.1":
   version "8.5.4"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.4.tgz#bb10e36116d6e570dd943735f86c933c1587b8a5"
@@ -1278,11 +1273,6 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
-
-eventemitter3@*:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-5.0.0.tgz#084eb7f5b5388df1451e63f4c2aafd71b217ccb3"
-  integrity sha512-riuVbElZZNXLeLEoprfNYoDSwTBRR44X3mnhdI1YcnENpWTCsTTVZ2zFuqQcpoyqPQIUXdiPEU0ECAq0KQRaHg==
 
 eventemitter3@^3.1.2:
   version "3.1.2"
@@ -2657,15 +2647,6 @@ phaser3-nineslice@^0.5.0:
     phaser "^3.13.0"
     webpack-cli "^3.1.1"
 
-phaser3-rex-plugins-types@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/phaser3-rex-plugins-types/-/phaser3-rex-plugins-types-0.2.0.tgz#b97e166f4c22929dbafd48644bdebf8257eab86d"
-  integrity sha512-dNe65URYeZHPV2JK/7CsTHFzZJrUvnTpvPUDB/m5XMuBTLAZ1aTsWS0SZVs9/1aj9dvXEMdRTDbv+ljkHrWQxQ==
-  dependencies:
-    "@types/webfontloader" "*"
-    eventemitter3 "*"
-    phaser "*"
-
 phaser3-rex-plugins@^1.1.81:
   version "1.1.81"
   resolved "https://registry.yarnpkg.com/phaser3-rex-plugins/-/phaser3-rex-plugins-1.1.81.tgz#2ef4898ad119bf655c12b6a48abe145ce9e04a70"
@@ -2677,7 +2658,12 @@ phaser3-rex-plugins@^1.1.81:
     papaparse "^5.3.2"
     webfontloader "^1.6.28"
 
-phaser@*, phaser@^3.13.0, phaser@^3.55.2:
+phaser3-webfont-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/phaser3-webfont-loader/-/phaser3-webfont-loader-1.0.0.tgz#2b9e3d4c0ebbfe9e23cc0b0e30b7b4b64877bc58"
+  integrity sha512-lh9f+diF2StN0Tq3wPADkjdxlQ35w2PEf2tZyyeWeP6OOHx953hCiuLUlsOrQ+Hcl1UsoquzLcc1zj0rohNk1g==
+
+phaser@^3.13.0, phaser@^3.55.2:
   version "3.55.2"
   resolved "https://registry.yarnpkg.com/phaser/-/phaser-3.55.2.tgz#c1e2e9e70de7085502885e06f46b7eb4bd95e29a"
   integrity sha512-amKXsbb2Ht29dGPKvt1edq3yGGYKtq8373GpJYGKPNPnneYY6MtVTOgjHDuZwtmUyK4v86FugkT3hzW/N4tjxQ==

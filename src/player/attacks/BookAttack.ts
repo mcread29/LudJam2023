@@ -1,4 +1,5 @@
 import { Scene } from "phaser";
+import Game from "../../Game";
 import GameScene from "../../scenes/GameScene";
 import { PLayer } from "../Player";
 import { Attack } from "./Attack";
@@ -39,7 +40,7 @@ export class BookAttack extends Attack {
     public Activate(player: PLayer): void {
         super.Activate(player);
 
-        this.parent = this.scene.add.container(0, 0).setDepth(500).setActive(false);
+        this.parent = this.scene.add.container(0, 0).setDepth(Game.maxDepth).setActive(false);
 
         this.tween = this.scene.tweens.add({
             targets: this.parent,
@@ -53,7 +54,7 @@ export class BookAttack extends Attack {
             const hitbox = new HitBox(this.scene, 0, 0, 'book', this.damage, false)
                 // .setBaseScale(0.1)
                 .setTint(0x00fff0)
-                .setDepth(500);
+                .setDepth(Game.maxDepth);
             this._hitboxes.push(hitbox);
             this.parent.add(hitbox);
             Phaser.Actions.RotateAroundDistance([ hitbox ], { x: 0, y: 0 }, (i / 2) * Math.PI * 2, 96);
@@ -147,7 +148,7 @@ export class BookAttack extends Attack {
         const hitbox = new HitBox(this.scene, 0, 0, 'book', this.damage, false)
             .setScale(this._areaMod)
             .setTint(0x00fff0)
-            .setDepth(500);
+            .setDepth(Game.maxDepth);
         this._hitboxes.push(hitbox);
         this.parent.add(hitbox);
 

@@ -67,8 +67,8 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
         scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
 
-        this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(500).setOrigin(0, 0.5);
-        this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(500).setOrigin(0, 0.5);
+        this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(Game.maxDepth).setOrigin(0, 0.5);
+        this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(Game.maxDepth).setOrigin(0, 0.5);
 
         this.attacks = [];
         this.items = [];
@@ -88,7 +88,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         if (this.health <= 0) return;
 
         this.body.setVelocity(0);
-        let inputVector = new Vector(0, 0);
+        let inputVector = new Phaser.Math.Vector2(0, 0);
 
         if (this.keys[ 'w' ].isDown || this.keys[ 'up' ].isDown) inputVector.y--;
         if (this.keys[ 's' ].isDown || this.keys[ 'down' ].isDown) inputVector.y++;
@@ -100,12 +100,13 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
             this.setFlipX(inputVector.x < 0);
         }
 
-        const move: Vector = inputVector; //.normalize();
-        if (move.magnitude > 0) this.body.setImmovable(false);
+        const move: Phaser.Math.Vector2 = inputVector.normalize();
+        if (move.length() > 0) this.body.setImmovable(false);
+        else this.body.setImmovable(true);
 
-        this.body.setVelocity(move.x * speed * this._speedMod, move.y * speed * this._speedMod);
+        this.body.setVelocity(Math.round(move.x * speed * this._speedMod), Math.round(move.y * speed * this._speedMod));
 
-        this.setDepth((this.y / Game.Instance.DefaultHeight) * 100);
+        this.setDepth((this.y / Game.Instance.DefaultHeight) * Game.maxDepth);
         if (this.colliding)
         {
             this.setTint(0xff0000);
@@ -134,7 +135,6 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     collide() {
         this.colliding = true;
-        this.body.setImmovable(true);
     }
 
     IncreaseDamageMod(amount: number) {
@@ -163,5 +163,10 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
     IncreaseAttractMod(amount: number) {
         this._attractMod *= amount;
         this.attractBody.setScale(this._attractMod);
+    }
+
+    Heal(health: number) {
+        this.health = Math.min((this.health + health), this.maxHealth);
+        this.healthBarFG.setScale(0.2 * this.health / this.maxHealth, 0.05);
     }
 }

@@ -10,7 +10,7 @@ export class Timer extends Phaser.GameObjects.Container {
         scene.add.existing(this);
 
         this._text = scene.add.rexBBCodeText(0, 0, '0:00', {
-            fontFamily: 'Comic Sans MS',
+            fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '30px',
             halign: 'center',

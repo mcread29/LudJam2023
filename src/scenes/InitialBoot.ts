@@ -3,6 +3,7 @@ import Game from '../Game';
 import BootScene from './BootScene';
 
 import BaseScene from "./Scene";
+import WebFontLoader from 'phaser3-rex-plugins/plugins/webfontloader.js';
 
 export default class InitialBoot extends BaseScene {
     public static SceneName: string = 'InitialBoot';
@@ -24,7 +25,15 @@ export default class InitialBoot extends BaseScene {
 
         this.load.json('testConfig', 'assets/config.json');
 
-        this.load.webfont('Comic Sans MS', 'Comic Sans MS');
+        this.load.webfont('CompassPro', './fonts.css');
+        this.load.webfont('EquipmentPro', './fonts.css');
+        this.load.webfont('ExpressionPro', './fonts.css');
+        this.load.webfont('FutilePro', './fonts.css');
+        this.load.webfont('MatchupPro', './fonts.css');
+
+        this.load.webfont('Comic Sans MS', './fonts.css');
+        this.load.webfont('LazyFox Pixel Font 6', './fonts.css');
+        this.load.webfont('Open Sans', 'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
         this.load.image('loadBG', 'assets/images/load_bg.png');
         this.load.image('loadFG', 'assets/images/load_fg.png');

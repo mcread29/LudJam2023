@@ -13,6 +13,7 @@ export default class MainMenu extends BaseScene {
 
     create(): void {
         super.create();
+        this.cameras.main.setRoundPixels(true);
 
         this.add.image(0, 0, 'coots_clash').setOrigin(0);
 
