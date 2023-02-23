@@ -37,9 +37,7 @@ export class BookAttack extends Attack {
     private _speedMod: number = 1;
     private _baseSpeed: number = 1500;
 
-    public Activate(player: PLayer): void {
-        super.Activate(player);
-
+    public PostActivate(): void {
         this.parent = this.scene.add.container(0, 0).setDepth(Game.maxDepth).setActive(false);
 
         this.tween = this.scene.tweens.add({
@@ -55,10 +53,14 @@ export class BookAttack extends Attack {
                 // .setBaseScale(0.1)
                 .setTint(0x00fff0)
                 .setDepth(Game.maxDepth);
+            this._player.attackGroup.add(hitbox);
+            hitbox.attack = this;
             this._hitboxes.push(hitbox);
             this.parent.add(hitbox);
             Phaser.Actions.RotateAroundDistance([ hitbox ], { x: 0, y: 0 }, (i / 2) * Math.PI * 2, 96);
         }
+
+        super.PostActivate();
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -149,8 +151,10 @@ export class BookAttack extends Attack {
             .setScale(this._areaMod)
             .setTint(0x00fff0)
             .setDepth(Game.maxDepth);
+        hitbox.attack = this;
         this._hitboxes.push(hitbox);
         this.parent.add(hitbox);
+        this._player.attackGroup.add(hitbox);
 
         for (let i = 0; i < this._hitboxes.length; i++)
         {

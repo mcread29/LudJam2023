@@ -32,28 +32,32 @@ export class SwipeAttack extends Attack {
     public hitDelay: number = 1;
     public clearAllAfterDelay: boolean = true;
 
-    public Activate(player: PLayer): void {
-        this.leftAttack = new HitBox(this.scene, -player.width / 2, 0, 'slash', this.damage, true)
+    public PostActivate(): void {
+        this.leftAttack = new HitBox(this.scene, -this._player.width / 2, 0, 'slash', this.damage, true)
             .setOrigin(1, 0.5)
             .setBaseScale(0.5)
             .setTint(0x00fff0);
         this.leftAttack.duration = 150;
         this.leftAttack.disableBody(true, true);
+        this.leftAttack.attack = this;
+        this._player.attackGroup.add(this.leftAttack);
 
-        this.rightAttack = new HitBox(this.scene, player.width / 2, 0, 'slash', this.damage, true)
+        this.rightAttack = new HitBox(this.scene, this._player.width / 2, 0, 'slash', this.damage, true)
             .setOrigin(0, 0.5)
             .setBaseScale(0.5)
             .setTint(0x00fff0)
             .setFlip(true, true);
         this.rightAttack.duration = 150;
         this.rightAttack.disableBody(true, true);
+        this.rightAttack.attack = this;
+        this._player.attackGroup.add(this.rightAttack);
 
         this.parent = this.scene.add.container(0, 0, [ this.leftAttack, this.rightAttack ])
             .setDepth(Game.maxDepth);
 
         this._hitboxes = [ this.leftAttack, this.rightAttack ];
 
-        super.Activate(player);
+        super.PostActivate();
     }
 
     setPosition(x?: number, y?: number, z?: number, w?: number): this {

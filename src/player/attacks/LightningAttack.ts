@@ -29,13 +29,12 @@ export class LightningAttack extends Attack {
     public hitDelay: number = 0.5;
     public clearAllAfterDelay: boolean = true;
 
-    public Activate(player: PLayer): void {
+    public PostActivate(): void {
         for (let i = 0; i < 2; i++)
         {
             this.addProjectile();
         }
-
-        super.Activate(player);
+        super.PostActivate();
     }
 
     Attack() {
@@ -100,6 +99,8 @@ export class LightningAttack extends Attack {
             .setBaseScale(0.1)
             .setTint(0x00fff0)
             .setDepth(Game.maxDepth);
+        hitbox.attack = this;
+        this._player.attackGroup.add(hitbox);
 
         hitbox.disableBody(true, true);
         this._hitboxes.push(hitbox);

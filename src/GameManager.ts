@@ -142,5 +142,6 @@ export class GameManager {
 
     public ReturnToMenu() {
         Game.Instance.scene.stop(GameScene.SceneName).stop(UIScene.SceneName).stop(GameOverScene.SceneName).start(MainMenu.SceneName);
+        this._player = null;
     }
 }

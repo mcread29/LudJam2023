@@ -32,9 +32,14 @@ export default class GameScene extends BaseScene {
     }
 
     shutdown(): void {
-        this.spawner = null;
-        this.physics.shutdown();
         Game.Instance.scene.stop(UIScene.SceneName);
+
+        this.enemies = null;
+        this.gems = null;
+        this.destructables = null;
+        this.pickups = null;
+        this.player = null;
+        this.spawner = null;
 
         super.shutdown();
     }
@@ -59,35 +64,26 @@ export default class GameScene extends BaseScene {
         let player = this.player = new PLayer(this, 2048, 2048);
         Game.Instance.manager.SetPlayer(player);
 
-        this.physics.add.collider(player, this.enemies, (p: PLayer, e: Enemy) => {
-            p.collide();
-        });
-
-        this.physics.add.overlap(player, this.gems, (p: PLayer, g: Gem) => {
-            g.destroy();
-            Game.Instance.manager.GiveExp(g.exp);
-        });
+        this.physics.add.collider(player, this.enemies, (p: PLayer, e: Enemy) => p.collide());
 
         this.physics.add.overlap(player.attractBody, this.gems, (p: PLayer, g: Gem) => {
             g.startCollect();
+            this.gems.remove(g);
+            // this.pickups.add(g);
         });
 
-        this.physics.add.overlap(player, this.pickups, (player: PLayer, pickup: Pickup) => {
-            pickup.Pickup(player);
-        });
+        this.physics.add.overlap(player, this.pickups, (player: PLayer, pickup: Pickup) => pickup.Pickup(player));
 
         this.physics.add.collider(this.enemies, this.enemies);
-
-        this.physics.add.collider(level.collision, player);
-        this.physics.add.collider(level.bounds, player);
-
         this.physics.add.collider(level.collision, this.enemies);
+
+        this.physics.add.collider([ level.collision, level.bounds ], player);
+
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.music.play('death', false);
             this.spawner.Destroy();
             Game.Instance.scene.start(GameOverScene.SceneName).pause(UIScene.SceneName);
-            // Game.Instance.scene.stop(GameScene.SceneName).start(MainMenu.SceneName);
         });
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);

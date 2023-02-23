@@ -41,7 +41,7 @@ export default class MainMenu extends BaseScene {
                 });
             });
 
-        const upgradeButton = this.add.image(189.5, 600, 'start_button')
+        const upgradeButton = this.add.image(195, 609, 'upgrade_button')
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
                 Game.Instance.manager.ShowUpgrades();

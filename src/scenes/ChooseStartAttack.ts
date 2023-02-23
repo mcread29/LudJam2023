@@ -20,10 +20,28 @@ export default class ChooseStartAttackScene extends BaseScene {
 
     arrow: Phaser.GameObjects.Image;
 
+    selected = false;
     canChangeSelection = false;
 
     init(data: { attacks: PowerUp[]; }) {
         this.attacks = data.attacks;
+    }
+
+    shutdown(): void {
+        this.attacks = null;
+        this.selectedIndex = null;
+        this.powerUps = null;
+        this.spaceBar = null;
+        this.enter = null;
+        this.up = null;
+        this.w = null;
+        this.down = null;
+        this.s = null;
+        this.arrow = null;
+        this.selected = null;
+        this.canChangeSelection = null;
+
+        super.shutdown();
     }
 
     create(): void {
@@ -51,6 +69,7 @@ export default class ChooseStartAttackScene extends BaseScene {
             const powerUP = new PowerUpDisplay(this, 300, 200 + space, attack);
             powerUP.select = this.selectCurrent.bind(this);
             powerUP.over = () => {
+                if (this.selected) return;
                 this.selectedIndex = i;
                 this.setSelection();
             };
@@ -93,6 +112,7 @@ export default class ChooseStartAttackScene extends BaseScene {
     }
 
     selectCurrent() {
+        this.selected = true;
         this.canChangeSelection = false;
         this.arrow.setTexture('arrow_2');
 
@@ -111,6 +131,8 @@ export default class ChooseStartAttackScene extends BaseScene {
             delay: 500,
             ease: Phaser.Math.Easing.Sine.Out,
             onComplete: () => {
+                this.canChangeSelection = true;
+                this.selected = false;
                 Game.Instance.manager.AddAttack(this.powerUps[ this.selectedIndex ].attack);
                 this.close();
             }

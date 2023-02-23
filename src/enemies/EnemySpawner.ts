@@ -39,7 +39,14 @@ export class EnemySpawner {
     private Update(time: number, delta: number) {
         if (this._interval <= 0)
         {
-            const wave = this.data.waves[ Math.floor(this._timeElapsed) ];
+            let ind = 0;
+            const time = Math.floor(this._timeElapsed);
+            for (let key of Object.keys(this.data.waves))
+            {
+                const i = parseInt(key);
+                if (time >= i && i >= ind) ind = i;
+            }
+            const wave = this.data.waves[ ind ];
             if (wave && wave !== this.lastWave)
             {
                 if (wave.clearAll)
@@ -64,6 +71,8 @@ export class EnemySpawner {
     }
 
     private SpawnWave(wave: Wave) {
+        this._interval = wave.interval;
+
         if (wave.boss && this._spawnedBoss === false)
         {
             this._spawnedBoss = true;
@@ -105,7 +114,6 @@ export class EnemySpawner {
         }
 
         this._activeEnemies += numToSpawn;
-        this._interval = wave.interval;
     }
 }
 

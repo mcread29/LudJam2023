@@ -35,6 +35,7 @@ export type Wave = {
     minimum: number;
     clearAll?: boolean;
 };
+// waves: Map<number, Wave>;
 
 export type MapData = {
     max: number,

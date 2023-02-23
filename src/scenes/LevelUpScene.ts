@@ -77,9 +77,27 @@ export class LevelUpScene extends BaseScene {
     arrow: Phaser.GameObjects.Image;
 
     canChangeSelection = false;
+    private _selected: boolean;
 
     init(data: { attacks: PowerUp[]; }) {
         this.attacks = data.attacks;
+    }
+
+    shutdown(): void {
+        this.attacks = null;
+        this.selectedIndex = null;
+        this.powerUps = null;
+        this.spaceBar = null;
+        this.enter = null;
+        this.up = null;
+        this.w = null;
+        this.down = null;
+        this.s = null;
+        this.arrow = null;
+        this.canChangeSelection = null;
+        this._selected = null;
+
+        super.shutdown();
     }
 
     create(): void {
@@ -89,6 +107,19 @@ export class LevelUpScene extends BaseScene {
         this.w = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.down = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         this.s = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+        const config: Phaser.Types.GameObjects.Particles.ParticleEmitterConfig = {
+            y: 0,
+            lifespan: 2000,
+            rotate: { min: 0, max: 360 },
+            x: { min: 0, max: Game.Instance.DefaultWidth },
+            speedY: { min: 200, max: 400 },
+            scale: { start: 1, end: 0 },
+            quantity: 1
+        };
+        this.add.particles('gem_a').createEmitter(config);
+        this.add.particles('gem_b').createEmitter(config);
+        this.add.particles('gem_c').createEmitter(config);
 
         const meterBG = this.add.nineslice(0, 0, Game.Instance.DefaultWidth, 32, 'meter', [ 9, 9, 9, 9 ]);
         const meterFill = this.add.nineslice(0, 0, Game.Instance.DefaultWidth, 32, 'meter-fill', [ 9, 9, 9, 9 ])
@@ -124,6 +155,7 @@ export class LevelUpScene extends BaseScene {
             powerUp.setMask(mask);
             powerUp.select = this.selectCurrent.bind(this);
             powerUp.over = () => {
+                if (this._selected) return;
                 this.selectedIndex = i;
                 this.setSelection();
             };
@@ -138,21 +170,6 @@ export class LevelUpScene extends BaseScene {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5).setResolution(5);
-
-        const startButton = this.add.image(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2 + 200, 'box')
-            .setScale(1, 0.3)
-            .setInteractive().on(Phaser.Input.Events.POINTER_DOWN, () => {
-                Game.Instance.manager.LevelUpClosed();
-            });
-
-        const startText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, Game.Instance.DefaultHeight / 2, 'Close [TEMP]', {
-            fontFamily: 'FutilePro',
-            color: '#ff0000',
-            fontSize: '25px',
-            halign: 'center',
-            valign: 'center'
-        }).setDepth(Game.maxDepth).setOrigin(0.5).setResolution(5);;
-        Phaser.Display.Align.In.Center(startText, startButton);
 
         this.arrow = this.add.image(0, 280, 'arrow_1');
         this.arrow.setMask(mask);
@@ -175,11 +192,14 @@ export class LevelUpScene extends BaseScene {
             y: this.powerUps[ this.selectedIndex ].y + 80,
             duration: 100,
             ease: Phaser.Math.Easing.Sine.Out,
-            onComplete: () => this.canChangeSelection = true
+            onComplete: () => {
+                this.canChangeSelection = true;
+            }
         });
     }
 
     selectCurrent() {
+        this._selected = true;
         this.canChangeSelection = false;
         this.arrow.setTexture('arrow_2');
 
@@ -198,6 +218,7 @@ export class LevelUpScene extends BaseScene {
             delay: 500,
             ease: Phaser.Math.Easing.Sine.Out,
             onComplete: () => {
+                this._selected = false;
                 Game.Instance.manager.AddAttack(this.powerUps[ this.selectedIndex ].attack);
                 this.close();
             }

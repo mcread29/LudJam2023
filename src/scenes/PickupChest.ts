@@ -12,6 +12,13 @@ export class PickupChestScene extends BaseScene {
         this.powerUp = data.powerUp;
     }
 
+    shutdown(): void {
+        this.powerUp = null;
+        this.animComplete = null;
+
+        super.shutdown();
+    }
+
     create(): void {
         this.animComplete = false;
         const bg = this.add.nineslice(280, 100, 400, 430, 'panel_bg', [ 5, 5, 5, 5 ]);

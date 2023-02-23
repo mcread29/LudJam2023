@@ -4,20 +4,21 @@ import { Chimken } from "./Chickmen";
 import { Coin } from "./Coin";
 import { Pickup } from "./PIckup";
 
-type pickUp = (typeof Chimken | typeof Coin);
+type pickUps = (typeof Chimken | typeof Coin);
 
 export class Destructable extends Phaser.Physics.Arcade.Sprite {
     private _timeToReenable: number = 30000;
     private _disabledTime: number = 0;
 
+    private _pickup: Pickup;
 
-    private _pickups: pickUp[] = [
+    private _pickups: pickUps[] = [
         Coin,
         Chimken
     ];
 
     constructor(scene: GameScene, x: number, y: number) {
-        super(scene, x, y, 'tree');
+        super(scene, x, y, 'torchie');
         this.setOrigin(0.5, 1);
 
         scene.add.existing(this);
@@ -30,8 +31,9 @@ export class Destructable extends Phaser.Physics.Arcade.Sprite {
 
     protected preUpdate(time: number, delta: number): void {
         this._disabledTime += delta;
-        if (this._disabledTime > - this._timeToReenable && this.scene.cameras.main.worldView.contains(this.x, this.y) === false && this.body.enable === false) 
+        if (this._disabledTime > - this._timeToReenable && this.scene.cameras.main.worldView.contains(this.x, this.y) === false && this.body.enable === false && this._pickup.active === false) 
         {
+            this._pickup = null;
             this.enableBody(true, this.x, this.y, true, true);
         }
     }
@@ -41,8 +43,8 @@ export class Destructable extends Phaser.Physics.Arcade.Sprite {
         this._disabledTime = 0;
 
         const index = Math.floor(Math.random() * this._pickups.length);
-        const p: pickUp = this._pickups[ index ];
+        const p: pickUps = this._pickups[ index ];
 
-        new p(this.scene as GameScene, this.x, this.y);
+        this._pickup = new p(this.scene as GameScene, this.x, this.y);
     }
 }

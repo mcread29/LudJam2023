@@ -1,3 +1,5 @@
+import { Attack } from "./Attack";
+
 export class HitBox extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
     public get damage(): number { return this._damage; }
@@ -7,6 +9,8 @@ export class HitBox extends Phaser.Physics.Arcade.Sprite {
 
     protected _baseScale: { x: number, y: number; } = { x: 1, y: 1 };
     public get baseScale(): { x: number, y: number; } { return this._baseScale; };
+
+    public attack: Attack;
 
     constructor(scene: Phaser.Scene, x: number, y: number, texture: string, private _damage: number, private _autoDisable = false, private _showBox = true) {
         super(scene, x, y, texture);

@@ -22,6 +22,6 @@ export default class HealthItem extends Item {
 
     Upgrade(): void {
         super.Upgrade();
-        this._player.IncreaseDamageMod(1.2);
+        this._player.Heal(1.2);
     }
 }

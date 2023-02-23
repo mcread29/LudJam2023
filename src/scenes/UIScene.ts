@@ -71,6 +71,18 @@ export class UIScene extends BaseScene {
     shutdown(): void {
         Game.Instance.manager.eventCenter.off('meterProgress', this.setMeterFillProgress, this);
         Game.Instance.manager.eventCenter.off('levelup', this.levelUP, this);
+
+        this.meterBG = null;
+        this.meterFill = null;
+        this.meterFillMask = null;
+        this.levelText = null;
+        this.timer = null;
+        this.attackIconIndex = null;
+        this.attackIcons = null;
+        this.itemIconInexx = null;
+        this.itemIcons = null;
+
+        super.shutdown();
     }
 
     setMeterFillProgress(progress: number) {

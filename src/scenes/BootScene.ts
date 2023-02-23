@@ -46,6 +46,7 @@ export default class BootScene extends BaseScene {
         {
             this.load.image('coots_clash', './assets/images/coots_clash.jpg');
             this.load.image('start_button', './assets/images/press_start.png');
+            this.load.image('upgrade_button', './assets/images/coots_upgrade.png');
 
             this.load.image('border_1', './assets/images/border_1.png');
             this.load.image('border_2', './assets/images/border_2.png');
@@ -84,6 +85,8 @@ export default class BootScene extends BaseScene {
             this.load.image('gem_a', './assets/images/gem_a.png');
             this.load.image('gem_b', './assets/images/gem_b.png');
             this.load.image('gem_c', './assets/images/gem_c.png');
+
+            this.load.image('torchie', './assets/images/torchie.png');
 
             this.load.image('clover_kitty', './assets/images/clover_kitty.png');
             this.load.image('clover_kitty_boss', './assets/images/clover_kitty_boss.png');
@@ -157,16 +160,11 @@ export default class BootScene extends BaseScene {
         Game.Instance.scene.start(MainMenu.SceneName);
     }
 
-    shutdown(): void {
-        super.shutdown();
-    }
-
     hueShift(textureKey: string, newTextureKey, shiftAmount: number) {
         const originalTexture = this.textures.get(textureKey).getSourceImage();
         const newTexture = this.textures.createCanvas(newTextureKey, originalTexture.width, originalTexture.height);
         const context = (newTexture.getSourceImage() as any).getContext('2d');
         context.drawImage(originalTexture, 0, 0);
-
 
         const pixels = context.getImageData(0, 0, originalTexture.width, originalTexture.height);
 

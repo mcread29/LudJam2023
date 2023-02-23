@@ -1,6 +1,7 @@
 import Game from "../Game";
 import { PLayer } from "../player/Player";
 import GameScene from "../scenes/GameScene";
+import { Pickup } from "./PIckup";
 
 const expToTexture = (exp: number) => {
     if (exp < 5) return 'gem_a';
@@ -8,13 +9,15 @@ const expToTexture = (exp: number) => {
     else return 'gem_c';
 };
 
-export class Gem extends Phaser.Physics.Arcade.Sprite {
+export class Gem extends Pickup {
     public get exp(): number { return this._exp; }
 
     private _collecting: boolean = false;
 
-    private _lifespan = 60000;
+    private _lifespan = 40000;
     private _destroyTimeout: NodeJS.Timeout;
+
+    tween: Phaser.Tweens.Tween;
 
     constructor(scene: GameScene, x: number, y: number, private _exp: number) {
         super(scene, x, y, expToTexture(_exp));
@@ -23,7 +26,7 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
 
         scene.gems.add(this);
 
-        scene.tweens.add({
+        this.tween = scene.tweens.add({
             targets: this,
             y: y - 10,
             duration: 1000,
@@ -39,6 +42,7 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
     startCollect() {
         clearTimeout(this._destroyTimeout);
 
+        this.tween.stop();
         this.scene.tweens.killTweensOf(this);
 
         if (this._collecting) return;
@@ -50,8 +54,15 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
     postUpdate() {
         if (this.scene)
         {
-            this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
-            this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
+            if (Phaser.Math.Distance.BetweenPoints(this, Game.Instance.manager.player) < 10)
+            {
+                this.Pickup(Game.Instance.manager.player);
+            }
+            else
+            {
+                this.scene.physics.moveToObject(this, Game.Instance.manager.player, 350);
+                this.setDepth((this.y / this.scene.physics.world.bounds.height) * Game.maxDepth);
+            }
         }
     }
 
@@ -61,5 +72,10 @@ export class Gem extends Phaser.Physics.Arcade.Sprite {
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
         }
         super.destroy(fromScene);
+    }
+
+    Pickup(player: PLayer) {
+        Game.Instance.manager.GiveExp(this.exp);
+        this.destroy();
     }
 }

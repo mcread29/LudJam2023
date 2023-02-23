@@ -27,15 +27,20 @@ export class HissAttack extends Attack {
     public hitDelay: number = 1;
     public clearAllAfterDelay: boolean = false;
 
-    public Activate(player: PLayer): void {
+    public PostActivate(): void {
         this._hitboxes = [
             new CircleHitBox(this.scene, 0, 0, 'circle_hitbox', this.damage, 64, false)
                 .setTint(0x00fff0)
                 .setDepth(Game.maxDepth)
                 .setAlpha(0.25)
         ];
-
-        super.Activate(player);
+        for (let hitbox of this._hitboxes)
+        {
+            hitbox.attack = this;
+            console.log(this._player);
+            this._player.attackGroup.add(hitbox);
+        }
+        super.PostActivate();
     }
 
     protected preUpdate(time: number, delta: number): void {
@@ -68,7 +73,7 @@ export class HissAttack extends Attack {
         else if (this._level === 5)
         {
             this.damage += 2;
-            this.hitDelay -= 1;
+            this.hitDelay -= 0.1;
         }
         else if (this.level === 6)
         {

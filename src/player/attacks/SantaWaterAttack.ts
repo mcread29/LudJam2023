@@ -28,13 +28,12 @@ export class SantaWaterAttack extends Attack {
 
     private _duration = 1000;
 
-    public Activate(player: PLayer): void {
+    public PostActivate(): void {
         for (let i = 0; i < 2; i++)
         {
             this.addProjectile();
         }
-
-        super.Activate(player);
+        super.PostActivate();
     }
 
     Attack() {
@@ -118,6 +117,8 @@ export class SantaWaterAttack extends Attack {
             .setTint(0x00fff0)
             .setDepth(Game.maxDepth);
         hitbox.duration = this._duration;
+        hitbox.attack = this;
+        this._player.attackGroup.add(hitbox);
 
         hitbox.disableBody(true, true);
         this._hitboxes.push(hitbox);

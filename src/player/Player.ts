@@ -1,5 +1,6 @@
 import { Enemy } from "../enemies/Enemy";
 import Game from "../Game";
+import { Destructable } from "../objects/Destructable";
 import GameScene from "../scenes/GameScene";
 import { Vector } from "../Utils/Vector";
 import { Attack } from "./attacks/Attack";
@@ -36,10 +37,28 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     private _attractMod: number = 1;
 
+    private _attackGroup: Phaser.GameObjects.Group;
+    public get attackGroup(): Phaser.GameObjects.Group { return this._attackGroup; }
+
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, 'coots');
         scene.physics.add.existing(this);
         scene.add.existing(this);
+
+        this._attackGroup = scene.add.group();
+
+        scene.physics.add.overlap(
+            this._attackGroup,
+            (this.scene as GameScene).enemies,
+            (a: HitBox, e: Enemy) => a.attack.Hit(e),
+            (a: HitBox, e: Enemy) => a.attack.CanHit(e)
+        );
+
+        scene.physics.add.overlap(
+            this._attackGroup,
+            (this.scene as GameScene).destructables,
+            (a: HitBox, d: Destructable) => d.Destruct()
+        );
 
         this.attractBody = new Phaser.Physics.Arcade.Sprite(scene, 0, 0, 'circle_hitbox');
         scene.physics.add.existing(this.attractBody);
@@ -69,6 +88,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
         this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(Game.maxDepth).setOrigin(0, 0.5);
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(Game.maxDepth).setOrigin(0, 0.5);
+
 
         this.attacks = [];
         this.items = [];

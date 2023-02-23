@@ -82,9 +82,6 @@ export abstract class Attack implements PowerUp {
 
     protected _areaMod: number = 1;
 
-    private _enemyCollider: Phaser.Physics.Arcade.Collider;
-    private _destructableCollider: Phaser.Physics.Arcade.Collider;
-
     public get damageDealt(): number { return this._damageDealt; }
     private _damageDealt: number = 0;
 
@@ -103,12 +100,9 @@ export abstract class Attack implements PowerUp {
     public Deactivate() {
         this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
         this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
-
-        this._enemyCollider.destroy();
-        this._destructableCollider.destroy();
     }
 
-    public Activate(player: PLayer) {
+    public PostActivate() {
         if (this._active)
         {
             this.Upgrade();
@@ -119,30 +113,18 @@ export abstract class Attack implements PowerUp {
         this.IncreaseAreaMod(0.05 * Game.Instance.playerData.saveData.CandleTier);
 
         this._active = true;
-        this._player = player;
 
         this.scene.events.on(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
         this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
 
-        player.attacks.push(this);
-
-        this._enemyCollider = this.scene.physics.add.overlap(
-            this.hitboxes,
-            (this.scene as GameScene).enemies,
-            (a: HitBox, e: Enemy) => this.Hit(e),
-            (a: HitBox, e: Enemy) => this.CanHit(e)
-        );
-
-
-        this._destructableCollider = this.scene.physics.add.overlap(
-            this.hitboxes,
-            (this.scene as GameScene).destructables,
-            (a: HitBox, d: Destructable) => {
-                d.Destruct();
-            }
-        );
+        this._player.attacks.push(this);
 
         this._level++;
+    }
+
+    public Activate(player: PLayer) {
+        this._player = player;
+        this.PostActivate();
     }
 
     protected preUpdate(time: number, delta: number): void {
