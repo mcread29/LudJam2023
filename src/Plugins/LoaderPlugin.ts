@@ -24,13 +24,10 @@ export class WebFontFile extends Phaser.Loader.File {
         var _this = this;
         var font = new FontFaceObserver(this.url);
         font.load(null, 10000).then(() => {
-            console.log('loaded ', font);
             _this.loader.nextFile(_this, true);
         }, () => {
-            console.log('failed to load with error');
             _this.loader.nextFile(_this, true);
         }).catch((error: any) => {
-            console.log('failed to load with ', error);
         });
     }
 

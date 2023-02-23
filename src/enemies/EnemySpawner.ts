@@ -80,8 +80,6 @@ export class EnemySpawner {
         const numToSpawn = wave.minimum - this._activeEnemies;
         if (numToSpawn < 1) return;
 
-        // console.log('spawn', numToSpawn);
-
         const whichToSpawn = wave.enemies;
 
         const num = splitNParts(numToSpawn, whichToSpawn.length);
@@ -89,7 +87,6 @@ export class EnemySpawner {
         for (let enemyName of whichToSpawn)
         {
             const spawnCount = num.next().value;
-            // console.log('spawning', spawnCount, enemyName);
             if (spawnCount)
             {
                 const enemies = EnemyPool.GetEnemies(enemyName, spawnCount);

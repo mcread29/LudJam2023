@@ -152,7 +152,7 @@ export default class BootScene extends BaseScene {
         this.anims.createFromAseprite('waterAnim');
         this.anims.createFromAseprite('chestAnim');
 
-        console.log(this.anims.createFromAseprite('coin_01'));
+        this.anims.createFromAseprite('coin_01');
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }

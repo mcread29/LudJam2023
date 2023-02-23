@@ -85,7 +85,6 @@ export class GameManager {
 
     public GiveExp(exp: number) {
         this.playerExp += exp;
-        console.log(this.playerExp);
         if (this.playerExp >= this.playerLevel * 10 - 5)
         {
             this.LevelUp();
@@ -117,7 +116,6 @@ export class GameManager {
 
         this.eventCenter.emit('levelup', this.playerLevel);
         if (powerups.length < 1) powerups = [ new CoinPowerup(), new HealthPowerup(this._player) ];
-        console.log(powerups);
         Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(LevelUpScene.SceneName, { attacks: powerups.sort(() => 0.5 - Math.random()).splice(0, 3) });
     }
 

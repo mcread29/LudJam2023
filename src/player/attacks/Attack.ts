@@ -98,9 +98,6 @@ export abstract class Attack implements PowerUp {
             this.scene.events.off(Phaser.Scenes.Events.PRE_UPDATE, this.preUpdate, this);
             this.scene.events.off(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
         });
-
-        this._damageDealt += 0.05 * Game.Instance.playerData.saveData.CatNipTier;
-        this._areaMod += 0.05 * Game.Instance.playerData.saveData.CandleTier;
     }
 
     public Deactivate() {
@@ -117,6 +114,9 @@ export abstract class Attack implements PowerUp {
             this.Upgrade();
             return;
         }
+
+        this.IncreaseDamageMod(0.05 * Game.Instance.playerData.saveData.CatNipTier);
+        this.IncreaseAreaMod(0.05 * Game.Instance.playerData.saveData.CandleTier);
 
         this._active = true;
         this._player = player;

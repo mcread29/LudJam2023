@@ -23,7 +23,7 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
     fills: Phaser.GameObjects.Image[];
     costText: BBCodeText.BBCodeText;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, private _name: string, private currentLevel: number, maxLevel: number, private _onUpgrade: () => void) {
+    constructor(scene: Phaser.Scene, x: number, y: number, private _name: string, private currentLevel: number, private maxLevel: number, private _onUpgrade: () => void) {
         super(scene, x, y);
         scene.add.existing(this);
 
@@ -34,10 +34,10 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5).setResolution(5);
-        const bg = scene.add.nineslice(0, 0, 20 + 40 * maxLevel + 5 * (maxLevel - 1), 60, 'border_2', [ 10, 10, 10, 10 ]).setOrigin(0.5);
+        const bg = scene.add.nineslice(0, 0, 20 + 40 * this.maxLevel + 5 * (this.maxLevel - 1), 60, 'border_2', [ 10, 10, 10, 10 ]).setOrigin(0.5);
 
-        console.log(this._name, coinCosts[ this._name ]);
-        const costText = this.costText = scene.add.rexBBCodeText(0, -40, `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]`, {
+        const costString = this.currentLevel < this.maxLevel ? `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]` : `[color=green]MAXED![/color]`;
+        const costText = this.costText = scene.add.rexBBCodeText(0, -40, costString, {
             fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '15px',
@@ -48,10 +48,10 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
         this.add([ bg, text, costText ]);
 
         this.fills = [];
-        for (let i = 0; i < maxLevel; i++)
+        for (let i = 0; i < this.maxLevel; i++)
         {
-            const icon = scene.add.image((i - Math.floor(maxLevel / 2)) * 45, 0, 'icon_bg');
-            const fill = scene.add.image((i - Math.floor(maxLevel / 2)) * 45, 0, 'upgrade_fill');
+            const icon = scene.add.image((i - Math.floor(this.maxLevel / 2)) * 45, 0, 'icon_bg');
+            const fill = scene.add.image((i - Math.floor(this.maxLevel / 2)) * 45, 0, 'upgrade_fill');
             if (i < currentLevel) fill.setTint(0x00ffff);
             this.fills.push(fill);
 
@@ -114,13 +114,14 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
     }
 
     upgrade() {
-        if (Game.Instance.playerData.saveData.coinCount < coinCosts[ this._name ][ this.currentLevel ]) return;
+        if (this.currentLevel >= this.maxLevel || Game.Instance.playerData.saveData.coinCount < coinCosts[ this._name ][ this.currentLevel ]) return;
 
         Game.Instance.playerData.saveData.coinCount -= coinCosts[ this._name ][ this.currentLevel ];
 
         this.fills[ this.currentLevel ].setTint(0x00ffff);
         this.currentLevel++;
         this._onUpgrade();
+        const costString = this.currentLevel < this.maxLevel ? `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]` : `[color=green]MAXED![/color]`;
         this.costText.setText(`[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]`);
     }
 }

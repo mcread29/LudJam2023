@@ -34,7 +34,6 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     public Enable() {
         this._health = this._maxHealth;
-        console.log(this._health, this._maxHealth);
         (this.scene as GameScene).enemies.add(this);
         this.enableBody(false, this.x, this.y, true, true);
         this.scene.events.on(Phaser.Scenes.Events.POST_UPDATE, this.postUpdate, this);
@@ -96,7 +95,6 @@ export abstract class Enemy extends Phaser.Physics.Arcade.Sprite {
         if (this._health <= 0)
         {
             this.Kill();
-            console.log('kill with:', damage, 'overkill: ', this._health, 'actual damage: ', damage + this._health);
             return { damage: damage + this._health, killed: true };
         }
         return { damage: damage, killed: false };
