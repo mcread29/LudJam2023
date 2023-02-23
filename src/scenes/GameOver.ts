@@ -32,7 +32,7 @@ export class PowerUpGameOverDisplay extends Phaser.GameObjects.Container {
         }).setOrigin(0, 0).setResolution(5);
 
         const text = `Damage: ${Math.round(_attack.damageDealt)}`;
-        const lvl = scene.add.rexBBCodeText(25, 30 + icon.height, text, {
+        const lvl = scene.add.rexBBCodeText(25, 35 + icon.height, text, {
             fontFamily: 'ExpressionPro',
             color: '#ffffff',
             fontSize: '20px',
@@ -42,7 +42,7 @@ export class PowerUpGameOverDisplay extends Phaser.GameObjects.Container {
                 mode: 'word',
                 width: 240
             }
-        }).setOrigin(1, 0).setResolution(5);
+        }).setOrigin(0, 0).setResolution(5);
 
         this.add([ bg, icon, name, desc, lvl ]);
     }
