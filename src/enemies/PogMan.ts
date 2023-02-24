@@ -11,7 +11,7 @@ export class PogMan extends Enemy {
     constructor(scene: GameScene) {
         super(scene, 'pog_man_01');
         this._isBoss = true;
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -26,7 +26,7 @@ export class PogMan2 extends Enemy {
         super(scene, 'pog_man_02');
         this.setScale(1.25);
         this._isBoss = true;
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -41,6 +41,6 @@ export class PogMan3 extends Enemy {
         super(scene, 'pog_man_03');
         this.setScale(1.5);
         this._isBoss = true;
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }

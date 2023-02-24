@@ -10,7 +10,7 @@ export class KreyFlower extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'krey_flower_01');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -23,7 +23,7 @@ export class KreyFlower2 extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'krey_flower_02');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -36,6 +36,6 @@ export class KreyFlower3 extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'krey_flower_03');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }

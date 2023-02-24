@@ -10,7 +10,7 @@ export class Skeleton extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'skeleton_01');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -23,7 +23,7 @@ export class Skeleton2 extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'skeleton_02');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -38,6 +38,6 @@ export class Skeleton3 extends Enemy {
         super(scene, 'skeleton_03');
         this.setScale(1.5);
         this._isBoss = true;
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }

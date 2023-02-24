@@ -58,6 +58,8 @@ export default class BootScene extends BaseScene {
             this.load.image('coots', './assets/images/coots.png');
             this.load.image('circle_hitbox', './assets/images/circle_hitbox.png');
 
+            this.load.image('coots_gold', './assets/images/coots_gold.png');
+
             this.load.image('meter', './assets/images/meter.png');
             this.load.image('meter-fill', './assets/images/meter-fill.png');
 

@@ -18,12 +18,12 @@ declare namespace BBCodeText {
         images?: {
             [ k: string ]: {
                 key: string,
-                frame: string,
-                width: number,
-                height: number,
-                y: number,
-                left: number,
-                right: number;
+                frame?: string,
+                width?: number,
+                height?: number,
+                y?: number,
+                left?: number,
+                right?: number;
             };
         },
         wrap?: {

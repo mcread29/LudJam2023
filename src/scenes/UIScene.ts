@@ -20,6 +20,8 @@ export class UIScene extends BaseScene {
     itemIconInexx: number;
     itemIcons: Phaser.GameObjects.Image[];
 
+    coinText: BBCodeText.BBCodeText;
+
     create() {
         super.create();
 
@@ -59,6 +61,17 @@ export class UIScene extends BaseScene {
             this.add.image(87, 77, 'icon_bg').setOrigin(0)
         ];
 
+        const coinImg = this.add.image(0, 0, 'coots_gold');
+        Phaser.Display.Align.To.BottomRight(coinImg, this.meterBG);
+        const coinText = this.coinText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 180, `[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`, {
+            fontFamily: 'FutilePro',
+            color: '#ffffff',
+            fontSize: '64px',
+            halign: 'left',
+            valign: 'center'
+        }).setOrigin(1, 0.5).setResolution(5);
+        Phaser.Display.Align.To.LeftCenter(coinText, coinImg, 0, -5);
+
         Game.Instance.manager.eventCenter.on('meterProgress', this.setMeterFillProgress, this);
         Game.Instance.manager.eventCenter.on('levelup', this.levelUP, this);
         Game.Instance.manager.eventCenter.on('add_powerup', this.AddPowerup, this);
@@ -66,6 +79,7 @@ export class UIScene extends BaseScene {
 
     update(time: number, delta: number): void {
         this.timer.Update(time, delta);
+        this.coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
     }
 
     shutdown(): void {

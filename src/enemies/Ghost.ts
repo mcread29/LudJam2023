@@ -10,7 +10,7 @@ export class SadgeGhost extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'sadge_ghost_01');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3).setBounce(1, 1);
     }
 }
 
@@ -23,7 +23,7 @@ export class SadgeGhost2 extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'sadge_ghost_02');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3).setBounce(1, 1);
     }
 }
 
@@ -37,6 +37,6 @@ export class SadgeGhost3 extends Enemy {
     constructor(scene: GameScene) {
         super(scene, 'sadge_ghost_03');
         this.setScale(1.5);
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3).setBounce(1, 1);
     }
 }

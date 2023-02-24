@@ -193,13 +193,15 @@ export class UpgradeScene extends BaseScene {
             valign: 'center'
         }).setOrigin(0.5, 0).setResolution(5);
 
-        const coinText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 180, `Coins: [color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`, {
+        const coinText = this.add.rexBBCodeText(Game.Instance.DefaultWidth / 2, 200, `[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`, {
             fontFamily: 'FutilePro',
             color: '#ffffff',
-            fontSize: '30px',
+            fontSize: '55px',
             halign: 'center',
             valign: 'center'
-        }).setOrigin(0.5, 0).setResolution(5);
+        }).setOrigin(1, 0.5).setResolution(5);
+        const coinImg = this.add.image(0, 0, 'coots_gold');
+        Phaser.Display.Align.To.RightCenter(coinImg, coinText, 0, 5);
 
         const close = this.add.nineslice(Game.Instance.DefaultWidth / 2, 660, 180, 56, 'meter', [ 9, 9, 9, 9 ])
             .setOrigin(0.5)
@@ -245,27 +247,27 @@ export class UpgradeScene extends BaseScene {
         const QTStarUpgrade = new UpgradeDisplay(this, 640, 527, 'QT Star', save.StarTier, 5, () => {
             Game.Instance.playerData.saveData.StarTier++;
             Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+            coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
         });
         const CatnipUpgrade = new UpgradeDisplay(this, 320, 527, 'Catnip', save.CatNipTier, 5, () => {
             Game.Instance.playerData.saveData.CatNipTier++;
             Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+            coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
         });
         const QTCandleUpgrade = new UpgradeDisplay(this, 725, 327, 'QT Candle', save.CandleTier, 5, () => {
             Game.Instance.playerData.saveData.CandleTier++;
             Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+            coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
         });
         const SuccUpgrade = new UpgradeDisplay(this, 480, 327, 'SUCC', save.SuccTier, 3, () => {
             Game.Instance.playerData.saveData.SuccTier++;
             Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+            coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
         });
         const WickedUpgrade = new UpgradeDisplay(this, 235, 327, 'Wicked', save.WickedTier, 5, () => {
             Game.Instance.playerData.saveData.WickedTier++;
             Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+            coinText.setText(`[color=#FFD700]${Game.Instance.playerData.saveData.coinCount}[/color]`);
         });
     }
 }

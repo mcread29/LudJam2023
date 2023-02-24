@@ -126,7 +126,7 @@ export class BasicEnemy extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'clover_kitty');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -140,7 +140,7 @@ export class BasicEnemyBoss extends Enemy {
     constructor(scene: GameScene) {
         super(scene, 'clover_kitty_boss');
         this._isBoss = true;
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }
 
@@ -153,6 +153,7 @@ export class LudBoss extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'lud_boss');
-        this.body.setCircle(this.width / 3, this.width / 6, this.width / 3).setBounce(1, 1);
+        this.setOrigin(0.0, 0.66);
+        this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)); //.setBounce(1, 1);
     }
 }
