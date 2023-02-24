@@ -19,9 +19,41 @@ const coinCosts = {
     ],
 };
 
+const toolTips = {
+    'Catnip': { icon: 'cat_nip', toolTip: 'Raises base attack damage by 5% (max +25)' },
+    'Wicked': { icon: 'wicked', toolTip: 'Raises base movement speed by 5% (max +25%)' },
+    'SUCC': { icon: 'succ', toolTip: 'Raises base pickup range by 5% (max 15%)' },
+    'QT Candle': { icon: 'qt_candle', toolTip: 'Raises base attack area by 5% (max +25%)' },
+    'QT Star': { icon: 'qt_star', toolTip: 'Raises base health by 5% (max +25%)' },
+};
+
+class UpgradeToolTip extends Phaser.GameObjects.Container {
+    constructor(scene: Phaser.Scene, x: number, y: number, private _name: string) {
+        super(scene, x, y);
+
+        const bg = scene.add.nineslice(0, 0, 220, 80, 'meter', [ 9, 9, 9, 9 ]).setOrigin(0.5);
+        const icon = scene.add.image(-86, 0, toolTips[ _name ].icon);
+        const text = scene.add.rexBBCodeText(17, 0, toolTips[ this._name ].toolTip, {
+            fontFamily: 'FutilePro',
+            color: '#ffffff',
+            fontSize: '15px',
+            halign: 'center',
+            valign: 'center',
+            wrap: {
+                mode: 'word',
+                width: 158
+            }
+        }).setOrigin(0.5).setResolution(5);
+
+        this.add([ bg, icon, text ]);
+    }
+}
+
 class UpgradeDisplay extends Phaser.GameObjects.Container {
     fills: Phaser.GameObjects.Image[];
     costText: BBCodeText.BBCodeText;
+    buttonText: BBCodeText.BBCodeText;
+    button: Phaser.GameObjects.RenderTexture;
 
     constructor(scene: Phaser.Scene, x: number, y: number, private _name: string, private currentLevel: number, private maxLevel: number, private _onUpgrade: () => void) {
         super(scene, x, y);
@@ -34,6 +66,7 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5).setResolution(5);
+
         const bg = scene.add.nineslice(0, 0, 20 + 40 * this.maxLevel + 5 * (this.maxLevel - 1), 60, 'border_2', [ 10, 10, 10, 10 ]).setOrigin(0.5);
 
         const costString = this.currentLevel < this.maxLevel ? `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]` : `[color=green]MAXED![/color]`;
@@ -59,51 +92,56 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
         }
 
         let canClick = true;
-        const button = scene.add.nineslice(0, 70, 120, 50, 'meter', [ 9, 9, 9, 9 ])
-            .setOrigin(0.5)
-            .setInteractive()
-            .on(Phaser.Input.Events.POINTER_DOWN, () => {
-                if (canClick === false) return;
+        const button = this.button = scene.add.nineslice(0, 70, 120, 50, 'meter', [ 9, 9, 9, 9 ])
+            .setOrigin(0.5);
+        if (this.currentLevel < this.maxLevel)
+        {
+            button.setInteractive()
+                .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                    if (canClick === false) return;
 
-                canClick = false;
-                this.upgrade();
-                scene.tweens.killTweensOf([ buttonText, button ]);
-                scene.tweens.add({
-                    targets: [ buttonText, button ],
-                    scale: 1,
-                    duration: 200,
-                    ease: Phaser.Math.Easing.Back.InOut,
-                    onComplete: () => {
-                        scene.tweens.add({
-                            targets: [ buttonText, button ],
-                            scale: 1.3,
-                            duration: 150,
-                            ease: Phaser.Math.Easing.Back.Out,
-                            onComplete: () => canClick = true
-                        });
-                    }
+                    canClick = false;
+                    this.upgrade();
+                    scene.tweens.killTweensOf([ buttonText, button ]);
+                    scene.tweens.add({
+                        targets: [ buttonText, button ],
+                        scale: 1,
+                        duration: 200,
+                        ease: Phaser.Math.Easing.Back.InOut,
+                        onComplete: () => {
+                            scene.tweens.add({
+                                targets: [ buttonText, button ],
+                                scale: 1.3,
+                                duration: 150,
+                                ease: Phaser.Math.Easing.Back.Out,
+                                onComplete: () => canClick = true
+                            });
+                        }
+                    });
+                })
+                .on(Phaser.Input.Events.POINTER_OVER, () => {
+                    toolTip.setVisible(true);
+                    scene.tweens.killTweensOf([ buttonText, button ]);
+                    scene.tweens.add({
+                        targets: [ buttonText, button ],
+                        scale: 1.3,
+                        duration: 100,
+                        ease: Phaser.Math.Easing.Quadratic.Out
+                    });
+                })
+                .on(Phaser.Input.Events.POINTER_OUT, () => {
+                    toolTip.setVisible(false);
+                    canClick = true;
+                    scene.tweens.killTweensOf([ buttonText, button ]);
+                    scene.tweens.add({
+                        targets: [ buttonText, button ],
+                        scale: 1,
+                        duration: 100,
+                        ease: Phaser.Math.Easing.Quadratic.Out
+                    });
                 });
-            })
-            .on(Phaser.Input.Events.POINTER_OVER, () => {
-                scene.tweens.killTweensOf([ buttonText, button ]);
-                scene.tweens.add({
-                    targets: [ buttonText, button ],
-                    scale: 1.3,
-                    duration: 100,
-                    ease: Phaser.Math.Easing.Quadratic.Out
-                });
-            })
-            .on(Phaser.Input.Events.POINTER_OUT, () => {
-                canClick = true;
-                scene.tweens.killTweensOf([ buttonText, button ]);
-                scene.tweens.add({
-                    targets: [ buttonText, button ],
-                    scale: 1,
-                    duration: 100,
-                    ease: Phaser.Math.Easing.Quadratic.Out
-                });
-            });
-        const buttonText = scene.add.rexBBCodeText(0, 70, 'UPGRADE', {
+        }
+        const buttonText = this.buttonText = scene.add.rexBBCodeText(0, 70, this.currentLevel < this.maxLevel ? 'UPGRADE' : 'MAXED!', {
             fontFamily: 'FutilePro',
             color: '#ffffff',
             fontSize: '22px',
@@ -111,6 +149,9 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
             valign: 'center'
         }).setOrigin(0.5).setResolution(5);
         this.add([ button, buttonText ]);
+
+        const toolTip = new UpgradeToolTip(scene, 0, button.y + button.height * 1.5, _name).setVisible(false);
+        this.add(toolTip);
     }
 
     upgrade() {
@@ -122,7 +163,12 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
         this.currentLevel++;
         this._onUpgrade();
         const costString = this.currentLevel < this.maxLevel ? `[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]` : `[color=green]MAXED![/color]`;
-        this.costText.setText(`[color=#FFD700]${coinCosts[ this._name ][ this.currentLevel ]}[/color]`);
+        if (this.currentLevel >= this.maxLevel)
+        {
+            this.buttonText.setText('MAXED!');
+            this.button.disableInteractive();
+        }
+        this.costText.setText(costString);
     }
 }
 
@@ -154,34 +200,6 @@ export class UpgradeScene extends BaseScene {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5, 0).setResolution(5);
-
-        const save = Game.Instance.playerData.saveData;
-
-        const WickedUpgrade = new UpgradeDisplay(this, 235, 327, 'Wicked', save.WickedTier, 5, () => {
-            Game.Instance.playerData.saveData.WickedTier++;
-            Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
-        });
-        const SuccUpgrade = new UpgradeDisplay(this, 480, 327, 'SUCC', save.SuccTier, 3, () => {
-            Game.Instance.playerData.saveData.SuccTier++;
-            Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
-        });
-        const QTCandleUpgrade = new UpgradeDisplay(this, 725, 327, 'QT Candle', save.CandleTier, 5, () => {
-            Game.Instance.playerData.saveData.CandleTier++;
-            Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
-        });
-        const CatnipUpgrade = new UpgradeDisplay(this, 320, 527, 'Catnip', save.CatNipTier, 5, () => {
-            Game.Instance.playerData.saveData.CatNipTier++;
-            Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
-        });
-        const QTStarUpgrade = new UpgradeDisplay(this, 640, 527, 'QT Star', save.StarTier, 5, () => {
-            Game.Instance.playerData.saveData.StarTier++;
-            Game.Instance.playerData.save();
-            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
-        });
 
         const close = this.add.nineslice(Game.Instance.DefaultWidth / 2, 660, 180, 56, 'meter', [ 9, 9, 9, 9 ])
             .setOrigin(0.5)
@@ -221,5 +239,33 @@ export class UpgradeScene extends BaseScene {
             halign: 'center',
             valign: 'center'
         }).setOrigin(0.5).setResolution(5);
+
+        const save = Game.Instance.playerData.saveData;
+
+        const QTStarUpgrade = new UpgradeDisplay(this, 640, 527, 'QT Star', save.StarTier, 5, () => {
+            Game.Instance.playerData.saveData.StarTier++;
+            Game.Instance.playerData.save();
+            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+        });
+        const CatnipUpgrade = new UpgradeDisplay(this, 320, 527, 'Catnip', save.CatNipTier, 5, () => {
+            Game.Instance.playerData.saveData.CatNipTier++;
+            Game.Instance.playerData.save();
+            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+        });
+        const QTCandleUpgrade = new UpgradeDisplay(this, 725, 327, 'QT Candle', save.CandleTier, 5, () => {
+            Game.Instance.playerData.saveData.CandleTier++;
+            Game.Instance.playerData.save();
+            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+        });
+        const SuccUpgrade = new UpgradeDisplay(this, 480, 327, 'SUCC', save.SuccTier, 3, () => {
+            Game.Instance.playerData.saveData.SuccTier++;
+            Game.Instance.playerData.save();
+            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+        });
+        const WickedUpgrade = new UpgradeDisplay(this, 235, 327, 'Wicked', save.WickedTier, 5, () => {
+            Game.Instance.playerData.saveData.WickedTier++;
+            Game.Instance.playerData.save();
+            coinText.setText(`Coins: ${Game.Instance.playerData.saveData.coinCount}`);
+        });
     }
 }

@@ -1,6 +1,7 @@
 import BaseScene, { SceneInit } from "./Scene";
 import Game from "../Game";
 import GameScene from "./GameScene";
+import { SettingsScene } from "./Settings";
 
 interface MainMenuInit extends SceneInit { }
 
@@ -15,7 +16,7 @@ export default class MainMenu extends BaseScene {
         super.create();
         this.cameras.main.setRoundPixels(true);
 
-        this.add.image(0, 0, 'coots_clash').setOrigin(0);
+        const bg = this.add.image(0, 0, 'coots_clash').setOrigin(0);
 
         const startButton = this.add.image(189.5, 480.5, 'start_button')
             .setInteractive()
@@ -71,6 +72,39 @@ export default class MainMenu extends BaseScene {
                     ease: Phaser.Math.Easing.Quadratic.Out
                 });
             });
+
+        const settingsButton = this.add.image(0, 0, 'settings_button')
+            .setScale(0.5)
+            .setInteractive()
+            .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.scene.start(SettingsScene.SceneName);
+                this.tweens.killTweensOf(settingsButton);
+                this.tweens.add({
+                    targets: settingsButton,
+                    scale: 0.5,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            })
+            .on(Phaser.Input.Events.POINTER_OVER, () => {
+                this.tweens.killTweensOf(settingsButton);
+                this.tweens.add({
+                    targets: settingsButton,
+                    scale: 0.65,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            })
+            .on(Phaser.Input.Events.POINTER_OUT, () => {
+                this.tweens.killTweensOf(settingsButton);
+                this.tweens.add({
+                    targets: settingsButton,
+                    scale: 0.5,
+                    duration: 100,
+                    ease: Phaser.Math.Easing.Quadratic.Out
+                });
+            });
+        Phaser.Display.Align.In.BottomLeft(settingsButton, bg);
 
         Game.Instance.music.play('title', false);
     }

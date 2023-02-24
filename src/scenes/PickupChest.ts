@@ -88,7 +88,7 @@ export class PickupChestScene extends BaseScene {
 
         const arrow = this.add.image(0, 490, 'arrow_1').setMask(mask1);
 
-        const chest = this.add.sprite(button.x, 385, 'chestAnim')
+        this.add.sprite(button.x, 385, 'chestAnim')
             .setOrigin(0.5, 1)
             .play({ key: 'Big_Chest' })
             .on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
@@ -113,7 +113,7 @@ export class PickupChestScene extends BaseScene {
             .setPosition(0, 0)
             .fillStyle(0xffffff)
             .beginPath()
-            .fillRect(285, 105, 390, 261)
+            .fillRect(285, 105, 390, 242)
             .createGeometryMask();
 
         const icon = this.add.image(button.x, 400, this.powerUp.icon).setMask(mask2);

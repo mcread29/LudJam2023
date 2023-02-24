@@ -145,6 +145,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
                 if (this.health <= 0 && !this.dead)
                 {
                     this.dead = true;
+                    this.body.setImmovable(true);
                     Game.Instance.manager.eventCenter.emit('player_die');
                     for (const attack of this.attacks)
                     {

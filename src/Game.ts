@@ -25,6 +25,7 @@ import ChooseStartAttackScene from "./scenes/ChooseStartAttack";
 import { PickupChestScene } from "./scenes/PickupChest";
 import { GameOverScene } from "./scenes/GameOver";
 import { UpgradeScene } from "./scenes/UpgradeScene";
+import { SettingsScene } from "./scenes/Settings";
 
 export type gameConfig = {};
 
@@ -43,55 +44,132 @@ export type MapData = {
         [ k: number ]: Wave;
     };
 };
+
+const enum EnemyTypes {
+    BasicEnemy = 'BasicEnemy',
+    BasicEnemyBoss = 'BasicEnemyBoss',
+    Bat = 'Bat',
+    Bat2 = 'Bat2',
+    Bat3 = 'Bat3',
+    Zambie = 'Zambie',
+    Zambie2 = 'Zambie2',
+    ZambieBoss = 'Zambie3',
+    Skeleton = 'Skeleton',
+    Skeleton2 = 'Skeleton2',
+    SkeletonBoss = 'Skeleton3',
+    SadgeGhost = 'SadgeGhost',
+    SadgeGhost2 = 'SadgeGhost2',
+    SadgeGhostBoss = 'SadgeGhost3',
+    KreyFlower = 'KreyFlower',
+    KreyFlower2 = 'KreyFlower2',
+    FlowerBoss = 'KreyFlower3',
+    PogMan = 'PogMan',
+    PogMan2 = 'PogMan2',
+    PogMan3 = 'PogMan3',
+    LudBoss = 'LudBoss',
+}
+
 export const GameConfig: { maps: MapData[]; } = {
     maps: [ {
         max: 540,
         waves: {
             0: {
                 interval: 1,
-                enemies: [ 'Bat' ],
+                enemies: [ EnemyTypes.Bat ],
                 minimum: 10
+            },
+            30: {
+                interval: 1,
+                enemies: [ EnemyTypes.Bat, EnemyTypes.Zambie ],
+                minimum: 30
             },
             60: {
                 interval: 1,
-                enemies: [ 'Bat', 'Zambie' ],
+                enemies: [ EnemyTypes.Zambie, EnemyTypes.Zambie2 ],
                 minimum: 30,
-                boss: 'BasicEnemyBoss'
+                boss: EnemyTypes.BasicEnemyBoss
+            },
+            90: {
+                interval: 1,
+                enemies: [ EnemyTypes.Bat2, EnemyTypes.Bat3, EnemyTypes.Skeleton ],
+                minimum: 30
             },
             120: {
                 interval: 0.5,
-                enemies: [ 'Bat', 'Bat2' ],
-                minimum: 50
+                enemies: [ EnemyTypes.Bat, EnemyTypes.Zambie2 ],
+                minimum: 50,
+                boss: EnemyTypes.ZambieBoss
+            },
+            150: {
+                interval: 1,
+                enemies: [ EnemyTypes.Zambie2, EnemyTypes.Skeleton ],
+                minimum: 30
             },
             180: {
                 interval: 3,
-                enemies: [ 'Skeleton' ],
-                minimum: 40
+                enemies: [ EnemyTypes.Bat, EnemyTypes.Bat2, EnemyTypes.Bat3 ],
+                minimum: 40,
+                boss: EnemyTypes.SkeletonBoss
+            },
+            210: {
+                interval: 1,
+                enemies: [ EnemyTypes.Skeleton, EnemyTypes.Skeleton2 ],
+                minimum: 30
             },
             240: {
                 interval: 3,
-                enemies: [ 'Skeleton', 'Zambie' ],
-                minimum: 50
+                enemies: [ EnemyTypes.Bat3, EnemyTypes.Zambie, EnemyTypes.Skeleton ],
+                minimum: 50,
+                boss: EnemyTypes.SadgeGhostBoss
+            },
+            270: {
+                interval: 1,
+                enemies: [ EnemyTypes.SadgeGhost, EnemyTypes.Zambie2 ],
+                minimum: 30
             },
             300: {
                 interval: 3,
-                enemies: [ 'Skeleton2' ],
-                minimum: 60
+                enemies: [ EnemyTypes.Zambie2, EnemyTypes.Skeleton, EnemyTypes.Skeleton2 ],
+                minimum: 60,
+                boss: EnemyTypes.FlowerBoss
+            },
+            330: {
+                interval: 1,
+                enemies: [ EnemyTypes.KreyFlower, EnemyTypes.Zambie, EnemyTypes.Zambie2, EnemyTypes.Skeleton ],
+                minimum: 30
             },
             360: {
                 interval: 3,
-                enemies: [ 'Skeleton2', 'Zambie2' ],
-                minimum: 70
+                enemies: [ EnemyTypes.KreyFlower2, EnemyTypes.Zambie2, EnemyTypes.SadgeGhost ],
+                minimum: 70,
+                boss: EnemyTypes.PogMan
+            },
+            390: {
+                interval: 1,
+                enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.KreyFlower ],
+                minimum: 30
             },
             420: {
                 interval: 3,
-                enemies: [ 'Bat3', 'Zambie', 'Skeleton3' ],
-                minimum: 80
+                enemies: [ EnemyTypes.KreyFlower2, EnemyTypes.KreyFlower, EnemyTypes.Bat ],
+                minimum: 80,
+                boss: EnemyTypes.PogMan2
+            },
+            450: {
+                interval: 1,
+                enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.KreyFlower2, EnemyTypes.Zambie ],
+                minimum: 30
             },
             480: {
                 interval: 3,
-                enemies: [ 'Zambie', 'Zambie3' ],
-                minimum: 90
+                enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.Skeleton2, EnemyTypes.Bat3 ],
+                minimum: 90,
+                boss: EnemyTypes.PogMan3
+            },
+            510: {
+                interval: 1,
+                enemies: [ EnemyTypes.KreyFlower, EnemyTypes.KreyFlower2, EnemyTypes.Skeleton, EnemyTypes.Skeleton2 ],
+                minimum: 30
             },
             540: {
                 interval: 1,
@@ -199,10 +277,10 @@ export default class Game extends Phaser.Game {
 
         Game._instance = this;
 
-        this._music = new MusicManager(this, 0.4);
-
         this._playerData = new PlayerData("Coots-Clash");
         this._playerData.load();
+
+        this._music = new MusicManager(this, this._playerData.saveData.volume);
 
         Game._instance = this;
 
@@ -216,6 +294,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(PickupChestScene.SceneName, PickupChestScene);
         this.scene.add(GameOverScene.SceneName, GameOverScene);
         this.scene.add(UpgradeScene.SceneName, UpgradeScene);
+        this.scene.add(SettingsScene.SceneName, SettingsScene);
     }
 
     public step(time: number, delta: number): void {

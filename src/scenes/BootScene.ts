@@ -47,6 +47,8 @@ export default class BootScene extends BaseScene {
             this.load.image('coots_clash', './assets/images/coots_clash.jpg');
             this.load.image('start_button', './assets/images/press_start.png');
             this.load.image('upgrade_button', './assets/images/coots_upgrade.png');
+            this.load.image('settings_button', './assets/images/settings.png');
+            this.load.image('vol_button', './assets/images/vol_button.png');
 
             this.load.image('border_1', './assets/images/border_1.png');
             this.load.image('border_2', './assets/images/border_2.png');
@@ -119,7 +121,7 @@ export default class BootScene extends BaseScene {
 
             this.load.aseprite('lightning', './assets/animations/lightning.png', './assets/animations/lightning.json');
             this.load.aseprite('waterAnim', './assets/animations/kitty_water_01.png', './assets/animations/kitty_water_01.json');
-            this.load.aseprite('chestAnim', './assets/animations/chest_01_64x64.png', './assets/animations/chest_01.json');
+            this.load.aseprite('chestAnim', './assets/animations/chest_01.png', './assets/animations/chest_01.json');
             this.load.aseprite('coin_01', './assets/animations/coin.png', './assets/animations/coin.json');
 
             this.load.image('waterAttack', './assets/images/water.png');
@@ -147,6 +149,7 @@ export default class BootScene extends BaseScene {
 
         this.hueShift('krey_flower_01', 'krey_flower_02', 0.1);
         this.hueShift('krey_flower_01', 'krey_flower_03', 0.5);
+        this.hueShift('krey_flower_01', 'krey_flower_04', 0.75);
 
         this.hueShift('pog_man_01', 'pog_man_02', 0.1);
         this.hueShift('pog_man_01', 'pog_man_03', 0.5);

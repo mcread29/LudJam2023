@@ -1,5 +1,11 @@
 import GameScene from "../scenes/GameScene";
-import { BasicEnemy, BasicEnemyBoss, Bat, Bat2, Bat3, Enemy, LudBoss, Skeleton, Skeleton2, Skeleton3, TEMPBOSS, Zambie, Zambie2, Zambie3 } from "./Enemy";
+import { BasicEnemy, BasicEnemyBoss, Enemy, LudBoss } from "./Enemy";
+import { Bat, Bat2, Bat3 } from "./Bat";
+import { Zambie, Zambie2, Zambie3 } from './Zambie';
+import { Skeleton, Skeleton2, Skeleton3 } from './Skeleton';
+import { SadgeGhost, SadgeGhost2, SadgeGhost3 } from "./Ghost";
+import { KreyFlower, KreyFlower2, KreyFlower3 } from "./Flower";
+import { PogMan, PogMan2, PogMan3 } from "./PogMan";
 
 export class EnemyPool {
     public static get enemies(): Map<string, Enemy[]> { return this._enemies; }
@@ -7,14 +13,6 @@ export class EnemyPool {
 
     public static Initialize(scene: GameScene) {
         this._enemies = new Map<string, Enemy[]>();
-
-        this._enemies.set('TEMPBOSS', []);
-        for (let i = 0; i < 100; i++)
-        {
-            const enemy = new TEMPBOSS(scene);
-            enemy.Disable();
-            this._enemies.get('TEMPBOSS').push(enemy);
-        }
 
         this._enemies.set('BasicEnemy', []);
         for (let i = 0; i < 100; i++)
@@ -110,6 +108,78 @@ export class EnemyPool {
             const enemy = new Zambie3(scene);
             enemy.Disable();
             this._enemies.get('Zambie3').push(enemy);
+        }
+
+        this._enemies.set('SadgeGhost', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new SadgeGhost(scene);
+            enemy.Disable();
+            this._enemies.get('SadgeGhost').push(enemy);
+        }
+
+        this._enemies.set('SadgeGhost2', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new SadgeGhost2(scene);
+            enemy.Disable();
+            this._enemies.get('SadgeGhost2').push(enemy);
+        }
+
+        this._enemies.set('SadgeGhost3', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new SadgeGhost3(scene);
+            enemy.Disable();
+            this._enemies.get('SadgeGhost3').push(enemy);
+        }
+
+        this._enemies.set('KreyFlower', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new KreyFlower(scene);
+            enemy.Disable();
+            this._enemies.get('KreyFlower').push(enemy);
+        }
+
+        this._enemies.set('KreyFlower2', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new KreyFlower2(scene);
+            enemy.Disable();
+            this._enemies.get('KreyFlower2').push(enemy);
+        }
+
+        this._enemies.set('KreyFlower3', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new KreyFlower3(scene);
+            enemy.Disable();
+            this._enemies.get('KreyFlower3').push(enemy);
+        }
+
+        this._enemies.set('PogMan', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new PogMan(scene);
+            enemy.Disable();
+            this._enemies.get('PogMan').push(enemy);
+        }
+
+        this._enemies.set('PogMan2', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new PogMan2(scene);
+            enemy.Disable();
+            this._enemies.get('PogMan2').push(enemy);
+        }
+
+        this._enemies.set('PogMan3', []);
+        for (let i = 0; i < 100; i++)
+        {
+            const enemy = new PogMan3(scene);
+            enemy.Disable();
+            this._enemies.get('PogMan3').push(enemy);
         }
     }
 

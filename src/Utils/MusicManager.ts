@@ -6,6 +6,8 @@ export class MusicManager {
     private _currentMusic: Phaser.Sound.BaseSound;
     private _currentKey: string;
     private _volume: number;
+    public get volume(): number { return this._volume; }
+    private _currentLoop: boolean;
 
     constructor(game: Game, volume: number) {
         this._game = game;
@@ -27,6 +29,7 @@ export class MusicManager {
         });
         this._currentMusic.play();
         this._currentKey = key;
+        this._currentLoop = loop;
     }
 
     public playWithIntro(introKey: string, loopKey: string) {
@@ -37,9 +40,11 @@ export class MusicManager {
             this._currentMusic = this._game.sound.add(loopKey, { volume: this._volume, loop: true });
             this._currentMusic.play();
             this._currentKey = loopKey;
+            this._currentLoop = true;
         }, this);
         this._currentMusic.play();
         this._currentKey = introKey;
+        this._currentLoop = false;
     }
 
     public stop() {
@@ -57,5 +62,23 @@ export class MusicManager {
 
     public resume() {
         this._currentMusic.resume();
+    }
+
+    public LowerVolume(amount: number = 0.1) {
+        this.SetVolume(Math.max(0, this._volume - amount));
+    }
+
+    public RaiseVolume(amount: number = 0.1) {
+        this.SetVolume(Math.min(1, this._volume + amount));
+    }
+
+    public SetVolume(volume: number) {
+        this._volume = volume;
+        Game.Instance.playerData.saveData.volume = volume;
+
+        if (this._currentMusic)
+        {
+            (this._currentMusic as any).volume = this._volume;
+        }
     }
 }

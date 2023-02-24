@@ -1,4 +1,5 @@
 export class SaveData {
+    volume: number = 0.4;
     coinCount: number = 0;
     SuccTier: number = 0; //
     WickedTier: number = 0; //
