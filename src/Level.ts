@@ -1,3 +1,4 @@
+import Game from "./Game";
 import { Destructable } from "./objects/Destructable";
 import GameScene from "./scenes/GameScene";
 
@@ -13,10 +14,14 @@ export class Level {
 
         this.map.createLayer('Background', this.tileset);
 
-        this.collision = this.map.createLayer('COLLISION', this.tileset);
+        this.collision = this.map.createLayer('COLLISION', this.tileset).setVisible(false);
         this.collision.setCollisionByExclusion([ -1 ], true);
 
-        this.bounds = this.map.createLayer('BOUNDS', this.tileset);
+        this.map.createLayer('FG', this.tileset);
+        this.map.createLayer('FG2', this.tileset);
+        this.map.createLayer('FG3', this.tileset).setDepth(Game.maxDepth);
+
+        this.bounds = this.map.createLayer('BOUNDS', this.tileset).setVisible(false);
         this.bounds.setCollisionByExclusion([ -1 ], true);
 
         const destructables = this.map.createLayer('destructables', this.tileset);

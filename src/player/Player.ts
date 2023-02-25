@@ -52,13 +52,14 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
             this._attackGroup,
             (this.scene as GameScene).enemies,
             (a: HitBox, e: Enemy) => a.attack.Hit(e),
-            (a: HitBox, e: Enemy) => a.attack.CanHit(e)
+            (a: HitBox, e: Enemy) => a.attack.CanHit(e) && scene.cameras.main.worldView.contains(e.x, e.y)
         );
 
         scene.physics.add.overlap(
             this._attackGroup,
             (this.scene as GameScene).destructables,
-            (a: HitBox, d: Destructable) => d.Destruct()
+            (a: HitBox, d: Destructable) => d.Destruct(),
+            (a: HitBox, d: Destructable) => scene.cameras.main.worldView.contains(d.x, d.y)
         );
 
         this.attractBody = new Phaser.Physics.Arcade.Sprite(scene, 0, 0, 'circle_hitbox');

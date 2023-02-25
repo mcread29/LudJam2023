@@ -56,12 +56,12 @@ export default class GameScene extends BaseScene {
 
         Game.Instance.manager.SetupAttacks(this);
 
-        this.cameras.main.setBounds(0, 0, 4096, 4096);
-        this.physics.world.setBounds(0, 0, 4096, 4096, true, true, true, true);
-
         const level = new Level(this, 'map', { key: 'tileset_1', image: 'tiles' });
 
-        let player = this.player = new PLayer(this, 2048, 2048);
+        this.cameras.main.setBounds(0, 0, level.collision.width, level.collision.height);
+        this.physics.world.setBounds(0, 0, level.collision.width, level.collision.height, true, true, true, true);
+
+        let player = this.player = new PLayer(this, level.collision.width / 2, level.collision.height / 2);
         Game.Instance.manager.SetPlayer(player);
 
         this.physics.add.collider(player, this.enemies, (p: PLayer, e: Enemy) => p.collide());
@@ -69,16 +69,18 @@ export default class GameScene extends BaseScene {
         this.physics.add.overlap(player.attractBody, this.gems, (p: PLayer, g: Gem) => {
             g.startCollect();
             this.gems.remove(g);
-            // this.pickups.add(g);
-        });
+        }, (o1: PLayer, o2: Gem) => this.cameras.main.worldView.contains(o2.x, o2.y));
 
-        this.physics.add.overlap(player, this.pickups, (player: PLayer, pickup: Pickup) => pickup.Pickup(player));
+        this.physics.add.overlap(
+            player,
+            this.pickups,
+            (player: PLayer, pickup: Pickup) => pickup.Pickup(player),
+            (player: PLayer, pickup: Pickup) => this.cameras.main.worldView.contains(pickup.x, pickup.y));
 
         this.physics.add.collider(this.enemies, this.enemies);
         this.physics.add.collider(level.collision, this.enemies);
 
         this.physics.add.collider([ level.collision, level.bounds ], player);
-
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.music.play('death', false);

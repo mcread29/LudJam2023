@@ -105,7 +105,8 @@ export default class BootScene extends BaseScene {
             this.load.image('lud_boss', './assets/images/lud_boss.png');
 
             this.load.image('tiles', 'assets/tilemaps/map1.png');
-            this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
+            // this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
+            this.load.tilemapTiledJSON('map', 'assets/tilemaps/map2_built.json');
 
             this.load.image('controls', './assets/images/controls.png');
 
