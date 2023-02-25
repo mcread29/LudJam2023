@@ -2,6 +2,7 @@ import BaseScene, { SceneInit } from "./Scene";
 import Game from "../Game";
 import GameScene from "./GameScene";
 import { SettingsScene } from "./Settings";
+import { PLayer } from "../player/Player";
 
 interface MainMenuInit extends SceneInit { }
 

@@ -37,7 +37,6 @@ export class HissAttack extends Attack {
         for (let hitbox of this._hitboxes)
         {
             hitbox.attack = this;
-            console.log(this._player);
             this._player.attackGroup.add(hitbox);
         }
         super.PostActivate();

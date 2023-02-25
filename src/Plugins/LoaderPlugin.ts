@@ -85,8 +85,6 @@ export class GifFile extends Phaser.Loader.File {
         }
         ancillaryCanvas.refresh();
 
-        console.log(info);
-
         this.loader.scene.anims.create({
             key: `${this.key}_gif`,
             frames: this.loader.scene.anims.generateFrameNumbers(this.key, { start: 1, end: gif.length - 1 }),

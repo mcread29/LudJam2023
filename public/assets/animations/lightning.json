@@ -1,6 +1,5 @@
-{ "frames": [
-   {
-    "filename": "0",
+{ "frames": {
+   "0": {
     "frame": { "x": 0, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -8,8 +7,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "1",
+   "1": {
     "frame": { "x": 64, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -17,8 +15,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "2",
+   "2": {
     "frame": { "x": 128, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -26,8 +23,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "3",
+   "3": {
     "frame": { "x": 192, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -35,8 +31,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "4",
+   "4": {
     "frame": { "x": 256, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -44,8 +39,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "5",
+   "5": {
     "frame": { "x": 320, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -53,8 +47,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "6",
+   "6": {
     "frame": { "x": 384, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -62,8 +55,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "7",
+   "7": {
     "frame": { "x": 448, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -71,8 +63,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "8",
+   "8": {
     "frame": { "x": 512, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -80,8 +71,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "9",
+   "9": {
     "frame": { "x": 576, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -89,8 +79,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "10",
+   "10": {
     "frame": { "x": 640, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -98,8 +87,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "11",
+   "11": {
     "frame": { "x": 704, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -107,8 +95,7 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    },
-   {
-    "filename": "12",
+   "12": {
     "frame": { "x": 768, "y": 0, "w": 64, "h": 256 },
     "rotated": false,
     "trimmed": false,
@@ -116,16 +103,17 @@
     "sourceSize": { "w": 64, "h": 256 },
     "duration": 66
    }
- ],
+ },
  "meta": {
   "app": "https://www.aseprite.org/",
   "version": "1.3-beta21-x64",
-  "image": "lit_64x256.png",
+  "image": "lit_64x256b.png",
   "format": "RGBA8888",
   "size": { "w": 832, "h": 256 },
   "scale": "1",
   "frameTags": [
-   { "name": "Lightning", "from": 3, "to": 15, "direction": "forward", "color": "#000000ff" }
+   { "name": "Lightning", "from": 3, "to": 15, "direction": "forward", "color": "#000000ff" },
+   { "name": "Flame", "from": 19, "to": 26, "direction": "forward", "color": "#000000ff" }
   ]
  }
 }

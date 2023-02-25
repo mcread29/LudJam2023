@@ -1,9 +1,10 @@
 import Game from "../Game";
 
 const hurtSounds = [
-    'coots_21',
-    'coots_22',
-    'coots_23',
+    'cootsHit'
+    // 'coots_21',
+    // 'coots_22',
+    // 'coots_23',
 ];
 
 const upgradeSounds = [
@@ -69,7 +70,7 @@ export class SFXManager {
     }
 
     public PlayUpgrade() {
-        this.Play('coots_20');
+        this.Play('levelUp');
     }
 
     public LowerVolume(amount: number = 0.1) {

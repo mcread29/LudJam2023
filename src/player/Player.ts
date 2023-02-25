@@ -9,6 +9,16 @@ import { Item } from "./items/Item";
 
 const speed = 300;
 
+export class Test extends Phaser.Physics.Arcade.Sprite {
+
+    constructor(scene: Phaser.Scene, x: number, y: number) {
+        super(scene, x, y, 'Coots_Walk_01');
+        this.play({ key: 'Walk', repeat: -1 });
+        scene.physics.add.existing(this);
+        scene.add.existing(this);
+    }
+}
+
 export class PLayer extends Phaser.Physics.Arcade.Sprite {
     declare body: Phaser.Physics.Arcade.Body;
 
@@ -42,7 +52,9 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
     public get attackGroup(): Phaser.GameObjects.Group { return this._attackGroup; }
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, 'coots');
+        super(scene, x, y, 'Coots_Walk_01');
+        this.play({ key: 'Walk', repeat: -1 });
+        this.anims.pause();
         scene.physics.add.existing(this);
         scene.add.existing(this);
 
@@ -91,7 +103,6 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.healthBarBG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0x282828).setDepth(Game.maxDepth).setOrigin(0, 0.5);
         this.healthBarFG = scene.add.image(0, 0, 'box').setScale(0.2, 0.05).setTint(0xff0000).setDepth(Game.maxDepth).setOrigin(0, 0.5);
 
-
         this.attacks = [];
         this.items = [];
 
@@ -105,10 +116,10 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         this.IncreaseAttractMod(1 + (0.05 * Game.Instance.playerData.saveData.SuccTier));
         this.maxHealth *= 1 + (0.05 * Game.Instance.playerData.saveData.StarTier);
         this.health *= 1 + (0.05 * Game.Instance.playerData.saveData.StarTier);
-
     }
 
     protected preUpdate(time: number, delta: number): void {
+        super.preUpdate(time, delta);
         this.colliding = false;
     }
 
@@ -127,6 +138,9 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         {
             this.setFlipX(inputVector.x < 0);
         }
+
+        if (inputVector.length() > 0) this.anims.resume();
+        else this.anims.pause();
 
         const move: Phaser.Math.Vector2 = inputVector.normalize();
         if (move.length() > 0) this.body.setImmovable(false);

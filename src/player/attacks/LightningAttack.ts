@@ -38,6 +38,7 @@ export class LightningAttack extends Attack {
     }
 
     Attack() {
+        Game.Instance.sfx.Play('lightning');
         const enemies = this.scene.enemies.children.entries.filter((value: Enemy) => this.scene.cameras.main.worldView.contains(value.x, value.y));
         let enemiesToTarget: Enemy[] = enemies.sort(() => 0.5 - Math.random()) as Enemy[];
 

@@ -194,10 +194,8 @@ export class LevelUpScene extends BaseScene {
 
         if (Game.Instance.manager.seenStory.has(Math.floor(Timer.timeElapsed / 60)) === false)
         {
-
             Game.Instance.manager.seenStory.add(Math.floor(Timer.timeElapsed / 60));
             const img = this.add.image(0, 0, '');
-            console.log(img.x);
             let displace = 0;
 
             const graphics = this.add.rectangle(0, 0, 500, 100, 0x000000).setOrigin(0.5).setAlpha(0.9);
@@ -281,7 +279,7 @@ export class LevelUpScene extends BaseScene {
     }
 
     selectCurrent() {
-        Game.Instance.sfx.PlayButton();
+        Game.Instance.sfx.Play('levelUpSelect');
         this._selected = true;
         this.canChangeSelection = false;
         this.arrow.setTexture('arrow_2');

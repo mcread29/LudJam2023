@@ -76,6 +76,7 @@ export class Gem extends Pickup {
 
     Pickup(player: PLayer) {
         Game.Instance.manager.GiveExp(this.exp);
+        Game.Instance.sfx.Play('getGem');
         this.destroy();
     }
 }

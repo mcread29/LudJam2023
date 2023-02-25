@@ -13,6 +13,7 @@ export class Coin extends Pickup {
     }
 
     Pickup(player: PLayer) {
+        Game.Instance.sfx.Play('Coots_Coin_01');
         const count = Math.floor(Math.random() * 50);
         const text = this.scene.add.rexBBCodeText(Math.round(this.x), Math.round(this.y), `[b]${count}[/b]`, {
             fontFamily: 'FutilePro',

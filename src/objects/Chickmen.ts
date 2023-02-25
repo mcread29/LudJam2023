@@ -15,6 +15,7 @@ export class Chimken extends Pickup {
 
     Pickup(player: PLayer) {
         player.Heal(this._health);
+        Game.Instance.sfx.Play('chimken');
         this.destroy();
     }
 }

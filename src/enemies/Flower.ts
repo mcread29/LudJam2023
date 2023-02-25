@@ -36,6 +36,7 @@ export class KreyFlower3 extends Enemy {
 
     constructor(scene: GameScene) {
         super(scene, 'krey_flower_03');
+        this._isBoss = true;
         this.body.setCircle(this.width / 3, this.width / 6, this.height - (this.height / 3)).setBounce(1, 1);
     }
 }

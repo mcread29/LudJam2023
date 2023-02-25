@@ -7,26 +7,30 @@ export class StoryScene extends BaseScene {
     public static SceneName: string = 'StoryScene';
 
     intro: boolean;
+
+    shutdown() {
+        this.intro = null;
+        super.shutdown();
+    }
+
     init(data: { intro: boolean; }) {
         this.intro = data.intro;
-        console.log(data.intro);
     }
 
     create(): void {
         super.create();
-        const bg = this.add.sprite(0, 0, 'story')
-            .setOrigin(0);
-        if (this.intro)
-        {
-            bg.play('intro_story').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-                Game.Instance.scene.stop(StoryScene.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
-            });
-        }
-        else
-        {
-            bg.play('outro_story').on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-                Game.Instance.scene.stop(StoryScene.SceneName);
-            });
-        }
+        this.add.sprite(0, 0, 'story')
+            .setOrigin(0)
+            .play(this.intro ? 'intro_story' : 'outro_story')
+            .once(Phaser.Animations.Events.ANIMATION_COMPLETE, this.intro ? this.startGame : this.endGame, this);
+    }
+
+    startGame() {
+        Game.Instance.sfx.Play('startGame');
+        Game.Instance.scene.stop(StoryScene.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
+    }
+
+    endGame() {
+        Game.Instance.scene.stop(StoryScene.SceneName);
     }
 }

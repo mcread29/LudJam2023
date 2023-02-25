@@ -125,12 +125,24 @@ export default class BootScene extends BaseScene {
             this.load.aseprite('waterAnim', './assets/animations/kitty_water_01.png', './assets/animations/kitty_water_01.json');
             this.load.aseprite('chestAnim', './assets/animations/chest_01.png', './assets/animations/chest_01.json');
             this.load.aseprite('coin_01', './assets/animations/coin.png', './assets/animations/coin.json');
+            this.load.aseprite('Coots_Walk_01', './assets/animations/Coots_Walk_01.png', './assets/animations/Coots_Walk_01.json');
 
             this.load.image('waterAttack', './assets/images/water.png');
 
             this.load.audio('title', './assets/music/Coots_Title_01.mp3');
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
             this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
+            this.load.audio('music2', './assets/music/Coots_Song_02.mp3');
+
+            this.load.audio('levelUpSelect', './assets/sfx/Coots_Select_01.mp3');
+            this.load.audio('cootsHit', './assets/sfx/Coots_Hit_01.mp3');
+            this.load.audio('startGame', './assets/sfx/Coots_Start_01.mp3');
+            this.load.audio('levelUp', './assets/sfx/Coots_Level_Up.mp3');
+            this.load.audio('chimken', './assets/sfx/Chimken_01.mp3');
+            this.load.audio('getGem', './assets/sfx/Gem_Get_01.mp3');
+            this.load.audio('lightning', './assets/sfx/Lightning_01.mp3');
+            this.load.audio('swpie', './assets/sfx/Coots_Swipe_01.mp3');
+            this.load.audio('Coots_Coin_01', './assets/sfx/Coots_Coin_01.mp3');
 
             this.load.atlas('story', './assets/story.png', './assets/story.json');
             this.load.image('ders', './assets/images/ders_480x400.png');
@@ -172,6 +184,7 @@ export default class BootScene extends BaseScene {
         this.anims.createFromAseprite('lightning');
         this.anims.createFromAseprite('waterAnim');
         this.anims.createFromAseprite('chestAnim');
+        this.anims.createFromAseprite('Coots_Walk_01');
 
         this.anims.createFromAseprite('coin_01');
 
@@ -193,9 +206,6 @@ export default class BootScene extends BaseScene {
             }),
             frameRate: 1000 / ((24.05 / 37) * 1000)
         }) as Phaser.Animations.Animation;
-
-        console.log(intro.frameRate, intro.frames);
-        console.log(out.frameRate, out.frames);
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }

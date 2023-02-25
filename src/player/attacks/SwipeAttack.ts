@@ -66,6 +66,7 @@ export class SwipeAttack extends Attack {
     }
 
     Attack() {
+        Game.Instance.sfx.Play('swpie');
         this.setPosition(this._player.x, this._player.y);
 
         this.leftAttack.enable(-this._player.width / 2, 0);
