@@ -105,7 +105,6 @@ export default class BootScene extends BaseScene {
             this.load.image('lud_boss', './assets/images/lud_boss.png');
 
             this.load.image('tiles', 'assets/tilemaps/map1.png');
-            // this.load.tilemapTiledJSON('map', 'assets/tilemaps/map1_built.json');
             this.load.tilemapTiledJSON('map', 'assets/tilemaps/map2_built.json');
 
             this.load.image('controls', './assets/images/controls.png');
@@ -132,6 +131,13 @@ export default class BootScene extends BaseScene {
             this.load.audio('title', './assets/music/Coots_Title_01.mp3');
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
             this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
+
+            for (let i = 0; i < 6; i++)
+            {
+                this.load.image(`story_${i}`, `./assets/images/story_${i}.png`);
+            }
+            this.load.image('ders', './assets/images/ders_480x400.png');
+            this.load.image('swift', './assets/images/swift_480x400.png');
 
             for (let i = 1; i < 44; i++)
             {

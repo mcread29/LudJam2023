@@ -18,6 +18,7 @@ import GameScene from "./scenes/GameScene";
 import { LevelUpScene } from "./scenes/LevelUpScene";
 import MainMenu from "./scenes/MainMenu";
 import { PickupChestScene } from "./scenes/PickupChest";
+import { StoryScene } from "./scenes/Story";
 import { UIScene } from "./scenes/UIScene";
 import { UpgradeScene } from "./scenes/UpgradeScene";
 
@@ -36,6 +37,9 @@ export class GameManager {
     private _powerups: PowerUp[];
     public get attacks(): Attack[] { return this._powerups.filter((powerup) => (powerup instanceof Attack)) as Attack[]; }
     public get items(): Item[] { return this._powerups.filter((powerup) => (powerup instanceof Item)) as Item[]; }
+
+    private _seenStory: Set<number>;
+    public get seenStory(): Set<number> { return this._seenStory; }
 
     constructor() {
         this._eventCenter = new Phaser.Events.EventEmitter();
@@ -75,8 +79,9 @@ export class GameManager {
     public StartGame() {
         this.playerLevel = 1;
         this.playerExp = 0;
+        this._seenStory = new Set<number>();
 
-        Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
+        Game.Instance.scene.stop(MainMenu.SceneName).start(StoryScene.SceneName);
     }
 
     public ShowUpgrades() {

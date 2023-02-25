@@ -1,6 +1,21 @@
 import Game from "../Game";
+import { Timer } from "../objects/Timer";
 import { Attack, PowerUp } from "../player/attacks/Attack";
 import BaseScene from "./Scene";
+
+const dersLines = [
+    "Sorry Coots! I didn't mean to cause trouble!",
+    "I wanted to make a pog program, mew.",
+    "I made real life emotes for hearts in chat <3",
+    "It didn't work, it made monsters :("
+];
+
+const swiftLines = [
+    "I gave Ders the idea because we need more love!",
+    "I'm nervous, but it doesn't mean I'm not lonely :(",
+    "Ders and I need attention too, you hog!",
+    "My bad, wuff. I loves you too Coots.",
+];
 
 export class PowerUpDisplay extends Phaser.GameObjects.Container {
     public select: () => void;
@@ -77,6 +92,7 @@ export class LevelUpScene extends BaseScene {
     arrow: Phaser.GameObjects.Image;
 
     canChangeSelection = false;
+
     private _selected: boolean;
 
     init(data: { attacks: PowerUp[]; }) {
@@ -176,13 +192,77 @@ export class LevelUpScene extends BaseScene {
         this.arrow = this.add.image(0, 280, 'arrow_1');
         this.arrow.setMask(mask);
 
-        this.add.tween({
-            targets: this.arrow,
-            x: 300,
-            duration: 300,
-            ease: Phaser.Math.Easing.Sine.Out,
-            onComplete: () => this.canChangeSelection = true
-        });
+        if (Game.Instance.manager.seenStory.has(Math.floor(Timer.timeElapsed / 60)) === false)
+        {
+
+            Game.Instance.manager.seenStory.add(Math.floor(Timer.timeElapsed / 60));
+            const img = this.add.image(0, 0, '');
+            console.log(img.x);
+            let displace = 0;
+
+            const graphics = this.add.rectangle(0, 0, 500, 100, 0x000000).setOrigin(0.5).setAlpha(0.9);
+            const text = this.add.rexBBCodeText(0, 0, '', {
+                fontFamily: 'FutilePro',
+                color: '#ffffff',
+                fontSize: '30px',
+                halign: 'center',
+                valign: 'center',
+                wrap: {
+                    mode: 'word',
+                    width: 480
+                }
+            }).setOrigin(0.5).setResolution(5);
+            const textContainer = this.add.container(Game.Instance.DefaultWidth / 2, 700, [ graphics, text ]).setAlpha(0);
+
+            if (Math.floor(Timer.timeElapsed / 60) < 4)
+            {
+                text.setText(dersLines[ Math.floor(Timer.timeElapsed / 60) % 4 ]);
+                img.setPosition(Game.Instance.DefaultWidth, Game.Instance.DefaultHeight).setTexture('ders').setOrigin(1);
+                displace = Game.Instance.DefaultWidth + img.width;
+            }
+            else
+            {
+                text.setText(swiftLines[ Math.floor(Timer.timeElapsed / 60) % 4 ]);
+                img.setPosition(0, Game.Instance.DefaultHeight).setTexture('swift').setOrigin(0, 1);
+                displace = -img.width;
+            }
+
+            const from = textContainer.y + 100;
+            const to = textContainer.y;
+            this.tweens.add({
+                targets: textContainer,
+                y: { from: from, to: to },
+                alpha: 1,
+                duration: 250,
+                delay: 150,
+                ease: Phaser.Math.Easing.Back.Out,
+                onComplete: () => {
+                    this.add.tween({
+                        targets: this.arrow,
+                        x: 300,
+                        duration: 300,
+                        ease: Phaser.Math.Easing.Sine.Out,
+                        onComplete: () => this.canChangeSelection = true
+                    });
+                }
+            });
+            this.tweens.add({
+                targets: img,
+                x: { from: displace, to: img.x },
+                duration: 250,
+                ease: Phaser.Math.Easing.Quadratic.Out
+            });
+        }
+        else
+        {
+            this.add.tween({
+                targets: this.arrow,
+                x: 300,
+                duration: 300,
+                ease: Phaser.Math.Easing.Sine.Out,
+                onComplete: () => this.canChangeSelection = true
+            });
+        }
 
         this.selectedIndex = 0;
     }

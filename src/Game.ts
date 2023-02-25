@@ -27,6 +27,7 @@ import { GameOverScene } from "./scenes/GameOver";
 import { UpgradeScene } from "./scenes/UpgradeScene";
 import { SettingsScene } from "./scenes/Settings";
 import { SFXManager } from "./Utils/SFXManager";
+import { StoryScene } from "./scenes/Story";
 
 export type gameConfig = {};
 
@@ -302,6 +303,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(GameOverScene.SceneName, GameOverScene);
         this.scene.add(UpgradeScene.SceneName, UpgradeScene);
         this.scene.add(SettingsScene.SceneName, SettingsScene);
+        this.scene.add(StoryScene.SceneName, StoryScene);
     }
 
     public step(time: number, delta: number): void {

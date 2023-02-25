@@ -1,6 +1,7 @@
 export class Timer extends Phaser.GameObjects.Container {
     protected _text: BBCodeText.BBCodeText;
-    protected _timeElapsed: number = 0;
+    protected static _timeElapsed: number = 0;
+    public static get timeElapsed(): number { return this._timeElapsed; }
     protected _paused: boolean = true;
 
     public OnTimerEnd: () => void;
@@ -8,6 +9,8 @@ export class Timer extends Phaser.GameObjects.Container {
     constructor(scene: Phaser.Scene, x = 0, y = 0) {
         super(scene, x, y);
         scene.add.existing(this);
+
+        Timer._timeElapsed = 0;
 
         this._text = scene.add.rexBBCodeText(0, 0, '0:00', {
             fontFamily: 'FutilePro',
@@ -17,12 +20,12 @@ export class Timer extends Phaser.GameObjects.Container {
             valign: 'center'
         }).setOrigin(0.5, 0);
         this.add(this._text);
-        this.setTime(this._timeElapsed);
+        this.setTime(Timer._timeElapsed);
     }
 
     public Start(): void {
         this._paused = false;
-        this._timeElapsed = 0;
+        Timer._timeElapsed = 0;
     }
     public Pause(): void {
         this._paused = true;
@@ -34,8 +37,8 @@ export class Timer extends Phaser.GameObjects.Container {
     public Update(time: number, delta: number): void {
         if (this._paused) return;
 
-        this._timeElapsed += delta / 1000;
-        this.setTime(this._timeElapsed);
+        Timer._timeElapsed += delta / 1000;
+        this.setTime(Timer._timeElapsed);
     }
 
     protected setTime(timeRemaining: number): void {
