@@ -28,6 +28,7 @@ import { UpgradeScene } from "./scenes/UpgradeScene";
 import { SettingsScene } from "./scenes/Settings";
 import { SFXManager } from "./Utils/SFXManager";
 import { StoryScene } from "./scenes/Story";
+import { InGameSettingsScene } from "./scenes/InGameSettings";
 
 export type gameConfig = {};
 
@@ -303,6 +304,7 @@ export default class Game extends Phaser.Game {
         this.scene.add(GameOverScene.SceneName, GameOverScene);
         this.scene.add(UpgradeScene.SceneName, UpgradeScene);
         this.scene.add(SettingsScene.SceneName, SettingsScene);
+        this.scene.add(InGameSettingsScene.SceneName, InGameSettingsScene);
         this.scene.add(StoryScene.SceneName, StoryScene);
     }
 

@@ -9,9 +9,11 @@ import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
 import ChooseStartAttackScene from "./ChooseStartAttack";
 import { GameOverScene } from "./GameOver";
+import { InGameSettingsScene } from "./InGameSettings";
 import { LevelUpScene } from "./LevelUpScene";
 import MainMenu from "./MainMenu";
 import BaseScene, { SceneInit } from "./Scene";
+import { StoryScene } from "./Story";
 import { UIScene } from "./UIScene";
 
 interface GameSceneInit extends SceneInit { }
@@ -24,6 +26,7 @@ export default class GameScene extends BaseScene {
     destructables: Phaser.GameObjects.Group;
     pickups: Phaser.GameObjects.Group;
     player: PLayer;
+    esc: Phaser.Input.Keyboard.Key;
 
     spawner: EnemySpawner;
 
@@ -46,6 +49,7 @@ export default class GameScene extends BaseScene {
 
     create(): void {
         super.create();
+        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         this.enemies = this.add.group();
         this.gems = this.add.group();
@@ -85,7 +89,7 @@ export default class GameScene extends BaseScene {
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.music.play('death', false);
             this.spawner.Destroy();
-            Game.Instance.scene.start(GameOverScene.SceneName).pause(UIScene.SceneName);
+            Game.Instance.scene.pause(UIScene.SceneName).start(GameOverScene.SceneName).start(StoryScene.SceneName, { intro: false });
         });
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);
@@ -97,6 +101,13 @@ export default class GameScene extends BaseScene {
         });
 
         Game.Instance.music.play('music');
+    }
+
+    update(time: number, delta: number): void {
+        if (Phaser.Input.Keyboard.JustDown(this.esc))
+        {
+            Game.Instance.scene.start(InGameSettingsScene.SceneName).pause(GameScene.SceneName).pause(UIScene.SceneName);
+        }
     }
 
     onLevelUp() {

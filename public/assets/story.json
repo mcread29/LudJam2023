@@ -1,0 +1,1049 @@
+{
+	"textures": [
+		{
+			"image": "story.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 4096,
+				"h": 4096
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "story intro/1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 1,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story intro/8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/1",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/2",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/3",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/10",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 3209,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/11",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 3209,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/8",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 3209,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/9",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1,
+						"y": 3209,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/12",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/13",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/14",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/15",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/16",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/17",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/18",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/19",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/20",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/21",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/22",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 803,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/23",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/24",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/25",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/26",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/27",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/28",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/29",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/30",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/31",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/32",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/33",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/34",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/35",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/36",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/37",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/4",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 963,
+						"y": 3209,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/5",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/6",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 2887,
+						"y": 1605,
+						"w": 960,
+						"h": 800
+					}
+				},
+				{
+					"filename": "story outro/7",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 960,
+						"h": 800
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 960,
+						"h": 800
+					},
+					"frame": {
+						"x": 1925,
+						"y": 2407,
+						"w": 960,
+						"h": 800
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:ffe31c69b93859b5bd2cc05704e9ee4a:1833e819cf9106d76808faf3b0414008:96ac3bf7467ef134f431b4c4840b362b$"
+	}
+}

@@ -132,10 +132,7 @@ export default class BootScene extends BaseScene {
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
             this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
 
-            for (let i = 0; i < 6; i++)
-            {
-                this.load.image(`story_${i}`, `./assets/images/story_${i}.png`);
-            }
+            this.load.atlas('story', './assets/story.png', './assets/story.json');
             this.load.image('ders', './assets/images/ders_480x400.png');
             this.load.image('swift', './assets/images/swift_480x400.png');
 
@@ -177,6 +174,28 @@ export default class BootScene extends BaseScene {
         this.anims.createFromAseprite('chestAnim');
 
         this.anims.createFromAseprite('coin_01');
+
+        const intro = this.anims.create({
+            key: 'intro_story',
+            frames: this.anims.generateFrameNames('story', {
+                prefix: 'story intro/',
+                start: 1,
+                end: 12
+            }),
+            frameRate: 1000 / ((15.6 / 12) * 1000)
+        }) as Phaser.Animations.Animation;
+        const out = this.anims.create({
+            key: 'outro_story',
+            frames: this.anims.generateFrameNames('story', {
+                prefix: 'story outro/',
+                start: 1,
+                end: 37
+            }),
+            frameRate: 1000 / ((24.05 / 37) * 1000)
+        }) as Phaser.Animations.Animation;
+
+        console.log(intro.frameRate, intro.frames);
+        console.log(out.frameRate, out.frames);
 
         Game.Instance.scene.start(MainMenu.SceneName);
     }
