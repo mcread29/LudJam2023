@@ -53,6 +53,8 @@ export class GameOverScene extends BaseScene {
 
     create(): void {
         const done = () => {
+            Game.Instance.sfx.PlayButton();
+
             arrow.setTexture('arrow_2');
 
             this.add.tween({

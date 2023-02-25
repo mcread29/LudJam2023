@@ -74,7 +74,7 @@ export class MusicManager {
 
     public SetVolume(volume: number) {
         this._volume = volume;
-        Game.Instance.playerData.saveData.volume = volume;
+        Game.Instance.playerData.saveData.musicVolume = volume;
 
         if (this._currentMusic)
         {

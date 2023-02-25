@@ -101,6 +101,8 @@ export class LevelUpScene extends BaseScene {
     }
 
     create(): void {
+        Game.Instance.sfx.PlayUpgrade();
+
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.up = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
@@ -199,6 +201,7 @@ export class LevelUpScene extends BaseScene {
     }
 
     selectCurrent() {
+        Game.Instance.sfx.PlayButton();
         this._selected = true;
         this.canChangeSelection = false;
         this.arrow.setTexture('arrow_2');

@@ -20,7 +20,8 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
 
     maxHealth = 100;
     health = 100;
-    hitstun = 1;
+    hitstun = 0;
+    hitSoundTimeout = 0;
 
     healthBarBG: Phaser.GameObjects.Image;
     healthBarFG: Phaser.GameObjects.Image;
@@ -138,6 +139,11 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
             this.setTint(0xff0000);
             if (this.hitstun <= 0)
             {
+                if (this.hitSoundTimeout <= 0)
+                {
+                    this.hitSoundTimeout = 1;
+                    Game.Instance.sfx.PlayHurt();
+                }
                 this.health -= 5;
                 this.hitstun = 0.5;
                 this.healthBarFG.setScale(0.2 * this.health / this.maxHealth, 0.05);
@@ -147,6 +153,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
                     this.dead = true;
                     this.body.setImmovable(true);
                     Game.Instance.manager.eventCenter.emit('player_die');
+                    Game.Instance.sfx.PlayDeath();
                     for (const attack of this.attacks)
                     {
                         attack.Deactivate();
@@ -157,6 +164,7 @@ export class PLayer extends Phaser.Physics.Arcade.Sprite {
         else this.setTint(0xffffff);
 
         this.hitstun -= delta / 1000;
+        this.hitSoundTimeout -= delta / 1000;
 
         this.healthBarBG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);
         this.healthBarFG.setPosition(this.x - this.healthBarBG.displayWidth / 2, this.y + this.displayHeight + 5);

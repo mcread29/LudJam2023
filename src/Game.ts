@@ -26,6 +26,7 @@ import { PickupChestScene } from "./scenes/PickupChest";
 import { GameOverScene } from "./scenes/GameOver";
 import { UpgradeScene } from "./scenes/UpgradeScene";
 import { SettingsScene } from "./scenes/Settings";
+import { SFXManager } from "./Utils/SFXManager";
 
 export type gameConfig = {};
 
@@ -212,6 +213,11 @@ export default class Game extends Phaser.Game {
         return this._music;
     }
 
+    protected _sfx: SFXManager;
+    public get sfx(): SFXManager {
+        return this._sfx;
+    }
+
     public getBounds(): Phaser.Geom.Rectangle {
         return new Phaser.Geom.Rectangle(0, 0, this.scale.width, this.scale.height);
     }
@@ -280,7 +286,8 @@ export default class Game extends Phaser.Game {
         this._playerData = new PlayerData("Coots-Clash");
         this._playerData.load();
 
-        this._music = new MusicManager(this, this._playerData.saveData.volume);
+        this._music = new MusicManager(this, this._playerData.saveData.musicVolume);
+        this._sfx = new SFXManager(this, this._playerData.saveData.sfxVolume);
 
         Game._instance = this;
 

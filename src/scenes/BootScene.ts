@@ -131,6 +131,15 @@ export default class BootScene extends BaseScene {
             this.load.audio('title', './assets/music/Coots_Title_01.mp3');
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
             this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
+
+            for (let i = 1; i < 44; i++)
+            {
+                this.load.audio(`cartoon_coots_${i}`, `./assets/sfx/cartoon_coots_${i}.wav`);
+            }
+            for (let i = 1; i < 29; i++)
+            {
+                this.load.audio(`coots_${i}`, `./assets/sfx/coots_${i}.wav`);
+            }
         }
     }
 

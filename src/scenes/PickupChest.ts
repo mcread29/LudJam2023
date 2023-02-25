@@ -20,11 +20,13 @@ export class PickupChestScene extends BaseScene {
     }
 
     create(): void {
+        Game.Instance.sfx.PlayUpgrade();
         this.animComplete = false;
         const bg = this.add.nineslice(280, 100, 400, 430, 'panel_bg', [ 5, 5, 5, 5 ]);
 
         const done = () => {
             if (this.animComplete === false) return;
+            Game.Instance.sfx.PlayButton();
 
             this.animComplete = false;
             arrow.setTexture('arrow_2');

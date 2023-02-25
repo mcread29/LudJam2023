@@ -21,6 +21,7 @@ export default class MainMenu extends BaseScene {
         const startButton = this.add.image(189.5, 480.5, 'start_button')
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.sfx.PlayButton();
                 Game.Instance.manager.StartGame();
             })
             .on(Phaser.Input.Events.POINTER_OVER, () => {
@@ -45,6 +46,7 @@ export default class MainMenu extends BaseScene {
         const upgradeButton = this.add.image(195, 609, 'upgrade_button')
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.sfx.PlayButton();
                 Game.Instance.manager.ShowUpgrades();
                 this.tweens.killTweensOf(upgradeButton);
                 this.tweens.add({
@@ -77,6 +79,7 @@ export default class MainMenu extends BaseScene {
             .setScale(0.5)
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.sfx.PlayButton();
                 Game.Instance.scene.start(SettingsScene.SceneName);
                 this.tweens.killTweensOf(settingsButton);
                 this.tweens.add({

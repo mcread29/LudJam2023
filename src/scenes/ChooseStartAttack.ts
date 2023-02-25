@@ -112,6 +112,7 @@ export default class ChooseStartAttackScene extends BaseScene {
     }
 
     selectCurrent() {
+        Game.Instance.sfx.PlayButton();
         this.selected = true;
         this.canChangeSelection = false;
         this.arrow.setTexture('arrow_2');

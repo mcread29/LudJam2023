@@ -157,6 +157,8 @@ class UpgradeDisplay extends Phaser.GameObjects.Container {
     upgrade() {
         if (this.currentLevel >= this.maxLevel || Game.Instance.playerData.saveData.coinCount < coinCosts[ this._name ][ this.currentLevel ]) return;
 
+        Game.Instance.sfx.PlayButton();
+
         Game.Instance.playerData.saveData.coinCount -= coinCosts[ this._name ][ this.currentLevel ];
 
         this.fills[ this.currentLevel ].setTint(0x00ffff);
@@ -207,6 +209,7 @@ export class UpgradeScene extends BaseScene {
             .setOrigin(0.5)
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {
+                Game.Instance.sfx.PlayButton();
                 Game.Instance.scene.stop(UpgradeScene.SceneName);
                 this.tweens.killTweensOf([ close, buttonText ]);
                 this.tweens.add({
