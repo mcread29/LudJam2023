@@ -89,7 +89,11 @@ export default class GameScene extends BaseScene {
         Game.Instance.manager.eventCenter.once('player_die', () => {
             Game.Instance.music.play('death', false);
             this.spawner.Destroy();
-            Game.Instance.scene.pause(UIScene.SceneName).start(GameOverScene.SceneName).start(StoryScene.SceneName, { intro: false });
+            Game.Instance.scene.pause(UIScene.SceneName).start(GameOverScene.SceneName);
+            if (Game.Instance.playerData.saveData.SkipCutscenes === false)
+            {
+                Game.Instance.scene.start(StoryScene.SceneName, { intro: false });
+            }
         });
 
         this.cameras.main.startFollow(player, true, 0.5, 0.5);

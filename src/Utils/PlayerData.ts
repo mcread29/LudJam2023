@@ -2,11 +2,12 @@ export class SaveData {
     musicVolume: number = 0.4;
     sfxVolume: number = 0.4;
     coinCount: number = 0;
-    SuccTier: number = 0; //
-    WickedTier: number = 0; //
-    CandleTier: number = 0; //
-    CatNipTier: number = 0; //
-    StarTier: number = 0; //
+    SuccTier: number = 0;
+    WickedTier: number = 0;
+    CandleTier: number = 0;
+    CatNipTier: number = 0;
+    StarTier: number = 0;
+    SkipCutscenes: boolean = true;
 }
 
 export default class PlayerData {

@@ -81,7 +81,14 @@ export class GameManager {
         this.playerExp = 0;
         this._seenStory = new Set<number>();
 
-        Game.Instance.scene.stop(MainMenu.SceneName).start(StoryScene.SceneName, { intro: true });
+        if (Game.Instance.playerData.saveData.SkipCutscenes)
+        {
+            Game.Instance.scene.stop(MainMenu.SceneName).start(GameScene.SceneName).start(UIScene.SceneName);
+        }
+        else
+        {
+            Game.Instance.scene.stop(MainMenu.SceneName).start(StoryScene.SceneName, { intro: true });
+        }
     }
 
     public ShowUpgrades() {

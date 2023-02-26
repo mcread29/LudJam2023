@@ -115,6 +115,32 @@ export class SettingsScene extends BaseScene {
             });
         }
 
+        const icon = this.add.image(0, 0, 'icon_bg');
+        const fill = this.add.image(0, 0, 'upgrade_fill');
+        if (Game.Instance.playerData.saveData.SkipCutscenes) fill.setTint(0x00ffff);
+        const skip = this.add.nineslice(0, 0, 250, 46, 'meter', [ 9, 9, 9, 9 ]);
+        const skipText = this.add.rexBBCodeText(0, 0, 'Skip Cutscenes', {
+            fontFamily: 'FutilePro',
+            color: '#ffffff',
+            fontSize: '30px',
+            halign: 'center',
+            valign: 'center'
+        }).setOrigin(0.5).setResolution(5);
+
+        Utils.AddButtonBounce(this, skip, () => {
+            Game.Instance.sfx.PlayButton();
+            Game.Instance.playerData.saveData.SkipCutscenes = !Game.Instance.playerData.saveData.SkipCutscenes;
+            Game.Instance.playerData.save();
+            console.log(Game.Instance.playerData.saveData.SkipCutscenes);
+            if (Game.Instance.playerData.saveData.SkipCutscenes) fill.setTint(0x00ffff);
+            else fill.setTint(0xffffff);
+        }, skipText);
+
+        Phaser.Display.Align.In.Center(icon, panel, -134, 50);
+        Phaser.Display.Align.In.Center(fill, panel, -134, 50);
+        Phaser.Display.Align.In.Center(skip, panel, 22, 50);
+        Phaser.Display.Align.In.Center(skipText, skip);
+
         const reset = this.add.nineslice(0, 0, 325, 56, 'meter', [ 9, 9, 9, 9 ]);
         const resetText = this.add.rexBBCodeText(0, 0, 'Reset Progress', {
             fontFamily: 'FutilePro',
@@ -128,7 +154,7 @@ export class SettingsScene extends BaseScene {
             Game.Instance.sfx.PlayButton();
             this.addResetPanel();
         }, resetText);
-        Phaser.Display.Align.In.Center(reset, panel, 0, 60);
+        Phaser.Display.Align.In.Center(reset, panel, 0, 120);
         Phaser.Display.Align.In.Center(resetText, reset);
 
         const close = this.add.nineslice(0, 0, 180, 56, 'meter', [ 9, 9, 9, 9 ]);

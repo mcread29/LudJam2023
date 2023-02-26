@@ -22,14 +22,13 @@ export class MusicManager {
 
         if (this._playlist)
         {
-            this._playlist[ this._playlistIndex ].stop();
             for (let sound of this._playlist)
             {
+                if (sound.isPlaying) sound.stop();
                 sound.removeAllListeners(Phaser.Sound.Events.COMPLETE);
                 sound.destroy();
             }
             this._playlist = [];
-            this._playlistIndex = -1;
         }
 
         let delay = 0;
