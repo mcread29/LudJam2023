@@ -5,6 +5,7 @@ import Game, { GameConfig } from "../Game";
 import { Level } from "../Level";
 import { Gem } from "../objects/Gem";
 import { Pickup } from "../objects/PIckup";
+import { Timer } from "../objects/Timer";
 import { SwipeAttack } from "../player/attacks/SwipeAttack";
 import { PLayer } from "../player/Player";
 import ChooseStartAttackScene from "./ChooseStartAttack";
@@ -87,7 +88,14 @@ export default class GameScene extends BaseScene {
         this.physics.add.collider([ level.collision, level.bounds ], player);
 
         Game.Instance.manager.eventCenter.once('player_die', () => {
-            Game.Instance.music.play('death', false);
+            if (Timer.timeElapsed >= 8 * 60)
+            {
+                Game.Instance.music.play('w3_69_Harmonic', false);
+            }
+            else
+            {
+                Game.Instance.music.play('death', false);
+            }
             this.spawner.Destroy();
             Game.Instance.scene.pause(UIScene.SceneName).start(GameOverScene.SceneName);
             if (Game.Instance.playerData.saveData.SkipCutscenes === false)
