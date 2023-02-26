@@ -85,6 +85,7 @@ export class UIScene extends BaseScene {
     shutdown(): void {
         Game.Instance.manager.eventCenter.off('meterProgress', this.setMeterFillProgress, this);
         Game.Instance.manager.eventCenter.off('levelup', this.levelUP, this);
+        Game.Instance.manager.eventCenter.off('add_powerup', this.AddPowerup, this);
 
         this.meterBG = null;
         this.meterFill = null;
