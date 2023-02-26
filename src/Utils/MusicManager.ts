@@ -19,19 +19,22 @@ export class MusicManager {
 
     public play(key: string, loop = true) {
         if (key == this._currentKey) return;
+        let delay = 0;
 
         if (this._playlist)
         {
             for (let sound of this._playlist)
             {
-                if (sound.isPlaying) sound.stop();
+                if (sound.isPlaying)
+                {
+                    (this._game.plugins.get('rexSoundFade') as SoundFadePlugin).fadeOut(sound, 250);
+                }
                 sound.removeAllListeners(Phaser.Sound.Events.COMPLETE);
                 sound.destroy();
             }
             this._playlist = [];
         }
 
-        let delay = 0;
         if (this._currentMusic)
         {
             (this._game.plugins.get('rexSoundFade') as SoundFadePlugin).fadeOut(this._currentMusic, 250);
@@ -54,17 +57,24 @@ export class MusicManager {
         this._playlistIndex = 0;
         for (let name of playlist)
         {
-            console.log(name);
             const sound = this._game.sound.add(name, {
                 volume: this._volume
             }).on(Phaser.Sound.Events.COMPLETE, () => {
                 this._playlistIndex = (this._playlistIndex + 1) % playlist.length;
                 this._playlist[ this._playlistIndex ].play();
             });
-            console.log(sound);
             this._playlist.push(sound);
         }
         this._playlist[ 0 ].play();
+        if (this._currentMusic)
+        {
+            (this._game.plugins.get('rexSoundFade') as SoundFadePlugin).fadeOut(this._currentMusic, 250);
+            (this._game.plugins.get('rexSoundFade') as SoundFadePlugin).fadeIn(this._playlist[ 0 ], 250, this._volume);
+            setTimeout(() => {
+                this._currentMusic.stop();
+                this._currentMusic = null;
+            }, 300);
+        }
     }
 
     public playWithIntro(introKey: string, loopKey: string) {

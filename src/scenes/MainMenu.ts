@@ -19,6 +19,8 @@ export default class MainMenu extends BaseScene {
 
         const bg = this.add.image(0, 0, 'coots_clash').setOrigin(0);
 
+        const logo = this.add.image(Game.Instance.DefaultWidth - 20, 20, 'Ditto_Studios_84x84').setOrigin(1, 0);
+
         const startButton = this.add.image(189.5, 480.5, 'start_button')
             .setInteractive()
             .on(Phaser.Input.Events.POINTER_DOWN, () => {

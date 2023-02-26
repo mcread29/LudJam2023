@@ -19,8 +19,15 @@ export class StoryScene extends BaseScene {
 
     create(): void {
         super.create();
+
+        if (this.intro)
+        {
+            Game.Instance.music.play('Coots_Intro_01');
+        }
+
         this.add.sprite(0, 0, 'story')
             .setOrigin(0)
+            .setInteractive()
             .play(this.intro ? 'intro_story' : 'outro_story')
             .once(Phaser.Animations.Events.ANIMATION_COMPLETE, this.intro ? this.startGame : this.endGame, this);
     }

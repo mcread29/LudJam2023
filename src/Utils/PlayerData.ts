@@ -7,7 +7,7 @@ export class SaveData {
     CandleTier: number = 0;
     CatNipTier: number = 0;
     StarTier: number = 0;
-    SkipCutscenes: boolean = true;
+    SkipCutscenes: boolean = false;
 }
 
 export default class PlayerData {

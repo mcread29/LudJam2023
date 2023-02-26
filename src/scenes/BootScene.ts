@@ -133,6 +133,7 @@ export default class BootScene extends BaseScene {
             this.load.audio('death', './assets/music/Coots_Death_01.mp3');
             this.load.audio('music', './assets/music/Coots_Clash_01b.mp3');
             this.load.audio('music2', './assets/music/Coots_Song_02.mp3');
+            this.load.audio('Coots_Intro_01', './assets/music/Coots_Intro_01.mp3');
 
             this.load.audio('levelUpSelect', './assets/sfx/Coots_Select_01.mp3');
             this.load.audio('cootsHit', './assets/sfx/Coots_Hit_01.mp3');
@@ -147,6 +148,8 @@ export default class BootScene extends BaseScene {
             this.load.atlas('story', './assets/story.png', './assets/story.json');
             this.load.image('ders', './assets/images/ders_480x400.png');
             this.load.image('swift', './assets/images/swift_480x400.png');
+
+            this.load.image('Ditto_Studios_84x84', './assets/images/Ditto_Studios_84x84.png');
 
             for (let i = 1; i < 44; i++)
             {

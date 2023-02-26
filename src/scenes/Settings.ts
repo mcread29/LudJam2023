@@ -131,7 +131,6 @@ export class SettingsScene extends BaseScene {
             Game.Instance.sfx.PlayButton();
             Game.Instance.playerData.saveData.SkipCutscenes = !Game.Instance.playerData.saveData.SkipCutscenes;
             Game.Instance.playerData.save();
-            console.log(Game.Instance.playerData.saveData.SkipCutscenes);
             if (Game.Instance.playerData.saveData.SkipCutscenes) fill.setTint(0x00ffff);
             else fill.setTint(0xffffff);
         }, skipText);
