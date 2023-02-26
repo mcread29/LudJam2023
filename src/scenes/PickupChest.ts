@@ -101,6 +101,13 @@ export class PickupChestScene extends BaseScene {
                     duration: 500,
                     onComplete: () => {
                         this.add.tween({
+                            targets: upgradeText,
+                            duration: 250,
+                            alpha: 1,
+                            delay: 300
+                        });
+
+                        this.add.tween({
                             targets: arrow,
                             x: 300,
                             duration: 300,
@@ -119,6 +126,18 @@ export class PickupChestScene extends BaseScene {
             .createGeometryMask();
 
         const icon = this.add.image(button.x, 400, this.powerUp.icon).setMask(mask2);
+
+        const upgradeText = this.add.rexBBCodeText(button.x, 250, this.powerUp.desc, {
+            fontFamily: 'FutilePro',
+            color: '#ffffff',
+            fontSize: '30px',
+            halign: 'center',
+            valign: 'center',
+            wrap: {
+                mode: 'word',
+                width: 350
+            }
+        }).setOrigin(0.5).setResolution(5).setAlpha(0);
     }
 
 }

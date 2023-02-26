@@ -147,34 +147,34 @@ export const GameConfig: { maps: MapData[]; } = {
                 minimum: 70,
                 boss: EnemyTypes.PogMan
             },
-            390: {
+            380: {
                 interval: 1,
                 enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.KreyFlower ],
                 minimum: 30
             },
-            420: {
+            400: {
                 interval: 3,
                 enemies: [ EnemyTypes.KreyFlower2, EnemyTypes.KreyFlower, EnemyTypes.Bat ],
                 minimum: 80,
                 boss: EnemyTypes.PogMan2
             },
-            450: {
+            420: {
                 interval: 1,
                 enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.KreyFlower2, EnemyTypes.Zambie ],
                 minimum: 30
             },
-            480: {
+            440: {
                 interval: 3,
                 enemies: [ EnemyTypes.SadgeGhost2, EnemyTypes.Skeleton2, EnemyTypes.Bat3 ],
                 minimum: 90,
                 boss: EnemyTypes.PogMan3
             },
-            510: {
+            460: {
                 interval: 1,
                 enemies: [ EnemyTypes.KreyFlower, EnemyTypes.KreyFlower2, EnemyTypes.Skeleton, EnemyTypes.Skeleton2 ],
                 minimum: 30
             },
-            540: {
+            480: {
                 interval: 1,
                 enemies: [],
                 minimum: 0,
