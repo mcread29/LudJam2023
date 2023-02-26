@@ -104,7 +104,7 @@ export default class GameScene extends BaseScene {
             Game.Instance.scene.pause(GameScene.SceneName).pause(UIScene.SceneName).start(ChooseStartAttackScene.SceneName, { attacks: Game.Instance.manager.attacks });
         });
 
-        Game.Instance.music.PlayPlaylist('music', 'music2');
+        Game.Instance.music.PlayPlaylist('music', 'music2', 'Conquer');
     }
 
     update(time: number, delta: number): void {
